@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<script src="./jquery/jquery-2.1.1.min.js"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-<body>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
 
-<canvas id="myCanvas" width="700" height="500" style="border:1px solid #000000;">
-Your browser does not support the HTML5 canvas tag.
-</canvas>
+	<link rel='stylesheet' href='sidebar.css'>
 
-</body>
+	<script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
 
-<script src="./controllers/mouseController.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<body>
+
+		<!-- navbar stuff -->
+		<div class='navbar navbar-inverse navbar-fixed-top' role='navigation'>
+		
+			<div class='container'>
+				
+				<div class='navbar-header'>
+					<a class='navbar-brand'>Whiteboard</a>
+				</div>
+
+				<div id='navbar'>
+					<ul class='nav navbar-nav'>
+						<li><a>Colour</a></li>
+						<li><a>Pencil</a></li>
+						<li><a>Menu</a></li>
+					</ul>
+				</div>
+			
+			</div>
+
+		</div>
+
+		<!-- actual content -->
+		<div class='container'>
+			<canvas id="myCanvas" width="700" height="500" style="border:1px solid #000000;">
+				Your browser does not support the HTML5 canvas tag.
+			</canvas>
+		</div>
+
+
+	</body>
+
+	<script src="./controllers/mouseController.js"></script>
+
 </html>
