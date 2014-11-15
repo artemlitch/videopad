@@ -1,5 +1,8 @@
 (function() {
     document.onmousemove = handleMouseMove;
+    document.onclick = handleMouseClick;
+    document.onmousedown = handleMouseDown;
+
     function handleMouseMove(event) {
         var dot, eventDoc, doc, body, pageX, pageY;
 
@@ -20,7 +23,15 @@
               (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
               (doc && doc.clientTop  || body && body.clientTop  || 0 );
         }
-
-        // Use event.pageX / event.pageY here
+        console.log(event.pageX + " " +event.pageY);
     }
+
+    function handleMouseClick(event) {
+        console.log("MOUSE CLICK");
+    }
+
+    function handleMouseDown(event) {
+        console.log("MOUSE DRAG");
+    }
+
 })();
