@@ -2,6 +2,7 @@
     
     var paint, context;
     var clickX, clickY;
+    var testing = true;
 
     context = document.getElementById('whiteBoard').getContext("2d");
 
@@ -14,13 +15,14 @@
         console.log(isNaN(event.pageX) + "   " + $('whiteBoard').left);
         if(paint) {
             addClick(event.pageX, event.pageY, true);
-            //redraw();
         }
     }
 
     function handleMouseDown(event) {
         console.log("MOUSE DRAG");
         paint = true;
+        clickX = event.pageX;
+        clickY = event.pageY;
     }
 
     function handleMouseUp(event){
@@ -29,7 +31,18 @@
     }
 
     function addClick(x, y) {
-        context.fillRect(x+1, y+1, 2, 2);
+        if(!testing) {
+            context.fillRect(x+1, y+1, 2, 2);
+        }else{
+            context.beginPath();
+            context.moveTo(clickX, clickY);
+            context.lineTo(x, y);
+            context.lineWidth = 5;
+            context.strokeStyle = "#00F";
+            context.stroke();
+            clickX = x;
+            clickY = y;
+        }
     }
 
 })();
