@@ -69,10 +69,21 @@
 			</div>
 
 		</div>
-
+    <script type="text/javascript">
+        function resize_canvas(){
+           var ctx = document.getElementById('whiteBoard').getContext("2d");
+           ctx.canvas.width  = window.innerWidth;
+           ctx.canvas.height = window.innerHeight;        
+        }
+    </script>
 		<!-- actual content -->
-		<div class='container'>
-			<canvas id="whiteBoard" class="whiteboard">
+		<div class='container' onresize="resize_canvas()">
+            <canvas id="whiteBoard" class="whiteboard" style="
+                padding: 0px;  margin: 0px;  border: 0px;  overflow: hidden;
+                cursor: crosshair;
+            " width=2370 height=978>
+				Your browser does not support the HTML5 canvas tag.
+			</canvas>
 				Your browser does not support the HTML5 canvas tag.
 			</canvas>
 		</div>
