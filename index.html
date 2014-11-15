@@ -34,14 +34,35 @@
 			<div class='container'>
 				
 				<div class='navbar-header'>
-					<a class='navbar-brand'>Whiteboard</a>
+					<a class='navbar-brand' href='#'>Whiteboard</a>
 				</div>
 
 				<div id='navbar'>
 					<ul class='nav navbar-nav'>
-						<li><a>Colour</a></li>
-						<li><a>Pencil</a></li>
-						<li><a>Menu</a></li>
+						
+                        <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Colour</a>
+                            <ul class='dropdown-menu' role='menu'>
+                                <li><a href='#'>Red</a></li>
+                                <li><a href='#'>Green</a></li>
+                                <li><a href='#'>Blue</a></li>
+                                <li><a href='#'>Black</a></li>
+                                <li><a href='#'>Yellow</a></li>
+                                <li><a href='#'>Brown</a></li>
+                                <li><a href='#'>Purple</a></li>
+                            </ul>
+                        </li>
+						
+                        <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Pencil</a>
+                            <ul class='dropdown-menu' role='menu'>
+                                <li><a href='#'>Thin</a></li>
+                                <li><a href='#'>Medium</a></li>
+                                <li><a href='#'>Thick</a></li>
+                            </ul>
+                        </li>
+                        
+						<li><a href='#'>Menu</a></li>
 					</ul>
 				</div>
 			
@@ -60,5 +81,8 @@
 	</body>
 
 	<script src="./controllers/mouseController.js"></script>
+    <script>
+        $('.dropdown-toggle').dropdown();
+    </script>
 
 </html>
