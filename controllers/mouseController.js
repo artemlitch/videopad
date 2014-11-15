@@ -34,14 +34,13 @@
         context.moveTo(clickX, clickY);
         context.lineTo(x, y);
         context.lineWidth = 5;
-        context.strokeStyle = "#00F";
         context.stroke();
         clickX = x;
         clickY = y;
     }
 
     $('.colourpicker').on('changeColor', function(ev) {
-        context.fillStyle = ev.color.toHex();
+        context.strokeStyle = ev.color.toHex();
     });
 
 })();
