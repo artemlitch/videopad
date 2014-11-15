@@ -2,7 +2,6 @@
     
     var paint, context;
     var clickX, clickY;
-    var testing = true;
 
     context = document.getElementById('whiteBoard').getContext("2d");
 
@@ -31,18 +30,14 @@
     }
 
     function addClick(x, y) {
-        if(!testing) {
-            context.fillRect(x+1, y+1, 2, 2);
-        }else{
-            context.beginPath();
-            context.moveTo(clickX, clickY);
-            context.lineTo(x, y);
-            context.lineWidth = 5;
-            context.strokeStyle = "#00F";
-            context.stroke();
-            clickX = x;
-            clickY = y;
-        }
+        context.beginPath();
+        context.moveTo(clickX, clickY);
+        context.lineTo(x, y);
+        context.lineWidth = 5;
+        context.strokeStyle = "#00F";
+        context.stroke();
+        clickX = x;
+        clickY = y;
     }
 
 })();
