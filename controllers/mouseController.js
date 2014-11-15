@@ -7,13 +7,14 @@
 
     context = document.getElementById('whiteBoard').getContext("2d");
 
-    $('whiteBoard').onmousemove = handleMouseMove;
-    $('whiteBoard').onclick = handleMouseClick;
-    $('whiteBoard').onmousedown = handleMouseDown;
-    $('whiteBoard').onmouseup = handleMouseUp;
+    document.onmousemove = handleMouseMove;
+    document.onclick = handleMouseClick;
+    document.onmousedown = handleMouseDown;
+    document.onmouseup = handleMouseUp;
 
     function handleMouseMove(event) {
         console.log(event.pageX + " " +event.pageY);
+        console.log(isNaN(event.pageX) + "   " + $('whiteBoard').left);
         if(paint) {
             addClick(event.pageX, event.pageY, true);
             redraw();
@@ -21,7 +22,7 @@
     }
 
     function handleMouseClick(event) {
-        console.log("MOUSE CLICK");     
+        console.log("MOUSE CLICK");    
     }
 
     function handleMouseDown(event) {
@@ -50,6 +51,14 @@
 
         for(var i=0; i < clickX.length; i++) {
             context.beginPath();
+            if(clickDrag[i] && i) {
+                context.moveTo(clickX[i-1], clickY[i-1]);
+            }else{
+                context.moveTo(clickX[i-1], clickY[i]);
+            }
+            context.lineTo(clickX[i], clickY[i]);
+            context.closePath();
+            context.stroke();
         }
     }
 
