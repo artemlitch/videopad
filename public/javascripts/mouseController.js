@@ -6,7 +6,6 @@
     context = document.getElementById('whiteBoard').getContext("2d");
     
     var canvas = document.getElementById("whiteBoard"); 
-    //document.onmousedown = handleMouseDown;
     document.onmouseup = handleMouseUp;
     
     // get the mouse position and return as Json
@@ -20,7 +19,6 @@
     // add a listener to the canvas when mouse is moving over it
     canvas.addEventListener('mousemove', function(evt) {
         var mousePos = getMousePos(canvas, evt);
-        //console.log('Mouse position: ' + mousePos.x + ',' + mousePos.y);
         if(paint) {
             addClick(mousePos.x, mousePos.y);
         }
@@ -49,9 +47,5 @@
         clickX = x;
         clickY = y;
     }
-
-    $('.colourpicker').on('changeColor', function(ev) {
-        context.strokeStyle = ev.color.toHex();
-    });
 
 })();
