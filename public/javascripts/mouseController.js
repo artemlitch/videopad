@@ -1,32 +1,43 @@
 (function() {
     
-    var paint, context;
+    var paint, newLine; 
+    var context;
     var clickX, clickY;
-
     context = document.getElementById('whiteBoard').getContext("2d");
-
-    document.onmousemove = handleMouseMove;
-    document.onmousedown = handleMouseDown;
+    
+    var canvas = document.getElementById("whiteBoard"); 
+    //document.onmousedown = handleMouseDown;
     document.onmouseup = handleMouseUp;
-
-    function handleMouseMove(event) {
-        //console.log(event.pageX + " " +event.pageY);
-        //console.log(isNaN(event.pageX) + "   " + $('whiteBoard').left);
+    
+    // get the mouse position and return as Json
+    function getMousePos(canvas, event) {
+        var rect = canvas.getBoundingClientRect();
+        var jCanvas = $('#whiteBoard');
+        var posJson = {"x": (event.clientX-rect.left)/(rect.right-rect.left)*jCanvas.width(),
+                       "y": (event.clientY-rect.top)/(rect.bottom-rect.top)*jCanvas.height()};  
+        return posJson;
+    }
+    // add a listener to the canvas when mouse is moving over it
+    canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        //console.log('Mouse position: ' + mousePos.x + ',' + mousePos.y);
         if(paint) {
-            addClick(event.pageX, event.pageY, true);
+            addClick(mousePos.x, mousePos.y);
         }
-    }
-
-    function handleMouseDown(event) {
-        //console.log("MOUSE DRAG");
+      }, false);
+    
+    canvas.addEventListener('mousedown' ,function(evt) {
         paint = true;
-        clickX = event.pageX;
-        clickY = event.pageY;
-    }
+        var mousePos = getMousePos(canvas, evt);
+        mouseX = mousePos.x;
+        mouseY = mousePos.y;
+    }, false);
 
     function handleMouseUp(event){
-        //console.log("MOUSE UP");
+        console.log("MOUSE UP");
         paint = false;
+        clickX = undefined;
+        clicKY = undefined;
     }
 
     function addClick(x, y) {
