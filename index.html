@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+
+    	<!-- Latest compiled and minified CSS -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="./css/main.css">
+    
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+
+		<link rel='stylesheet' href='sidebar.css'>
+
+        <script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <!-- colour picker shit -->
+        <link rel='stylesheet' href='./jquery/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css'>
+        <script src='./jquery/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js'></script>
+	</head>
+
+	<body>
+
+		<!-- navbar stuff -->
+		<div class='navbar navbar-inverse navbar-fixed-top' role='navigation'>
+		
+			<div class='container'>
+				
+				<div class='navbar-header'>
+					<a class='navbar-brand' href='#'>Whiteboard</a>
+				</div>
+
+				<div id='navbar'>
+					<ul class='nav navbar-nav'>
+						
+                        <li class='dropdown'>
+                            <a href='#' class='colourpicker' data-toggle='dropdown'>Colour</a>
+                            <!-- <ul class='dropdown-menu' role='menu'>
+                                <li><a href='#'>Red</a></li>
+                                <li><a href='#'>Green</a></li>
+                                <li><a href='#'>Blue</a></li>
+                                <li><a href='#'>Black</a></li>
+                                <li><a href='#'>Yellow</a></li>
+                                <li><a href='#'>Brown</a></li>
+                                <li><a href='#'>Purple</a></li>
+                            </ul> -->
+
+                        </li>
+						
+                        <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Pencil</a>
+                            <ul class='dropdown-menu' role='menu'>
+                                <li><a href='#'>Thin</a></li>
+                                <li><a href='#'>Medium</a></li>
+                                <li><a href='#'>Thick</a></li>
+                            </ul>
+                        </li>
+                        
+						<li><a href='#'>Menu</a></li>
+
+					</ul>
+				</div>
+			
+			</div>
+
+		</div>
+    <script type="text/javascript">
+        function resize_canvas(){
+           var ctx = document.getElementById('whiteBoard').getContext("2d");
+           ctx.canvas.width  = window.innerWidth;
+           ctx.canvas.height = window.innerHeight;        
+        }
+    </script>
+		<!-- actual content -->
+		<div class='container' onresize="resize_canvas()">
+            <canvas id="whiteBoard" class="whiteboard" style="
+                padding: 0px;  margin: 0px;  border: 0px;  overflow: hidden;
+                cursor: crosshair;
+            " width=2370 height=978>
+				Your browser does not support the HTML5 canvas tag.
+			</canvas>
+				Your browser does not support the HTML5 canvas tag.
+			</canvas>
+		</div>
+
+
+	</body>
+
+	<script src="./controllers/mouseController.js"></script>
+    <script>
+        $('.dropdown-toggle').dropdown();
+    </script>
+    <script>
+        $('.colourpicker').colorpicker();
+    </script>
+
+</html>
