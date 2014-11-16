@@ -1,4 +1,0 @@
-whiteboard
-==========
-
-its a secret
