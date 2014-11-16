@@ -39,8 +39,4 @@
         clickY = y;
     }
 
-    $('.colourpicker').on('changeColor', function(ev) {
-        context.strokeStyle = ev.color.toHex();
-    });
-
 })();
