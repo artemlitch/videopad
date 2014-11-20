@@ -1,5 +1,5 @@
 (function() {
-    
+    var socket = io();
     var paint, newLine; 
     var context;
     var clickX, clickY;
@@ -20,7 +20,7 @@
     canvas.addEventListener('mousemove', function(evt) {
         var mousePos = getMousePos(canvas, evt);
         if(paint) {
-            addClick(mousePos.x, mousePos.y);
+            addClick(clickX, clickY, mousePos.x, mousePos.y);
         }
       }, false);
     
@@ -32,20 +32,38 @@
     }, false);
 
     function handleMouseUp(event){
-        console.log("MOUSE UP");
         paint = false;
         clickX = undefined;
         clicKY = undefined;
     }
+    
 
-    function addClick(x, y) {
+    // Called when a client recieves data that a line is drawn
+    socket.on('writeLineRecieved' , function(style, oldX, oldY, mouseX, mouseY) {
+        addLine(style, oldX, oldY, mouseX, mouseY);
+    });
+    
+    // call this for local drawing
+    function addClick(oldX, oldY, x, y) {
         context.beginPath();
         context.moveTo(clickX, clickY);
         context.lineTo(x, y);
         context.lineWidth = 5;
         context.stroke();
+        socket.emit('writeLine',context.strokeStyle, clickX, clickY, x, y);
         clickX = x;
         clickY = y;
+    }
+    // call this when the server calls writeLineRecieved
+    function addLine(style, oldX, oldY, x, y) {
+        var oldStyle = context.strokeStyle;
+        context.strokeStyle = style;
+        context.beginPath();
+        context.moveTo(oldX, oldY);
+        context.lineTo(x, y);
+        context.lineWidth = 5;
+        context.stroke();
+        context.strokeStyle = oldStyle;
     }
 
 })();

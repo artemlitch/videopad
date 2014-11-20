@@ -4,10 +4,10 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var http = require('http');
 var app = express();
 
 // view engine setup
@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+/// Socket
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -59,5 +60,22 @@ app.use(function(err, req, res, next) {
 var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
+
+// Setting up IO client
+var io = require('socket.io').listen(server);
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('writeLine', function (style, oldX, oldY,mouseX, mouseY) {
+    // to remove incorrect data mistakes, make sure OldX and OldY are never null, the biggest difference that can sometimes occur now is only 1 px
+    if(oldX != null && oldY != null) { 
+        socket.broadcast.emit('writeLineRecieved',style, oldX, oldY, mouseX, mouseY);
+    }
+  });
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
+
 
 module.exports = app;
