@@ -5,3 +5,11 @@
     background-image: url(../images/seamless_paper_texture.png);
     border: 5px solid #919191;
 }
+
+.roomName {
+    position: relative;
+    left: 13px;
+    top: 14px;
+    font-size: 89%;
+    font-weight: 100;
+}

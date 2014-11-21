@@ -61,14 +61,38 @@ var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 
+
 // Setting up IO client
 var io = require('socket.io').listen(server);
 io.on('connection', function(socket){
-  console.log('a user connected');
+  var user = {
+    id: socket.id,
+    room: '',
+  };
+  console.log(user.id + ' connected ');
+  socket.emit('userInfo' , user);
+
+  socket.on('createRoom', function() {
+    var roomId = socket.id + 'room';
+    user.room = roomId;
+    socket.join(roomId);
+    socket.emit('roomCreateConf', user);
+    console.log(user.room + " new room ");
+  });
+  
+  socket.on('joinRoom', function(roomId) {
+    user.room = roomId;
+    socket.join(roomId);
+    socket.emit('roomJoinConf', user);
+    console.log(user.room + " enteredRoom ");
+  });
+  
   socket.on('writeLine', function (style, oldX, oldY,mouseX, mouseY) {
     // to remove incorrect data mistakes, make sure OldX and OldY are never null, the biggest difference that can sometimes occur now is only 1 px
-    if(oldX != null && oldY != null) { 
-        socket.broadcast.emit('writeLineRecieved',style, oldX, oldY, mouseX, mouseY);
+    if(oldX != null && oldY != null) {
+        if(user.room != '') {
+            socket.broadcast.to(user.room).emit('writeLineRecieved',style, oldX, oldY, mouseX, mouseY);
+        }
     }
   });
   socket.on('disconnect', function(){

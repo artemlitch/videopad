@@ -1,25 +1,30 @@
 extends layout
 
 block content
-	body
+    body
 
-		// navbar stuff
-		div(class='navbar navbar-inverse navbar-fixed-top' role='navigation')
+        // navbar stuff
+        div(class='navbar navbar-inverse navbar-fixed-top' role='navigation')
 
-			div(class='container')
+            div(class='container')
 
-				div(class='navbar-header')
-					a(class='navbar-brand' href='#') Whiteboard
+                div(class='navbar-header')
+                    a(class='navbar-brand' href='#') Whiteboard
 
-				div(id='navbar')
-					ul(class='nav navbar-nav')
-						li(class='dropdown')
-							a(href='#' class='colourpicker' data-toggle='dropdown') Colour
+                div(id='navbar')
+                    ul(class='nav navbar-nav')
+                        li(class='dropdown')
+                            a(href='#' class='colourpicker' data-toggle='dropdown') Colour
 
-						li(class='dropdown')
-						li
-							a(href='#') Menu
-
-		// actual content
-		div(class='container' onresize='resize_canvas()')
-			canvas(id='whiteBoard' class='whiteboard' style='padding: 0px; margin: 0px; border: 0px; overflow: hidden; cursor: crosshair;' width='2370' height='978') Your browser does not support the HTML5 tag.
+                        li(class='dropdown')
+                        li
+                            a(href='#') Menu
+                        li
+                            a(href='#' id='createRoomBtn') Create Room
+                        li
+                            a(href='#' id='joinRoomBtn') Join Room
+                        li
+                            h3(href='#' id='roomNameLabel' class = 'label roomName label-default') no room
+        // actual content
+        div(class='container' onresize='resize_canvas()')
+            canvas(id='whiteBoard' class='whiteboard' style='padding: 0px; margin: 0px; border: 0px; overflow: hidden; cursor: crosshair;' width='2370' height='978') Your browser does not support the HTML5 tag.
