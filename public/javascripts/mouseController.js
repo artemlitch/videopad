@@ -43,12 +43,27 @@
         addLine(style, oldX, oldY, mouseX, mouseY);
     });
     
+    // default
+    var thickness = 5;
+
+    $('#thin').on('click', function() {
+        thickness = 1;
+    });
+
+    $('#medium').on('click', function() {
+        thickness = 5;
+    });
+
+    $('#thick').on('click', function() {
+        thickness = 10;
+    });
+
     // call this for local drawing
     function addClick(oldX, oldY, x, y) {
         context.beginPath();
         context.moveTo(clickX, clickY);
         context.lineTo(x, y);
-        context.lineWidth = 5;
+        context.lineWidth = thickness;
         context.stroke();
         socket.emit('writeLine',context.strokeStyle, clickX, clickY, x, y);
         clickX = x;
@@ -61,7 +76,7 @@
         context.beginPath();
         context.moveTo(oldX, oldY);
         context.lineTo(x, y);
-        context.lineWidth = 5;
+        context.lineWidth = thickness;
         context.stroke();
         context.strokeStyle = oldStyle;
     }

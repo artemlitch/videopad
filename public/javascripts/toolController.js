@@ -7,6 +7,7 @@ $(document).ready(function() {
 	$('.colourpicker').on('changeColor', function(ev) {
         context.strokeStyle = ev.color.toHex();
     });
+
 	$('#createRoomBtn').on('click', function(ev) {
         socket.emit('createRoom');   
     });
