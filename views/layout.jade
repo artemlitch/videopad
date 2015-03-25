@@ -16,13 +16,13 @@ html
         
 
 
-    body
+    body(onload='init()')
         block content
 
-        // scripts at the bottom
         script(src='./bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js')
         script(src='./slider/js/bootstrap-slider.js')
-        script(src='./javascripts/mouseController.js')
+        //script(src='./javascripts/mouseController.js')
+        script(src='./javascripts/drawController.js')
         script(src='./javascripts/toolController.js')
         script(src='./javascripts/userController.js')
         script(type='text/javascript').
