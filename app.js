@@ -96,6 +96,13 @@ io.on('connection', function(socket){
             }
         }
     });
+
+    socket.on('draw', function(prevX, prevY, x, y) {
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('drawReceived', prevX, prevY, x, y);
+        }
+    });
+
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
