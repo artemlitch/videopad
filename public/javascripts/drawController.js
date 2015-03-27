@@ -77,3 +77,7 @@ $('#thick').on('click', function() {
 $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
 });
+
+$('#clear').on('click', function() {
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+});
