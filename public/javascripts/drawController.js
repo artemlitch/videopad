@@ -30,8 +30,8 @@ function init() {
 	});
 }
 
-socket.on('drawReceived', function(style, oldX, oldY, currX, currY) {
-	drawReceived(style, oldX, oldY, currX, currY);
+socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
+	drawReceived(colour, thickness, prevX, prevY, x, y);
 });
 
 function draw(x, y, mousePressed) {
@@ -45,13 +45,13 @@ function draw(x, y, mousePressed) {
 		ctx.closePath();
 		ctx.stroke();
 
-		socket.emit('draw', prevX, prevY, x, y);
+		socket.emit('draw', ctx.strokeStyle, ctx.lineWidth, prevX, prevY, x, y);
 	}
 	prevX = x;
 	prevY = y;
 }
 
-function drawReceived(prevX, prevY, x, y) {
+function drawReceived(colour, thickness, prevX, prevY, x, y) {
 	ctx.beginPath();
 	ctx.strokeStyle = colour;
 	ctx.lineWidth = thickness;
