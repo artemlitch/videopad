@@ -34,6 +34,10 @@ socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
 	drawReceived(colour, thickness, prevX, prevY, x, y);
 });
 
+socket.on('clearReceived', function() {
+	clearReceived();
+});
+
 function draw(x, y, mousePressed) {
 	if (mousePressed) {
 		ctx.beginPath();
@@ -62,6 +66,10 @@ function drawReceived(colour, thickness, prevX, prevY, x, y) {
 	ctx.stroke();
 }
 
+function clearReceived() {
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
 $('#thin').on('click', function() {
     thickness = 1;
 });
@@ -80,4 +88,5 @@ $('.colourpicker').on('changeColor', function(ev) {
 
 $('#clear').on('click', function() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	socket.emit('clear');
 });

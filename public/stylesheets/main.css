@@ -1,9 +1,9 @@
 .whiteboard {
     position: absolute;
-    left: 9px;
     top: 51px;
+    left: 0px;
     background-image: url(../images/seamless_paper_texture.png);
-    border: 5px solid #919191;
+    cursor: crosshair;
 }
 
 .roomName {

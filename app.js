@@ -88,20 +88,17 @@ io.on('connection', function(socket){
         console.log(user.room + " enteredRoom ");
     });
 
-    socket.on('writeLine', function (style, oldX, oldY,mouseX, mouseY) {
-        // to remove incorrect data mistakes, make sure OldX and OldY are never null, the biggest difference that can sometimes occur now is only 1 px
-        if(oldX != null && oldY != null) {
-            if(user.room != '') {
-                socket.broadcast.to(user.room).emit('writeLineRecieved',style, oldX, oldY, mouseX, mouseY);
-            }
-        }
-    });
-
     socket.on('draw', function(colour, thickness, prevX, prevY, x, y) {
         if (user.room) {
             socket.broadcast.to(user.room).emit('drawReceived', colour, thickness, prevX, prevY, x, y);
         }
     });
+
+    socket.on('clear', function() {
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('clearReceived');
+        }
+    })
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
