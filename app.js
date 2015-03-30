@@ -94,11 +94,17 @@ io.on('connection', function(socket){
         }
     });
 
+    socket.on('erase', function(x, y) {
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('eraseReceived', x, y);
+        }
+    });
+
     socket.on('clear', function() {
         if (user.room) {
             socket.broadcast.to(user.room).emit('clearReceived');
         }
-    })
+    });
 
     socket.on('disconnect', function(){
         console.log('user disconnected');

@@ -1,4 +1,6 @@
-var isPressed = false;
+var drawMode = false;
+var eraserMode = false;
+var eraserPressed = false;
 var ctx;
 var prevX, prevY;
 
@@ -11,22 +13,31 @@ function init() {
 	ctx = document.getElementById('whiteboard').getContext('2d');
 
 	$('#whiteboard').mousedown(function(e) {
-		isPressed = true;
-		draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+		if (eraserPressed) {
+			eraserMode = true;
+			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+		} else {
+			drawMode = true;
+			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+		}
 	});
 
 	$('#whiteboard').mousemove(function(e) {
-		if (isPressed) {
+		if (drawMode) {
 			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+		} else if (eraserMode) {
+			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
 		}
 	});
 
 	$('#whiteboard').mouseup(function(e) {
-		isPressed = false;
+		drawMode = false;
+		eraserMode = false;
 	});
 
 	$('#whiteboard').mouseleave(function(e) {
-		isPressed = false;
+		drawMode = false;
+		eraserMode = false;
 	});
 }
 
@@ -34,12 +45,16 @@ socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
 	drawReceived(colour, thickness, prevX, prevY, x, y);
 });
 
+socket.on('eraseReceived', function(x, y) {
+	eraseReceived(x, y);
+});
+
 socket.on('clearReceived', function() {
 	clearReceived();
 });
 
-function draw(x, y, mousePressed) {
-	if (mousePressed) {
+function draw(x, y, pressed) {
+	if (pressed) {
 		ctx.beginPath();
 		ctx.strokeStyle = colour;
 		ctx.lineWidth = thickness;
@@ -55,6 +70,17 @@ function draw(x, y, mousePressed) {
 	prevY = y;
 }
 
+function erase(x, y, pressed) {
+	if (pressed) {
+		ctx.clearRect(x, y, -5, -5);
+		ctx.clearRect(x, y, 5, -5);
+		ctx.clearRect(x, y, -5, 5);
+		ctx.clearRect(x, y, 5, 5);
+
+		socket.emit('erase', x, y);
+	}
+}
+
 function drawReceived(colour, thickness, prevX, prevY, x, y) {
 	ctx.beginPath();
 	ctx.strokeStyle = colour;
@@ -66,24 +92,39 @@ function drawReceived(colour, thickness, prevX, prevY, x, y) {
 	ctx.stroke();
 }
 
+function eraseReceived(x, y) {
+	ctx.clearRect(x, y, -5, -5);
+	ctx.clearRect(x, y, 5, -5);
+	ctx.clearRect(x, y, -5, 5);
+	ctx.clearRect(x, y, 5, 5);
+}
+
 function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
 $('#thin').on('click', function() {
     thickness = 1;
+    eraserPressed = false;
 });
 
 $('#medium').on('click', function() {
     thickness = 5;
+    eraserPressed = false;
 });
 
 $('#thick').on('click', function() {
     thickness = 10;
+    eraserPressed = false;
 });
 
 $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
+    eraserPressed = false;
+});
+
+$('#eraser').on('click', function() {
+	eraserPressed = true;
 });
 
 $('#clear').on('click', function() {
