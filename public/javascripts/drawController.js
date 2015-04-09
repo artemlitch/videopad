@@ -1,16 +1,22 @@
 var drawMode = false;
 var eraserMode = false;
 var eraserPressed = false;
-var ctx;
+var canvas, ctx;
 var prevX, prevY;
 
 var colour;
 var thickness = 5;
 
+var tempCanvas, tempCtx;
+
 var socket = io();
 
 function init() {
-	ctx = document.getElementById('whiteboard').getContext('2d');
+	canvas = document.getElementById('whiteboard');
+	ctx = canvas.getContext('2d');
+
+	canvas.width = window.innerWidth - (window.innerWidth / 12);
+	canvas.height = window.innerHeight;
 
 	$('#whiteboard').mousedown(function(e) {
 		if (eraserPressed) {
@@ -39,6 +45,19 @@ function init() {
 		drawMode = false;
 		eraserMode = false;
 	});
+
+	window.addEventListener('resize', resizeCanvas, false);
+}
+
+function resizeCanvas() {
+	tempCanvas = document.createElement('canvas');
+	tempCtx = tempCanvas.getContext('2d');
+	tempCanvas.width = canvas.width;
+	tempCanvas.height = canvas.height;
+	tempCtx.drawImage(canvas, 0, 0);
+	canvas.width = window.innerWidth - (window.innerWidth / 12);
+	canvas.height = window.innerHeight;
+	ctx.drawImage(tempCanvas, 0, 0);
 }
 
 socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {

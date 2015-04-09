@@ -64,7 +64,7 @@ var server = app.listen(app.get('port'), function() {
 
 // Setting up IO client
 var io = require('socket.io').listen(server);
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
 
     var user = {
         id: socket.id,
@@ -106,7 +106,7 @@ io.on('connection', function(socket){
         }
     });
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
         console.log('user disconnected');
     });
 });

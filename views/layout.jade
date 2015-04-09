@@ -26,12 +26,6 @@ html
         script(src='./javascripts/roomController.js')
         script(src='./javascripts/userController.js')
         script(type='text/javascript').
-            function resizse_canvas() {
-                var ctx = document.getElementById('whiteboard').getContext('2d');
-                ctx.canvas.width = window.innerWidth;
-                ctx.canvas.height = window.innerHeight;
-            }
-        script(type='text/javascript').
             $('.dropdown-toggle').dropdown();
         script(type='text/javascript').
             $('.colourpicker').colorpicker();
