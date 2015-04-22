@@ -29,17 +29,19 @@ block content
                             a(href='#' id='eraser') Eraser
                         li
                             a(href='#' id='clear') Clear
-                        li
-                            a(href='#') Menu
-                        li
-                            a(href='#' id='createRoomBtn') Create Room
-                        li
-                            a(href='#' id='joinRoomBtn') Join Room
+                        
                         li
                             h3(href='#' id='roomNameLabel' class = 'label roomName label-default') no room
                             
         // content
         div(class='container' onresize='resize_canvas()')
-            div(class='col-lg-offset-1 whiteboard')
-                canvas(id='whiteboard') Your browser does not support the HTML5 tag.
+            div(class='row')
+                div(id='sidebar' class='col-lg-1 sidebar')
+                    ul(class='nav nav-sidebar')
+                        li
+                            a(href='#' id='createRoomBtn') Create Room
+                        li
+                            a(href='#' id='joinRoomBtn') Join Room
+                div(class='col-lg-offset-1 whiteboard')
+                    canvas(id='whiteboard') Your browser does not support the HTML5 tag.
         

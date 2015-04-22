@@ -1,21 +1,27 @@
 body {
+    padding-top: 50px;
     overflow: hidden;
 }
 
 .whiteboard {
     position: absolute;
-    top: 51px;
     left: 0px;
     background-image: url(../images/seamless_paper_texture.png);
     cursor: crosshair;
 }
 
-/*.sidebar {
-    background-color: red;
-    top: 51px;
-    width: 100px;
+.sidebar {
+    position: fixed;
+    background-color: rgb(60, 60, 60);
+    left: 0px;
     height: 100px;
-}*/
+    width: 155px;
+}
+
+    .sidebar li a {
+        color: rgb(187, 187, 187);
+        font-size: 12px;
+    }
 
 .roomName {
     position: relative;
