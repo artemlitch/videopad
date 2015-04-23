@@ -10,17 +10,31 @@ body {
     cursor: crosshair;
 }
 
+.navbar-inverse {
+    background-color: rgb(0, 191, 199);
+}
+
+    .navbar .navbar-brand, .navbar .navbar-nav li a {
+        color: rgb(40, 40, 40);
+    }
+
 .sidebar {
     position: fixed;
     background-color: rgb(60, 60, 60);
     left: 0px;
     height: 100px;
-    width: 155px;
+    //width: 155px;
 }
 
     .sidebar li a {
-        color: rgb(187, 187, 187);
-        font-size: 12px;
+        color: rgb(233, 233, 233);
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .sidebar li a:hover {
+        color: rgb(0, 191, 199);
     }
 
 .roomName {
