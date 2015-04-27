@@ -5,6 +5,7 @@ var canvas, ctx, sidebar;
 var prevX, prevY;
 
 var colour;
+var colourPreview = document.getElementById('colour-preview');
 var thickness = 5;
 
 var tempCanvas, tempCtx;
@@ -12,6 +13,11 @@ var tempCanvas, tempCtx;
 var socket = io();
 
 function init() {
+
+	// initiate colour picker
+	$('.colourpicker').colorpicker();
+	colourPreview.style.backgroundColor = 'black';
+
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
 
@@ -144,11 +150,22 @@ $('#thick').on('click', function() {
 
 $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
+    colourPreview.style.backgroundColor = colour;
     eraserPressed = false;
 });
 
+$('.colorpicker').mouseup(function() {
+	$('.colourpicker').colorpicker('hide');
+});
+
 $('#eraser').on('click', function() {
-	eraserPressed = true;
+	if (eraserPressed) {
+		eraserPressed = false;
+	}
+	else {
+		eraserPressed = true;
+	}
+	console.log('eraser is ' + eraserPressed);
 });
 
 $('#clear').on('click', function() {

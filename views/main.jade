@@ -19,29 +19,33 @@ block content
                         li
                             a(href='#' id='joinRoomBtn') Join Room
                         li
-                            h3(href='#' id='roomNameLabel' class = 'label roomName label-default') No Room
+                            h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
                             
         // content
         div(class='container' onresize='resize_canvas()')
             div(class='row')
                 div(id='sidebar' class='col-lg-1 sidebar')
                     ul(class='nav nav-sidebar')
-                        li
-                            a(href='#' class='colourpicker' data-toggle='dropdown') Colour
+                        li(id='colour-preview')
+                            a(class='btn colourpicker' href='#' data-toggle='dropdown') &nbsp;
 
-                        li(class='dropdown')
-                            a(href='#' class='dropdown-toggle' data-toggle='dropdown') Thickness
-                            ul(class='dropdown-menu' role='menu')
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='thin') Thin
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='medium') Medium
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='thick') Thick
                         li
-                            a(href='#' id='eraser') Eraser
+                            a(class='btn' href='#thicknesses' data-toggle='collapse') Thickness
+
+                        div(class='collapse' id='thicknesses')
+                            div(class='thickness')
+                                li
+                                    a(class='btn' href='#' id='thin') Thin
+                            div(class='thickness')
+                                li
+                                    a(class='btn' href='#' id='medium') Medium
+                            div(class='thickness')
+                                li
+                                    a(class='btn' href='#' id='thick') Thick
                         li
-                            a(href='#' id='clear') Clear
+                            a(class='btn' href='#' id='eraser') Eraser
+                        li
+                            a(class='btn' href='#' id='clear') Clear
                         
                 div(class='col-lg-offset-1 whiteboard')
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
