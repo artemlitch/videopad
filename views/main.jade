@@ -13,19 +13,6 @@ block content
 
                 div(id='navbar')
                     ul(class='nav navbar-nav')
-                        
-                        li
-                            a(href='#' id='createRoomBtn') Create Room
-                        li
-                            a(href='#' id='joinRoomBtn') Join Room
-                        li
-                            h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
-                            
-        // content
-        div(class='container' onresize='resize_canvas()')
-            div(class='row')
-                div(id='sidebar' class='col-lg-1 sidebar')
-                    ul(class='nav nav-sidebar')
                         li(id='colour-preview')
                             a(class='btn colourpicker' href='#' data-toggle='dropdown') &nbsp;
 
@@ -46,7 +33,16 @@ block content
                             a(class='btn' href='#' id='eraser') Eraser
                         li
                             a(class='btn' href='#' id='clear') Clear
-                        
-                div(class='col-lg-offset-1 whiteboard')
+                        li
+                            a(href='#' id='createRoomBtn') Create Room
+                        li
+                            a(href='#' id='joinRoomBtn') Join Room
+                        li
+                            h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
+                            
+        // content
+        div(class='container' onresize='resize_canvas()')
+            div(class='row')                        
+                div(class='whiteboard')
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
         

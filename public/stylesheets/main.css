@@ -11,11 +11,12 @@ body {
 }
 
 .navbar-inverse {
-    background-color: rgb(176, 255, 249);
+    background-color: rgb(60, 60, 60);
+    border: none;
 }
 
     .navbar .navbar-brand, .navbar .navbar-nav li a {
-        color: rgb(40, 40, 40);
+        color: rgb(233, 233, 233);
     }
 
     .navbar .navbar-brand {
@@ -25,47 +26,6 @@ body {
     .navbar .navbar-brand:hover, .navbar .navbar-nav li a:hover {
         color: rgb(180, 180, 180);
     }
-
-.sidebar {
-    position: fixed;
-    background-color: rgb(60, 60, 60);
-    left: 0px;
-    height: 100px;
-    //width: 155px;
-}
-
-    .sidebar .nav-sidebar {
-        margin-top: 10px;
-    }
-
-    .sidebar li a {
-        color: rgb(233, 233, 233);
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .sidebar li a:hover {
-        background-color: rgb(40, 40, 40);
-        color: rgb(176, 255, 249);
-    }
-
-    .sidebar #colour-preview {
-        border-radius: 4px;
-    }
-
-    .sidebar #colour-preview li a {
-        background-color: red;
-    }
-
-    .sidebar #thicknesses .thickness {
-        text-align: center;
-    }
-
-        .sidebar #thicknesses .thickness li a {
-            font-size: 12px;
-        }
 
 .roomName {
     position: relative;

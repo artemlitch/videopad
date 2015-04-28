@@ -21,11 +21,8 @@ function init() {
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
 
-	canvas.width = window.innerWidth - (window.innerWidth / 12);
+	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
-	sidebar = document.getElementById('sidebar');
-	sidebar.style.height = window.innerHeight + 'px';
 
 	$('#whiteboard').mousedown(function(e) {
 		if (eraserPressed) {
@@ -64,11 +61,9 @@ function resizeCanvas() {
 	tempCanvas.width = canvas.width;
 	tempCanvas.height = canvas.height;
 	tempCtx.drawImage(canvas, 0, 0);
-	canvas.width = window.innerWidth - (window.innerWidth / 12);
+	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	ctx.drawImage(tempCanvas, 0, 0);
-
-	sidebar.style.height = window.innerHeight + 'px';
 }
 
 socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
