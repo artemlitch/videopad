@@ -1,6 +1,7 @@
 body {
     padding-top: 50px;
     overflow: hidden;
+    font-family: 'Lato', sans-serif;
 }
 
 .whiteboard {
@@ -10,22 +11,53 @@ body {
     cursor: crosshair;
 }
 
-.navbar-inverse {
-    background-color: rgb(60, 60, 60);
+.navbar {
+    background-color: rgb(0, 174, 205);
     border: none;
 }
 
-    .navbar .navbar-brand, .navbar .navbar-nav li a {
+    .navbar .navbar-brand, .navbar .navbar-nav li a :not(#color-preview) {
         color: rgb(233, 233, 233);
     }
 
     .navbar .navbar-brand {
         font-weight: bold;
+        margin-right: 30px;
     }
 
-    .navbar .navbar-brand:hover, .navbar .navbar-nav li a:hover {
+    .navbar .navbar-brand:hover {
         color: rgb(180, 180, 180);
     }
+
+    .navbar .navbar-nav li a:hover {
+        background-color: rgb(0, 200, 236);
+    }
+
+    .navbar #colour-preview {
+        height: 30px;
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+
+    .navbar .thickness li a {
+        color: rgb(60, 60, 60);
+    }
+
+    .navbar .thickness li a:hover {
+        color: inherit;
+    }
+
+    .navbar #clear {
+        margin-right: 20px;
+    }
+
+.divider {
+    border-left: 1px solid rgb(56, 84, 109);
+    height: 25px;
+    position:absolute;
+    //left: 310px;
+    top:12px;
+}
 
 .roomName {
     position: relative;
@@ -33,4 +65,12 @@ body {
     top: 14px;
     font-size: 89%;
     font-weight: 100;
+}
+
+.roomName:hover {
+    cursor: pointer;
+}
+
+.tooltip-inner {
+    text-align: center;
 }

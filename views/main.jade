@@ -4,39 +4,45 @@ block content
     body
 
         // navbar stuff
-        div(class='navbar navbar-inverse navbar-fixed-top .topbar' role='navigation')
+        div(class='navbar navbar-inverse navbar-fixed-top' role='navigation')
 
             div(class='container')
 
                 div(class='navbar-header')
                     a(class='navbar-brand' href='#') Brainboard
 
+                //div(class='divider' id='first-divider')
+
                 div(id='navbar')
                     ul(class='nav navbar-nav')
                         li(id='colour-preview')
-                            a(class='btn colourpicker' href='#' data-toggle='dropdown') &nbsp;
+                            a(class='colourpicker' href='#' data-toggle='dropdown') 
+
+                        li(class='dropdown thickness')
+                            a(href='#' data-toggle='dropdown')
+                                i(class='fa fa-pencil fa-lg')
+                            ul(class='dropdown-menu' role='menu')
+                                li(role='presentation')
+                                    a(role='menuitem' href='#' id='thin') Thin
+                                li(role='presentation')
+                                    a(role='menuitem' href='#' id='medium') Medium
+                                li(role='presentation')
+                                    a(role='menuitem' href='#' id='thick') Thick
 
                         li
-                            a(class='btn' href='#thicknesses' data-toggle='collapse') Thickness
+                            a(href='#' id='eraser' data-toggle='tooltip' data-placement='bottom' title='Eraser')
+                                span(class='fa fa-eraser fa-lg')
+                        li
+                            a(href='#' id='clear' data-toggle='tooltip' data-placement='bottom' title='Clear')
+                                span(class='fa fa-trash-o fa-lg')
 
-                        div(class='collapse' id='thicknesses')
-                            div(class='thickness')
-                                li
-                                    a(class='btn' href='#' id='thin') Thin
-                            div(class='thickness')
-                                li
-                                    a(class='btn' href='#' id='medium') Medium
-                            div(class='thickness')
-                                li
-                                    a(class='btn' href='#' id='thick') Thick
+                    ul(class='nav navbar-nav pull-right')
                         li
-                            a(class='btn' href='#' id='eraser') Eraser
+                            a(href='#' id='createRoomBtn' data-toggle='tooltip' data-placement='bottom' title='Create Room')
+                                i(class='fa fa-plus fa-lg')
                         li
-                            a(class='btn' href='#' id='clear') Clear
-                        li
-                            a(href='#' id='createRoomBtn') Create Room
-                        li
-                            a(href='#' id='joinRoomBtn') Join Room
+                            a(href='#' id='joinRoomBtn' data-toggle='tooltip' data-placement='bottom' title='Join Room')
+                                i(class='fa fa-sign-in fa-lg')
                         li
                             h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
                             

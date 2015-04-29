@@ -8,6 +8,8 @@ var colour;
 var colourPreview = document.getElementById('colour-preview');
 var thickness = 5;
 
+var dividers = document.getElementsByClassName('divider');
+
 var tempCanvas, tempCtx;
 
 var socket = io();
@@ -23,6 +25,8 @@ function init() {
 
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
+
+	//dividers[0].style.left = (3 * (window.innerWidth / 12)) + 'px';
 
 	$('#whiteboard').mousedown(function(e) {
 		if (eraserPressed) {
