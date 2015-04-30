@@ -4,7 +4,7 @@ var eraserPressed = false;
 var canvas, ctx, sidebar;
 var prevX, prevY;
 
-var colour;
+var colour = 'black';
 var colourPreview = document.getElementById('colour-preview');
 var thickness = 5;
 
@@ -164,7 +164,6 @@ $('#eraser').on('click', function() {
 	else {
 		eraserPressed = true;
 	}
-	console.log('eraser is ' + eraserPressed);
 });
 
 $('#clear').on('click', function() {

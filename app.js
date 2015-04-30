@@ -74,7 +74,7 @@ io.on('connection', function(socket) {
     socket.emit('userInfo' , user);
 
     socket.on('createRoom', function() {
-        var roomId = socket.id + 'room';
+        var roomId = socket.id;
         user.room = roomId;
         socket.join(roomId);
         socket.emit('roomCreateConf', user);

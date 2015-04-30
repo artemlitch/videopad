@@ -39,6 +39,14 @@ body {
         border-radius: 4px;
     }
 
+    .navbar li {
+        margin: 0px 5px;
+    }
+
+    .navbar .thickness {
+        margin-left: 15px;
+    }
+
     .navbar .thickness li a {
         color: rgb(60, 60, 60);
     }
@@ -47,17 +55,13 @@ body {
         color: inherit;
     }
 
+    .navbar #eraser:active {
+        background-color: blue;
+    }
+
     .navbar #clear {
         margin-right: 20px;
     }
-
-.divider {
-    border-left: 1px solid rgb(56, 84, 109);
-    height: 25px;
-    position:absolute;
-    //left: 310px;
-    top:12px;
-}
 
 .roomName {
     position: relative;

@@ -19,7 +19,7 @@ block content
                             a(class='colourpicker' href='#' data-toggle='dropdown') 
 
                         li(class='dropdown thickness')
-                            a(href='#' data-toggle='dropdown')
+                            a(href='#' data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Thickness')
                                 i(class='fa fa-pencil fa-lg')
                             ul(class='dropdown-menu' role='menu')
                                 li(role='presentation')
@@ -30,18 +30,18 @@ block content
                                     a(role='menuitem' href='#' id='thick') Thick
 
                         li
-                            a(href='#' id='eraser' data-toggle='tooltip' data-placement='bottom' title='Eraser')
+                            a(href='#' id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Eraser')
                                 span(class='fa fa-eraser fa-lg')
                         li
-                            a(href='#' id='clear' data-toggle='tooltip' data-placement='bottom' title='Clear')
+                            a(href='#' id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
                                 span(class='fa fa-trash-o fa-lg')
 
                     ul(class='nav navbar-nav pull-right')
                         li
-                            a(href='#' id='createRoomBtn' data-toggle='tooltip' data-placement='bottom' title='Create Room')
+                            a(href='#' id='createRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Create Room')
                                 i(class='fa fa-plus fa-lg')
                         li
-                            a(href='#' id='joinRoomBtn' data-toggle='tooltip' data-placement='bottom' title='Join Room')
+                            a(href='#' id='joinRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Join Room')
                                 i(class='fa fa-sign-in fa-lg')
                         li
                             h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
