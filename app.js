@@ -85,7 +85,7 @@ io.on('connection', function(socket) {
         user.room = roomId;
         socket.join(roomId);
         socket.emit('roomJoinConf', user);
-        console.log(user.room + " enteredRoom ");
+        console.log(user.room + " entered Room YO ");
     });
 
     socket.on('draw', function(colour, thickness, prevX, prevY, x, y) {
