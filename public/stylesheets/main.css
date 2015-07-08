@@ -7,9 +7,15 @@ body {
 .whiteboard {
     position: absolute;
     left: 0px;
-    background-image: url(../images/seamless_paper_texture.png);
+    background-color: color: rgba(0, 0, 0, 0);
+;
     cursor: crosshair;
 }
+
+.navbar-collapse.collapse {
+display: block!important;
+}
+
 
 .navbar {
     background-color: rgb(0, 174, 205);

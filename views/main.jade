@@ -9,7 +9,7 @@ block content
             div(class='container')
 
                 div(class='navbar-header')
-                    a(class='navbar-brand' href='#') Brainboard
+                    a(class='navbar-brand' href='#') LoLCoach
 
                 //div(class='divider' id='first-divider')
 
@@ -32,23 +32,46 @@ block content
                         li
                             a(href='#' id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Eraser')
                                 span(class='fa fa-eraser fa-lg')
+
                         li
                             a(href='#' id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
                                 span(class='fa fa-trash-o fa-lg')
 
                     ul(class='nav navbar-nav pull-right')
+
+                        li
+                            a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                                i(class='fa fa-play fa-lg')
+                        li
+                            a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                                i(class='fa fa-volume-off fa-lg')
+                        li
+                            h3(href='#' class='label roomName label-info') Current Room ID: 
+                        li
+                            h3(href='#' id='roomNameLabel' class='label roomName label-success') None
+                        li 
+                            p(role='separator' class='divider')
+                            p(role='separator' class='divider')
+                            p(role='separator' class='divider')
                         li
                             a(href='#' id='createRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Create Room')
                                 i(class='fa fa-plus fa-lg')
                         li
                             a(href='#' id='joinRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Join Room')
-                                i(class='fa fa-sign-in fa-lg')
+                                i(class='fa fa-sign-in fa-lg') 
                         li
-                            h3(href='#' id='roomNameLabel' class='label roomName label-default') No Room
+                            a(href='#' data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                                i(class='fa fa-sign-out fa-lg') 
+
+
                             
         // content
-        div(class='container' onresize='resize_canvas()')
-            div(class='row')                        
+
+        div(class='container')
+
+            div(class='row')                            
                 div(class='whiteboard')
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
-        
+        iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
+                        
+                    
