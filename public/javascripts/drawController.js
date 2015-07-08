@@ -56,18 +56,18 @@ function init() {
 		eraserMode = false;
 	});
 
-	window.addEventListener('resize', resizeCanvas, false);
+	//window.addEventListener('resize', resizeCanvas, false);
 }
 
 function resizeCanvas() {
-	tempCanvas = document.createElement('canvas');
-	tempCtx = tempCanvas.getContext('2d');
-	tempCanvas.width = canvas.width;
-	tempCanvas.height = canvas.height;
-	tempCtx.drawImage(canvas, 0, 0);
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	ctx.drawImage(tempCanvas, 0, 0);
+//	tempCanvas = document.createElement('canvas');
+//	tempCtx = tempCanvas.getContext('2d');
+//	tempCanvas.width = canvas.width;
+//	tempCanvas.height = canvas.height;
+//	tempCtx.drawImage(canvas, 0, 0);
+//	canvas.width = window.innerWidth;
+//	canvas.height = window.innerHeight;
+//	ctx.drawImage(tempCanvas, 0, 0);
 }
 
 socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
