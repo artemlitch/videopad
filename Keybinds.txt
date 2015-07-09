@@ -1,0 +1,8 @@
+Keybinds: 
+
+Spacebar - Play/Pause
+Z/X - Rewind/Skip by 5 seconds
+M - Mute (local)
+S- Sync Video
+Up Arrow - Increase Volume
+Down Arrow - Decrease Volume

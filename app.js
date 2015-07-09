@@ -85,7 +85,7 @@ io.on('connection', function(socket) {
         user.room = roomId;
         socket.join(roomId);
         socket.emit('roomJoinConf', user);
-        console.log(user.room + " entered Room YO ");
+        console.log(user.room + " entered Room");
     });
 
     socket.on('draw', function(colour, thickness, prevX, prevY, x, y) {
@@ -106,9 +106,46 @@ io.on('connection', function(socket) {
         }
     });
 
+    //Youtube IO
+    socket.on('loadVid', function(url) {
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('vidReceived', url);
+        }
+    });
+
+    socket.on('pauseVid', function() {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('pauseReceived');
+        }
+    });
+
+    socket.on('syncVid', function(sync) {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('syncReceived', sync);
+        }
+    });
+
+    socket.on('syncUrl', function(url) {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('urlReceived', url);
+        }
+    });
+    //socket.on('muteVid', function() {
+
+    //    if (user.room) {
+    //        socket.broadcast.to(user.room).emit('muteReceived');
+    //    }
+    //});
+
+    //End YouTube IO
     socket.on('disconnect', function() {
         console.log('user disconnected');
     });
+
+
 });
 
 

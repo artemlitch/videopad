@@ -1,14 +1,14 @@
-var tag = document.createElement('script');
+var tag = document.createElement('script');;
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var socket = io();
 var player;
 
+//Setup Youtube Player API
 function onYouTubePlayerAPIReady() {
-  // create the global player from the specific iframe (#video)
   player = new YT.Player('video', {
     events: {
-      // call this function when player is ready to use
       'onReady': onPlayerReady
     }
   });
@@ -16,25 +16,175 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerReady(event) {
   
-  // bind events
+  //Keyboard Events
+  $(window).keypress(function(e) {
+    if (e.which == 32) {
+        playPause();
+        socket.emit('pauseVid'); 
+    }
+    if (e.which == 122) {
+        goBack();
+    }
+    if (e.which == 120) {
+        goForward();
+    }
+    if (e.which == 51) {
+        //slowDown();
+    }
+    if (e.which == 52) {
+        //speedUp();
+    }
+    if (e.which == 53) {
+        //normalize();
+    }
+    if (e.which == 109) {
+        mute();
+    }
+    if (e.which == 115) {
+        sync();
+    }
+});
+
+$(window).keydown(function(e) {
+  if (e.which == 40) {
+      turnDown();
+  }
+  if (e.which == 38) {
+      turnUp();
+  }
+});
+  //End Keyboard Events
+
+  // Mouse events
   var playButton = document.getElementById("PlayButton");
   playButton.addEventListener("click", function() {
-  	if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2){
-  		player.playVideo();
-  	}
-  	if(player.getPlayerState() == 1){
-  		player.pauseVideo();
-  	}
-    
+    playPause();
+    socket.emit('pauseVid');
   });
   
   var muteButton = document.getElementById("MuteButton");
   muteButton.addEventListener("click", function() {
-    if(player.isMuted()){
-    	player.unMute();
-    }
-    else{
-    	player.mute();
+    mute();
+    //socket.emit('muteVid'); //to mute for all
+  });
+
+  var LoadVideo = document.getElementById("loadVideo");
+  LoadVideo.addEventListener("click", function() {
+    var urlID = prompt("Enter YouTube URL");
+    if(urlID.length > 5){
+    urlID = urlID.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+    urlID = "https://www.youtube.com/embed/" + urlID + "?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
+    loadVideo(urlID);
+    socket.emit('loadVid', urlID);
     }
   });
+
 }
+//End Mouse events 
+
+//YouTube Player Functions
+function syncLink(){
+  var url = player.getVideoUrl();
+  socket.emit('syncUrl', url);
+}
+function sync(){
+  syncLink();
+  var sync =  player.getCurrentTime();
+  player.seekTo(sync, true);
+  socket.emit('syncVid', sync);
+}
+function syncSkip(time){
+  player.seekTo(time, true);
+  socket.emit('syncVid', time);
+}
+function loadVideo(url) {
+    player.cueVideoByUrl(url, 0,"large"); 
+  }
+
+function playPause(){
+  if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 ){
+    player.playVideo();
+  }
+  if(player.getPlayerState() == 1){
+    player.pauseVideo();
+  }
+  if(player.getPlayerState() == 0){
+    player.seekTo(0, true);
+  }
+
+}
+
+function mute(){
+  if(player.isMuted()){
+    player.unMute();
+  }
+  else{
+    player.mute();
+  }
+}
+
+function goBack(){
+  var time = player.getCurrentTime() - 5;
+  player.seekTo(time, true);
+  syncSkip(time);
+}
+
+function goForward(){
+  var time = player.getCurrentTime() + 5;
+  player.seekTo(time, true);
+  syncSkip(time);
+}
+
+function speedUp(){
+  var speed = player.getPlaybackRate() * 1.5;
+  player.setPlaybackRate(speed);
+}
+
+function slowDown(){
+  var speed = player.getPlaybackRate() / 2;
+  player.setPlaybackRate(speed);
+}
+
+function normalize(){
+  player.setPlaybackRate(1.0);
+}
+
+function turnUp(){
+  var volume = player.getVolume() + 5;
+  player.setVolume(volume);
+}
+
+function turnDown(){
+  var volume = player.getVolume() - 5;
+  player.setVolume(volume);
+}
+//End YouTubePlayer Functions
+
+//Socket IO Receivers 
+socket.on('vidReceived', function(url) {
+  loadVideo(url);
+});
+
+socket.on('urlReceived', function(url) {
+
+  if(url != player.getVideoUrl()){
+    console.log(url);
+    url = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+    url = "https://www.youtube.com/embed/" + url + "?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
+    loadVideo(url);
+  }
+  
+});
+
+socket.on('syncReceived', function(sync) {
+  player.seekTo(sync, true);
+});
+
+//socket.on('muteReceived', function(){
+//  mute();
+//});
+
+socket.on('pauseReceived', function(){
+  playPause();
+});
+//End Socket IO Receivers
