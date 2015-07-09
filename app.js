@@ -9,7 +9,6 @@ var users = require('./routes/users');
 
 var http = require('http');
 var app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -61,7 +60,6 @@ var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port: ' + server.address().port);
 });
 
-
 // Setting up IO client
 var io = require('socket.io').listen(server);
 io.on('connection', function(socket) {
@@ -88,9 +86,9 @@ io.on('connection', function(socket) {
         console.log(user.room + " entered Room");
     });
 
-    socket.on('draw', function(colour, thickness, prevX, prevY, x, y) {
+    socket.on('draw', function(colour, thickness, prevX, prevY, x, y, height, width) {
         if (user.room) {
-            socket.broadcast.to(user.room).emit('drawReceived', colour, thickness, prevX, prevY, x, y);
+            socket.broadcast.to(user.room).emit('drawReceived', colour, thickness, prevX, prevY, x, y, height, width);
         }
     });
 

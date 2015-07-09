@@ -3,6 +3,7 @@ body {
     overflow: hidden;
     background-color: black;
     font-family: 'Lato', sans-serif;
+    background-color: black;
 }
 
 .whiteboard {
@@ -10,6 +11,7 @@ body {
     left: 0px;
     color: rgba(0, 0, 0, 0);
     cursor: crosshair;
+    z-index: 100;
 }
 
 .navbar-collapse.collapse {
@@ -22,52 +24,52 @@ display: block!important;
     border: none;
 }
 
-    .navbar .navbar-brand, .navbar .navbar-nav li a :not(#color-preview) {
-        color: rgb(233, 233, 233);
-    }
+.navbar .navbar-brand, .navbar .navbar-nav li a :not(#color-preview) {
+    color: rgb(233, 233, 233);
+}
 
-    .navbar .navbar-brand {
-        font-weight: bold;
-        margin-right: 30px;
-    }
+.navbar .navbar-brand {
+    font-weight: bold;
+    margin-right: 30px;
+}
 
-    .navbar .navbar-brand:hover {
-        color: rgb(180, 180, 180);
-    }
+.navbar .navbar-brand:hover {
+    color: rgb(180, 180, 180);
+}
 
-    .navbar .navbar-nav li a:hover {
-        background-color: rgb(0, 200, 236);
-    }
+.navbar .navbar-nav li a:hover {
+    background-color: rgb(0, 200, 236);
+}
 
-    .navbar #colour-preview {
-        height: 30px;
-        margin-top: 10px;
-        border-radius: 4px;
-    }
+.navbar #colour-preview {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
 
-    .navbar li {
-        margin: 0px 5px;
-    }
+.navbar li {
+    margin: 0px 5px;
+}
 
-    .navbar .thickness {
-        margin-left: 15px;
-    }
+.navbar .thickness {
+    margin-left: 15px;
+}
 
-    .navbar .thickness li a {
-        color: rgb(60, 60, 60);
-    }
+.navbar .thickness li a {
+    color: rgb(60, 60, 60);
+}
 
-    .navbar .thickness li a:hover {
-        color: inherit;
-    }
+.navbar .thickness li a:hover {
+    color: inherit;
+}
 
-    .navbar #eraser:active {
-        background-color: blue;
-    }
+.navbar #eraser:active {
+    background-color: blue;
+}
 
-    .navbar #clear {
-        margin-right: 20px;
-    }
+.navbar #clear {
+    margin-right: 20px;
+}
 
 .roomName {
     position: relative;
@@ -83,4 +85,21 @@ display: block!important;
 
 .tooltip-inner {
     text-align: center;
+}
+
+.video-container {
+    position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

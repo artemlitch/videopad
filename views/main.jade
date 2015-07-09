@@ -70,10 +70,10 @@ block content
         // content
 
         div(class='container')
-
-            div(class='row')                            
-                div(class='whiteboard')
-                    canvas(id='whiteboard') Your browser does not support the HTML5 tag.
-        iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video' iv_load_policy = '3')
+            div(id='whiteboard-holder' class='whiteboard')
+                canvas(id='whiteboard') Your browser does not support the HTML5 tag.
+        div(id='video-holder' class='container')
+            div(id='video-container' class='video-container') 
+                iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
                         
                     

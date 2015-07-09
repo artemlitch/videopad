@@ -15,7 +15,6 @@ var tempCanvas, tempCtx;
 var socket = io();
 
 function init() {
-
 	// initiate colour picker
 	$('.colourpicker').colorpicker();
 	colourPreview.style.backgroundColor = 'black';
@@ -55,23 +54,36 @@ function init() {
 		drawMode = false;
 		eraserMode = false;
 	});
-
-	//window.addEventListener('resize', resizeCanvas, false);
+    resizeCanvas();
+	window.addEventListener('resize', resizeCanvas, false);
 }
 
 function resizeCanvas() {
-//	tempCanvas = document.createElement('canvas');
-//	tempCtx = tempCanvas.getContext('2d');
-//	tempCanvas.width = canvas.width;
-//	tempCanvas.height = canvas.height;
-//	tempCtx.drawImage(canvas, 0, 0);
-//	canvas.width = window.innerWidth;
-//	canvas.height = window.innerHeight;
-//	ctx.drawImage(tempCanvas, 0, 0);
+    //var width = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    var data = canvas.toDataURL();
+    //move the canvas into the correct position
+    var youtubeContainer = $('#video-container');
+    var vidWidth = youtubeContainer.width();
+    var xPosition = (windowWidth - vidWidth)/2 
+    
+    
+    var videoWindow = $("#video")
+    // scale and redraw the canvas content
+    canvas.height = videoWindow.height();
+    canvas.width = vidWidth;
+    var canvasHolder = $("#whiteboard-holder");
+    canvasHolder.css("left", xPosition);
+    var img = new Image();
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+    }
+    img.src = data;
 }
 
-socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y) {
-	drawReceived(colour, thickness, prevX, prevY, x, y);
+socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y, height, width) {
+	drawReceived(colour, thickness, prevX, prevY, x, y, height, width);
 });
 
 socket.on('eraseReceived', function(x, y) {
@@ -92,8 +104,10 @@ function draw(x, y, pressed) {
 		ctx.lineTo(x, y);
 		ctx.closePath();
 		ctx.stroke();
-
-		socket.emit('draw', ctx.strokeStyle, ctx.lineWidth, prevX, prevY, x, y);
+		var height = canvas.height;
+        var width = canvas.width;
+        console.log(height + ' ' + width)
+        socket.emit('draw', ctx.strokeStyle, ctx.lineWidth, prevX, prevY, x, y, height, width);
 	}
 	prevX = x;
 	prevY = y;
@@ -110,13 +124,15 @@ function erase(x, y, pressed) {
 	}
 }
 
-function drawReceived(colour, thickness, prevX, prevY, x, y) {
-	ctx.beginPath();
+function drawReceived(colour, thickness, prevX, prevY, x, y, height, width) {
+    var widthRatio = canvas.width / width;
+    var heightRatio = canvas.height / height;
+    ctx.beginPath();
 	ctx.strokeStyle = colour;
 	ctx.lineWidth = thickness;
 	ctx.lineJoin = 'round';
-	ctx.moveTo(prevX, prevY);
-	ctx.lineTo(x, y);
+	ctx.moveTo(prevX*widthRatio, prevY*heightRatio);
+	ctx.lineTo(x*widthRatio, y*heightRatio);
 	ctx.closePath();
 	ctx.stroke();
 }
