@@ -78,7 +78,6 @@ $(window).keydown(function(e) {
     socket.emit('loadVid', urlID);
     }
   });
-
 }
 //End Mouse events 
 
