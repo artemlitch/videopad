@@ -38,7 +38,9 @@ block content
                                 span(class='fa fa-trash-o fa-lg')
 
                     ul(class='nav navbar-nav pull-right')
-
+                        li
+                            a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                                i(class='fa fa-plus fa-lg')
                         li
                             a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
                                 i(class='fa fa-play fa-lg')
@@ -72,6 +74,6 @@ block content
             div(class='row')                            
                 div(class='whiteboard')
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
-        iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
+        iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video' iv_load_policy = '3')
                         
                     

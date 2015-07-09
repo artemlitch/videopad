@@ -1,14 +1,14 @@
 body {
     padding-top: 50px;
     overflow: hidden;
+    background-color: black;
     font-family: 'Lato', sans-serif;
 }
 
 .whiteboard {
     position: absolute;
     left: 0px;
-    background-color: color: rgba(0, 0, 0, 0);
-;
+    color: rgba(0, 0, 0, 0);
     cursor: crosshair;
 }
 
