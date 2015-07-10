@@ -118,6 +118,13 @@ io.on('connection', function(socket) {
         }
     });
 
+    socket.on('playVid', function() {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('playReceived');
+        }
+    });
+
     socket.on('syncVid', function(sync) {
 
         if (user.room) {
@@ -131,13 +138,6 @@ io.on('connection', function(socket) {
             socket.broadcast.to(user.room).emit('urlReceived', url);
         }
     });
-    //socket.on('muteVid', function() {
-
-    //    if (user.room) {
-    //        socket.broadcast.to(user.room).emit('muteReceived');
-    //    }
-    //});
-
     //End YouTube IO
     socket.on('disconnect', function() {
         console.log('user disconnected');
