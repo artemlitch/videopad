@@ -2,9 +2,9 @@ Keybinds:
 
 Spacebar - Play/Pause
 Z/X - Speed up/down playback rate
+N - Normalizes playback to 1.0x
 M - Mute (local)
 S- Sync Video
 Up Arrow - Increase Volume
 Down Arrow - Decrease Volume
 Left/Right Arrows - Rewind/Skip by 5 seconds
-Git GUI Test
