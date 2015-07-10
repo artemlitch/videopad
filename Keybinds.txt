@@ -1,10 +1,10 @@
 Keybinds: 
 
 Spacebar - Play/Pause
-Z/X - Rewind/Skip by 5 seconds
+Z/X - Speed up/down playback rate
 M - Mute (local)
 S- Sync Video
 Up Arrow - Increase Volume
 Down Arrow - Decrease Volume
-
+Left/Right Arrows - Rewind/Skip by 5 seconds
 Git GUI Test

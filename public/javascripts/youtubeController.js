@@ -97,6 +97,7 @@ function goForward(){
 function speedUp(){
   var speed = player.getPlaybackRate() * 1.5;
   player.setPlaybackRate(speed);
+
 }
 
 function slowDown(){
@@ -148,5 +149,17 @@ socket.on('playReceived', function(){
   if(player.getPlayerState != 1){
     player.playVideo();
   }
+});
+
+socket.on('playFasterReceived', function(){
+  speedUp();
+});
+
+socket.on('playSlowerReceived', function(){
+  slowDown();
+});
+
+socket.on('normalPlaybackReceived', function(){
+  normalize();
 });
 //End Socket IO Receivers

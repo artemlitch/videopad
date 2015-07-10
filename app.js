@@ -125,6 +125,27 @@ io.on('connection', function(socket) {
         }
     });
 
+    socket.on('playFaster', function() {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('playFasterReceived');
+        }
+    });
+
+    socket.on('playSlower', function() {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('playSlowerReceived');
+        }
+    });
+
+    socket.on('normalPlayback', function() {
+
+        if (user.room) {
+            socket.broadcast.to(user.room).emit('normalPlaybackReceived');
+        }
+    });
+
     socket.on('syncVid', function(sync) {
 
         if (user.room) {
