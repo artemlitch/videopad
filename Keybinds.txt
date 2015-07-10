@@ -6,3 +6,5 @@ M - Mute (local)
 S- Sync Video
 Up Arrow - Increase Volume
 Down Arrow - Decrease Volume
+
+Git GUI Test
