@@ -4,15 +4,42 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var socket = io();
 var player;
+var videoState;
+var newUser = true;
 
 function onYouTubePlayerAPIReady() {
   player = new YT.Player('video', {
     events: {
-      'onReady': onPlayerReady
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
     }
   });
 }
 
+function onPlayerStateChange(event) {
+  var embedCode = event.target.getVideoEmbedCode();
+  console.log(event);
+  switch(event.data) {
+     case -1:
+        videoState = -1;
+        break;
+     case 1:
+        console.log("VIDEO IS PLAYING");
+        console.log(videoState);
+        videoState = 1;
+        if (newUser) {
+            sync();
+            newUser = false;
+        }
+        break;
+     case 2:
+        videoState = 2;
+        break;
+     case 3:
+        videoState = 3;
+        break;
+  }
+}
 //Start Click Events
 function onPlayerReady(event) {
   var playButton = document.getElementById("PlayButton");
@@ -29,8 +56,7 @@ function onPlayerReady(event) {
   LoadVideo.addEventListener("click", function() {
     var urlID = prompt("Enter YouTube URL");
     if(urlID.length > 5){
-    urlID = urlID.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
-    urlID = "https://www.youtube.com/embed/" + urlID + "?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
+    urlID = parseURL(urlID);
     loadVideo(urlID);
     socket.emit('loadVid', urlID);
     }
@@ -43,20 +69,22 @@ function syncLink(){
   var url = player.getVideoUrl();
   socket.emit('syncUrl', url);
 }
+
 function sync(){
   syncLink();
-  var sync =  player.getCurrentTime();
-  player.seekTo(sync, true);
-  socket.emit('syncVid', sync);
-  player.playVideo();
+  var time =  player.getCurrentTime();
+  player.seekTo(time, true);
+  socket.emit('syncVid', time, videoState);
 }
+
 function syncSkip(time){
   player.seekTo(time, true);
-  socket.emit('syncVid', time);
+  socket.emit('syncVid', time, videoState);
 }
+
 function loadVideo(url) {
     player.cueVideoByUrl(url, 0,"large"); 
-  }
+}
 
 function playPause(){
   if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 ){
@@ -119,24 +147,33 @@ function turnDown(){
   player.setVolume(volume);
 }
 //End YouTubePlayer Functions
-
+function parseURL(url) {
+  var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
+  parsedURL = "https://www.youtube.com/embed/" + parsedURL + "?rel=0&amp;controls=1&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
+  return parsedURL;
+}
 //Socket IO Receivers 
 socket.on('vidReceived', function(url) {
   loadVideo(url);
 });
 
 socket.on('urlReceived', function(url) {
-
-  if(url != player.getVideoUrl()){ 
-    url = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
-    url = "https://www.youtube.com/embed/" + url + "?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
-    loadVideo(url);
+  var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
+  var parsedMyUrl = (player.getVideoUrl()).split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+  if(parsedURL != parsedMyUrl){ 
+    loadVideo(parseURL(url));
   }
   
 });
 
-socket.on('syncReceived', function(sync) {
-  player.seekTo(sync, true);
+socket.on('syncReceived', function(time, state) {
+  player.playVideo();
+  player.seekTo(time, true);
+    if (state == 1) {
+      player.playVideo();
+    } else {
+      player.pauseVideo();
+    }
 });
 
 socket.on('pauseReceived', function(){

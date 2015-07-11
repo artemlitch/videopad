@@ -7,12 +7,14 @@ $(document).ready(function() {
 	$('#createRoomBtn').on('click', function(ev) {
         socket.emit('createRoom');   
     });
-	$('#joinRoomBtn').on('click', function(ev) {
+	
+    $('#joinRoomBtn').on('click', function(ev) {
         var roomId = prompt("Enter room ID");
         if(roomId != null ) {
             socket.emit('joinRoom', roomId);
         }
     });
+    
     $('#roomNameLabel').on('click', function() {
         socket.emit('seeKey');
     });
@@ -21,6 +23,22 @@ $(document).ready(function() {
        window.prompt ("Copy to clipboard: Ctrl+C, Enter", roomId); 
     });
 
-
+    socket.on('getRoomInfo', function(userId) {
+        console.log(canvas.toDataURL());
+        console.log(userId + " WANTS TO SEE SOME SHIT");
+        console.log(player)
+        data = {
+            userId: userId,
+            img: canvas.toDataURL(),
+            videoURL: player.getVideoUrl()
+        }
+        socket.emit('sentRoomInfo',data)
+        sync();
+    });
+    
+    socket.on('enterRoomInfo', function(data) {
+        console.log(data);
+        loadCanvasImage(data.img);
+    });
         
 })

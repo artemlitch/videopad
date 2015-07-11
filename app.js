@@ -82,25 +82,38 @@ io.on('connection', function(socket) {
 
     socket.on('joinRoom', function(roomId) {
         user.room = roomId;
-        socket.join(roomId);
-        socket.emit('roomJoinConf', user);
-        console.log(user.room + " entered Room");
+        if(io.sockets.adapter.rooms[roomId]){
+            var roomClients = io.sockets.adapter.rooms[roomId];
+            for (client in roomClients) {
+                socket.to(client).emit('getRoomInfo', user.id);
+                break;
+            }
+            socket.join(roomId);
+            socket.emit('roomJoinConf', user);        
+            console.log(user.room + " Entered Room");
+        } else {
+            //TODO: add handler on client to show stupid ppl to stop
+            console.log("ROOM DOESNT EXIST")
+        }
     });
-
+    
+    socket.on('sentRoomInfo' , function(data) {
+        socket.to(data.userId).emit('enterRoomInfo', data);
+    });
     socket.on('seeKey', function() {
         var roomId = user.room;
         socket.emit('showKey', roomId);
     });
     
-    socket.on('draw', function(colour, thickness, prevX, prevY, x, y, height, width) {
+    socket.on('draw', function(data) {
         if (user.room) {
-            socket.broadcast.to(user.room).emit('drawReceived', colour, thickness, prevX, prevY, x, y, height, width);
+            socket.broadcast.to(user.room).emit('drawReceived', data);
         }
     });
 
-    socket.on('erase', function(x, y) {
+    socket.on('erase', function(data) {
         if (user.room) {
-            socket.broadcast.to(user.room).emit('eraseReceived', x, y);
+            socket.broadcast.to(user.room).emit('eraseReceived', data);
         }
     });
 
@@ -125,48 +138,44 @@ io.on('connection', function(socket) {
     });
 
     socket.on('playVid', function() {
-
+        console.log(user.room + " wants to play vid")
         if (user.room) {
             socket.broadcast.to(user.room).emit('playReceived');
         }
     });
 
     socket.on('playFaster', function() {
-
         if (user.room) {
             socket.broadcast.to(user.room).emit('playFasterReceived');
         }
     });
 
     socket.on('playSlower', function() {
-
         if (user.room) {
             socket.broadcast.to(user.room).emit('playSlowerReceived');
         }
     });
 
     socket.on('normalPlayback', function() {
-
         if (user.room) {
             socket.broadcast.to(user.room).emit('normalPlaybackReceived');
         }
     });
 
-    socket.on('syncVid', function(sync) {
-
+    socket.on('syncVid', function(time, state) {
         if (user.room) {
-            socket.broadcast.to(user.room).emit('syncReceived', sync);
+            socket.broadcast.to(user.room).emit('syncReceived', time, state);
         }
     });
 
     socket.on('syncUrl', function(url) {
-
         if (user.room) {
             socket.broadcast.to(user.room).emit('urlReceived', url);
         }
     });
     //End YouTube IO
     socket.on('disconnect', function() {
+        socket.leave(user.room);
         console.log('user disconnected');
     });
 
