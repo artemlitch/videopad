@@ -79,6 +79,7 @@ io.on('connection', function(socket) {
         console.log(user.room + " new room ");
     });
 
+
     socket.on('joinRoom', function(roomId) {
         user.room = roomId;
         socket.join(roomId);
@@ -86,6 +87,11 @@ io.on('connection', function(socket) {
         console.log(user.room + " entered Room");
     });
 
+    socket.on('seeKey', function() {
+        var roomId = user.room;
+        socket.emit('showKey', roomId);
+    });
+    
     socket.on('draw', function(colour, thickness, prevX, prevY, x, y, height, width) {
         if (user.room) {
             socket.broadcast.to(user.room).emit('drawReceived', colour, thickness, prevX, prevY, x, y, height, width);

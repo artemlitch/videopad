@@ -13,8 +13,12 @@ $(document).ready(function() {
             socket.emit('joinRoom', roomId);
         }
     });
-    $('#roomNameLabel').on('click', function(ev) {
-        window.prompt ("Copy to clipboard: Ctrl+C, Enter",$(this).text()); 
+    $('#roomNameLabel').on('click', function() {
+        socket.emit('seeKey');
+    });
+
+    socket.on('showKey' , function(roomId) {
+       window.prompt ("Copy to clipboard: Ctrl+C, Enter", roomId); 
     });
 
 
