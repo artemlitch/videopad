@@ -71,7 +71,7 @@ function resizeCanvas() {
     
     var videoWindow = $("#video")
     // scale and redraw the canvas content
-    canvas.height = videoWindow.height();
+    canvas.height = videoWindow.height() - 40;
     canvas.width = vidWidth;
     var canvasHolder = $("#whiteboard-holder");
     canvasHolder.css("left", xPosition);

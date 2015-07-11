@@ -13,11 +13,9 @@ body {
     cursor: crosshair;
     z-index: 100;
 }
-
-.navbar-collapse.collapse {
-display: block!important;
+.container{
+    width: 82%;
 }
-
 
 .navbar {
     background-color: rgb(0, 174, 205);
