@@ -106,7 +106,7 @@ function draw(x, y, pressed) {
 		ctx.stroke();
 		var height = canvas.height;
         var width = canvas.width;
-        console.log(height + ' ' + width)
+        //console.log(height + ' ' + width)
         socket.emit('draw', ctx.strokeStyle, ctx.lineWidth, prevX, prevY, x, y, height, width);
 	}
 	prevX = x;
@@ -147,12 +147,12 @@ function eraseReceived(x, y) {
 function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
-var thicknessAmt = 4;
+var thicknessAmt = 6;
 $(window).keypress(function(e) {
-  if (e.which == 91) { 
+  if (e.which == 91 && thickness > 7) { 
       thickness = thickness - thicknessAmt;
   }
-  if (e.which == 93) { 
+  if (e.which == 93 && thickness < 50) { 
       thickness = thickness + thicknessAmt;
   }
 });
