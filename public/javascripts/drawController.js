@@ -57,7 +57,13 @@ function init() {
     resizeCanvas();
 	window.addEventListener('resize', resizeCanvas, false);
 }
-
+function loadCanvasImage(imgSource) {
+    var img = new Image();
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+    }
+    img.src = imgSource;
+}
 function resizeCanvas() {
     //var width = window.innerWidth;
     var windowHeight = window.innerHeight;
@@ -82,8 +88,8 @@ function resizeCanvas() {
     img.src = data;
 }
 
-socket.on('drawReceived', function(colour, thickness, prevX, prevY, x, y, height, width) {
-	drawReceived(colour, thickness, prevX, prevY, x, y, height, width);
+socket.on('drawReceived', function(data) {
+	drawReceived(data);
 });
 
 socket.on('eraseReceived', function(x, y) {
@@ -106,8 +112,17 @@ function draw(x, y, pressed) {
 		ctx.stroke();
 		var height = canvas.height;
         var width = canvas.width;
-        //console.log(height + ' ' + width)
-        socket.emit('draw', ctx.strokeStyle, ctx.lineWidth, prevX, prevY, x, y, height, width);
+        var data = {
+            colour: ctx.strokeStyle,
+            thickness: ctx.lineWidth,
+            prevX: prevX,
+            prevY: prevY,
+            x: x,
+            y: y,
+            height: height,
+            width: width
+        }
+        socket.emit('draw', data);
 	}
 	prevX = x;
 	prevY = y;
@@ -119,29 +134,32 @@ function erase(x, y, pressed) {
 		ctx.clearRect(x, y, 5, -5);
 		ctx.clearRect(x, y, -5, 5);
 		ctx.clearRect(x, y, 5, 5);
-
-		socket.emit('erase', x, y);
+        var data = {
+            x: x,
+            y: y
+        }
+		socket.emit('erase', data);
 	}
 }
 
-function drawReceived(colour, thickness, prevX, prevY, x, y, height, width) {
-    var widthRatio = canvas.width / width;
-    var heightRatio = canvas.height / height;
+function drawReceived(data) {
+    var widthRatio = canvas.width / data.width;
+    var heightRatio = canvas.height / data.height;
     ctx.beginPath();
-	ctx.strokeStyle = colour;
-	ctx.lineWidth = thickness;
+	ctx.strokeStyle = data.colour;
+	ctx.lineWidth = data.thickness;
 	ctx.lineJoin = 'round';
-	ctx.moveTo(prevX*widthRatio, prevY*heightRatio);
-	ctx.lineTo(x*widthRatio, y*heightRatio);
+	ctx.moveTo(data.prevX*widthRatio, data.prevY*heightRatio);
+	ctx.lineTo(data.x*widthRatio, data.y*heightRatio);
 	ctx.closePath();
 	ctx.stroke();
 }
 
-function eraseReceived(x, y) {
-	ctx.clearRect(x, y, -5, -5);
-	ctx.clearRect(x, y, 5, -5);
-	ctx.clearRect(x, y, -5, 5);
-	ctx.clearRect(x, y, 5, 5);
+function eraseReceived(data) {
+	ctx.clearRect(data.x, data.y, -5, -5);
+	ctx.clearRect(data.x, data.y, 5, -5);
+	ctx.clearRect(data.x, data.y, -5, 5);
+	ctx.clearRect(data.x, data.y, 5, 5);
 }
 
 function clearReceived() {
