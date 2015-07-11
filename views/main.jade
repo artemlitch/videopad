@@ -38,15 +38,15 @@ block content
                                 span(class='fa fa-trash-o fa-lg')
 
                     ul(class='nav navbar-nav pull-right')
-                        li
-                            a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
-                                i(class='fa fa-plus fa-lg')
-                        li
-                            a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
-                                i(class='fa fa-play fa-lg')
-                        li
-                            a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
-                                i(class='fa fa-volume-off fa-lg') 
+                        //li
+                        //    a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                        //        i(class='fa fa-plus fa-lg')
+                        //li
+                        //    a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                        //        i(class='fa fa-play fa-lg')
+                        //li
+                        //    a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                        //        i(class='fa fa-volume-off fa-lg') 
                         li
                             h3(href='#' id='roomNameLabel' class='label roomName label-success') No Current Room
                         li 
@@ -73,5 +73,21 @@ block content
         div(id='video-holder' class='container')
             div(id='video-container' class='video-container') 
                 iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
-                        
-                    
+
+        div(class='container' style='background: white;')  
+                ul(class='nav navbar-nav pull-left') 
+                    li
+                        a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                                i(class='fa fa-play fa-lg')
+                    li
+                        a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                            i(class='fa fa-plus fa-lg')
+                    li
+                        a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                                i(class='fa fa-volume-off fa-lg')
+
+                input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='1000' data-slider-step='1' data-slider-value='0')
+                
+
+                  
+            

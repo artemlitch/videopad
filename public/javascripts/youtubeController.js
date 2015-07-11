@@ -6,6 +6,7 @@ var socket = io();
 var player;
 var videoState;
 var newUser = true;
+var moveSlider=setInterval(function () {myTimer()}, 500);
 
 function onYouTubePlayerAPIReady() {
   player = new YT.Player('video', {
@@ -18,14 +19,14 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerStateChange(event) {
   var embedCode = event.target.getVideoEmbedCode();
-  console.log(event);
+ // console.log(event);
   switch(event.data) {
      case -1:
         videoState = -1;
         break;
      case 1:
-        console.log("VIDEO IS PLAYING");
-        console.log(videoState);
+       // console.log("VIDEO IS PLAYING");
+        //console.log(videoState);
         videoState = 1;
         if (newUser) {
             sync();
@@ -46,7 +47,7 @@ function onPlayerReady(event) {
   playButton.addEventListener("click", function() {
     playPause();
   });
-  
+
   var muteButton = document.getElementById("MuteButton");
   muteButton.addEventListener("click", function() {
     mute();
@@ -55,12 +56,16 @@ function onPlayerReady(event) {
   var LoadVideo = document.getElementById("loadVideo");
   LoadVideo.addEventListener("click", function() {
     var urlID = prompt("Enter YouTube URL");
-    if(urlID.length > 5){
+    if(urlID){
+    if(urlID.length > 5 && urlID){
     urlID = parseURL(urlID);
     loadVideo(urlID);
     socket.emit('loadVid', urlID);
     }
+  }
   });
+
+
 }
 //End Click events 
 
@@ -167,11 +172,8 @@ socket.on('urlReceived', function(url) {
 });
 
 socket.on('syncReceived', function(time, state) {
-  player.playVideo();
   player.seekTo(time, true);
-    if (state == 1) {
-      player.playVideo();
-    } else {
+    if (state != 1 && state != 3) {
       player.pauseVideo();
     }
 });
@@ -200,3 +202,48 @@ socket.on('normalPlaybackReceived', function(){
   normalize();
 });
 //End Socket IO Receivers
+
+//Slider
+var slider = new Slider('#ex1', {
+  value: currentTime(),
+  tooltip: 'hide',
+  formatter: function(value) {
+    
+    if(currentTime() && returnDuration)
+      console.log(Math.round(currentTime()/returnDuration()*100));
+    return value;
+  }
+});
+
+slider.on('slide',function(value){
+  console.log(value);
+  youtubeSliderTime(value);
+});
+
+
+function youtubeSliderTime(value){
+  if(player){
+    syncSkip(player.getDuration()*(value/1000));
+  }
+  
+}
+
+function returnDuration(){
+  if(player){
+    return player.getDuration();
+  }
+}
+
+function currentTime(){
+  if(player){
+    return player.getCurrentTime();
+  }
+  else{
+    return 0;
+  }
+} 
+
+function myTimer() {
+    slider.setValue(Math.round(currentTime()/returnDuration()*1000));
+    //console.log("play bar move");
+}
