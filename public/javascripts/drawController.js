@@ -147,6 +147,15 @@ function eraseReceived(x, y) {
 function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+var thicknessAmt = 4;
+$(window).keypress(function(e) {
+  if (e.which == 91) { 
+      thickness = thickness - thicknessAmt;
+  }
+  if (e.which == 93) { 
+      thickness = thickness + thicknessAmt;
+  }
+});
 
 $('#thin').on('click', function() {
     thickness = 1;
