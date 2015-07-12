@@ -17,17 +17,13 @@ body {
 #ex2Slider .slider-handle {
     background-color: rgb(0, 174, 205);
 }
-#ex2Slider .slider-vertical {
-  width: 50%;
-  height: 50px;
-} {
-    background-color: rgb(0, 174, 205);
-}
+
+
 .whiteboard {
     position: absolute;
     left: 0px;
     color: rgba(0, 0, 0, 0);
-    cursor: crosshair;
+    cursor: url('./circleCursor.ico') 50 50, default;
     z-index: 100;
 }
 
@@ -105,6 +101,9 @@ display: block!important;
 }
 
 .video-container {
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
     position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
 	padding-top: 25px;
@@ -114,9 +113,18 @@ display: block!important;
 .video-container iframe,
 .video-container object,
 .video-container embed {
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.container{
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }

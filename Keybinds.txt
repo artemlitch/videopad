@@ -11,6 +11,8 @@ Left/Right Arrows - Rewind/Skip by 5 seconds
 [ - Decrease Size of brush
 ] - Increase size of brush
 C - Clear Canvas
+E - Select Eraser
+D - Select Drawing Tool
 
 Shift 1 - Set Preset Colour 1 to current color
 1 - Select Preset Colour 1

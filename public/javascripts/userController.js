@@ -3,7 +3,7 @@ $(document).ready(function() {
     var context = canvas.getContext('2d');
     var socket = io();
     socket.on('userInfo' , function(user) {
-       console.log("welcome "+ user.id);
+      // console.log("welcome "+ user.id);
     });
     socket.on('roomCreateConf' , function(user) {
        $('#roomNameLabel').text("Click To Show Room Key");

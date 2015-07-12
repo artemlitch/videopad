@@ -192,11 +192,11 @@ socket.on('pauseReceived', function(){
 
 
   { 
-    position:"top",
+    position:"bottom",
     style: 'bootstrap',
     className: 'info',
     autoHide: true,
-    autoHideDelay: 3000
+    autoHideDelay: 700
   }
   );
 

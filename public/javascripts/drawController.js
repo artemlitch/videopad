@@ -189,15 +189,14 @@ $(window).keypress(function(e) {
 	socket.emit('clear');
   }
   if (e.which == 101) { //e key
-  	if (eraserPressed) {
-  		eraserPressed = false;
-  	}
-  	else {
   		eraserPressed = true;
-  	}
+  		$('#whiteboard').css('cursor',"url('../stylesheets/squareCursor.ico') 50 50, default");
   }
   if (e.which == 100) { //d key
 	eraserPressed = false;
+	$('#whiteboard').css('cursor',"url('../stylesheets/circleCursor.ico') 50 50, default");
+	$('#whiteboard').css('width',"1%");
+	$('#whiteboard').css('height',"1%");
   }
 
 
@@ -239,6 +238,7 @@ $(window).keypress(function(e) {
 
 $('#drawButton').on('click', function() {
     eraserPressed = false;
+    $('#whiteboard').css('cursor',"url('../stylesheets/circleCursor.ico') 50 50, default");
 });
 
 
@@ -254,12 +254,8 @@ $('.colorpicker').mouseup(function() {
 });
 
 $('#eraser').on('click', function() {
-	if (eraserPressed) {
-		eraserPressed = false;
-	}
-	else {
-		eraserPressed = true;
-	}
+		eraserPressed = true;	
+		$('#whiteboard').css('cursor',"url('../stylesheets/squareCursor.ico') 50 50, default");
 });
 
 $('#clear').on('click', function() {
