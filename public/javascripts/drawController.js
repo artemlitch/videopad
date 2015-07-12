@@ -188,6 +188,17 @@ $(window).keypress(function(e) {
   	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	socket.emit('clear');
   }
+  if (e.which == 101) { //e key
+  	if (eraserPressed) {
+  		eraserPressed = false;
+  	}
+  	else {
+  		eraserPressed = true;
+  	}
+  }
+  if (e.which == 100) { //d key
+	eraserPressed = false;
+  }
 
 
   //colour presets
