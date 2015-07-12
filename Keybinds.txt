@@ -10,3 +10,16 @@ Down Arrow - Decrease Volume
 Left/Right Arrows - Rewind/Skip by 5 seconds
 [ - Decrease Size of brush
 ] - Increase size of brush
+C - Clear Canvas
+
+Shift 1 - Set Preset Colour 1 to current color
+1 - Select Preset Colour 1
+
+Shift 2 - Set Preset Colour 2 to current color
+2 - Select Preset Colour 2
+
+Shift 3 - Set Preset Colour 3 to current color
+3 - Select Preset Colour 3
+
+Shift 4 - Set Preset Colour 4 to current color
+4 - Select Preset Colour 4

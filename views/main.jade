@@ -18,19 +18,21 @@ block content
                         li(id='colour-preview')
                             a(class='colourpicker' href='#' data-toggle='dropdown') 
 
+
+
                         li(class='dropdown thickness')
-                            a(href='#' data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Thickness')
+                            a(href='#' data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
+                                i(class='fa fa-tint fa-lg')
+                            ul(class='dropdown-menu')
+                                li
+                                    input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='60' data-slider-step='1' data-slider-value='12')   
+                                
+                        li
+                            a(href='#' id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
                                 i(class='fa fa-pencil fa-lg')
-                            ul(class='dropdown-menu' role='menu')
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='thin') Thin
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='medium') Medium
-                                li(role='presentation')
-                                    a(role='menuitem' href='#' id='thick') Thick
 
                         li
-                            a(href='#' id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Eraser')
+                            a(href='#' id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
                                 span(class='fa fa-eraser fa-lg')
 
                         li
@@ -74,7 +76,8 @@ block content
             div(id='video-container' class='video-container') 
                 iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
 
-        div(class='container' style='background: white;')  
+        div(class='container' style='background: white;') 
+                input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='1000' data-slider-step='1' data-slider-value='0') 
                 ul(class='nav navbar-nav pull-left') 
                     li
                         a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
@@ -86,7 +89,7 @@ block content
                         a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
                                 i(class='fa fa-volume-off fa-lg')
 
-                input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='1000' data-slider-step='1' data-slider-value='0')
+                
                 
 
                   

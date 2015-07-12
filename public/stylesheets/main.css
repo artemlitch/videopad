@@ -6,12 +6,23 @@ body {
 }
 
 #ex1Slider .slider-selection {
-    background: grey;
+    background: red;
 }
 #ex1Slider .slider-handle {
     background: black;
 }
-
+#ex2Slider .slider-selection {
+    background: grey;
+}
+#ex2Slider .slider-handle {
+    background-color: rgb(0, 174, 205);
+}
+#ex2Slider .slider-vertical {
+  width: 50%;
+  height: 50px;
+} {
+    background-color: rgb(0, 174, 205);
+}
 .whiteboard {
     position: absolute;
     left: 0px;

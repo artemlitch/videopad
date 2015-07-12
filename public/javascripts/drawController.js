@@ -5,6 +5,12 @@ var canvas, ctx, sidebar;
 var prevX, prevY;
 
 var colour = 'black';
+
+var colourPreset1 = 'black';
+var colourPreset2 = 'black';
+var colourPreset3 = 'black';
+var colourPreset4 = 'black';
+
 var colourPreview = document.getElementById('colour-preview');
 var thickness = 5;
 
@@ -165,30 +171,63 @@ function eraseReceived(data) {
 function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+
 var thicknessAmt = 6;
+
 $(window).keypress(function(e) {
-  if (e.which == 91 && thickness > 7) { 
-      thickness = thickness - thicknessAmt;
+  if (e.which == 91 && thickness > 1) { // "[" Key
+  	  brushSlider.setValue(thickness - thicknessAmt);
   }
-  if (e.which == 93 && thickness < 50) { 
-      thickness = thickness + thicknessAmt;
+  if (e.which == 93 && thickness < 60) { // "]" Key
+      brushSlider.setValue(thickness + thicknessAmt);
   }
+  if (e.which == 99) { //c key
+  	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	socket.emit('clear');
+  }
+
+
+  //colour presets
+  	//Preset 1
+    if (e.which == 33) { //! key
+    	colourPreset1 = colour;
+  	}
+  	if (e.which == 49) { //1 key
+  		colour = colourPreset1;
+  		colourPreview.style.backgroundColor = colour;
+  	}
+  	//Preset 2
+    if (e.which == 64) { //@ key
+    	colourPreset2 = colour;
+  	}
+  	if (e.which == 50) { //2 key
+  		colour = colourPreset2;
+  		colourPreview.style.backgroundColor = colour;
+  	}
+  	//Preset 3
+    if (e.which == 35) { //# key
+    	colourPreset3 = colour;
+  	}
+  	if (e.which == 51) { //3 key
+  		colour = colourPreset3;
+  		colourPreview.style.backgroundColor = colour;
+  	}
+   	//Preset 4
+    if (e.which == 36) { //$ key
+    	colourPreset4 = colour;
+  	}
+  	if (e.which == 52) { //4 key
+  		colour = colourPreset4;
+  		colourPreview.style.backgroundColor = colour;
+  	}	
+
 });
 
-$('#thin').on('click', function() {
-    thickness = 1;
+$('#drawButton').on('click', function() {
     eraserPressed = false;
 });
 
-$('#medium').on('click', function() {
-    thickness = 5;
-    eraserPressed = false;
-});
 
-$('#thick').on('click', function() {
-    thickness = 10;
-    eraserPressed = false;
-});
 
 $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
@@ -212,4 +251,12 @@ $('#eraser').on('click', function() {
 $('#clear').on('click', function() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	socket.emit('clear');
+});
+
+
+var brushSlider = new Slider('#ex2', {
+  formatter: function(value) {
+  	thickness = value;
+    return value;
+  }
 });
