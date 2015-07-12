@@ -6,9 +6,10 @@ var socket = io();
 var player;
 var videoState;
 var newUser = true;
-var moveSlider=setInterval(function () {myTimer()}, 500);
+var moveSlider=setInterval(function () {myTimer()}, 300);;
 
 function onYouTubePlayerAPIReady() {
+
   player = new YT.Player('video', {
     events: {
       'onReady': onPlayerReady,
@@ -46,6 +47,7 @@ function onPlayerReady(event) {
   var playButton = document.getElementById("PlayButton");
   playButton.addEventListener("click", function() {
     playPause();
+    //$.notify("Play Button Pressed");
   });
 
   var muteButton = document.getElementById("MuteButton");
@@ -102,6 +104,7 @@ function playPause(){
   }
   if(player.getPlayerState() == 0){
     player.seekTo(0, true);
+    syncSkip(0);
   }
 
 }
@@ -175,14 +178,32 @@ socket.on('syncReceived', function(time, state) {
   player.seekTo(time, true);
     if (state != 1 && state != 3) {
       player.pauseVideo();
+    }else if(state == 1 || state == 5){
+      player.playVideo();
     }
 });
 
 socket.on('pauseReceived', function(){
   if(player.getPlayerState != 2){
     player.pauseVideo();
+
+  $("#PlayButton").notify(
+  "Video Paused",
+
+
+  { 
+    position:"top",
+    style: 'bootstrap',
+    className: 'info',
+    autoHide: true,
+    autoHideDelay: 3000
+  }
+  );
+
   }
 });
+
+
 
 socket.on('playReceived', function(){
   if(player.getPlayerState != 1){
@@ -205,24 +226,31 @@ socket.on('normalPlaybackReceived', function(){
 
 //Slider
 var slider = new Slider('#ex1', {
-  value: currentTime(),
+  //value: currentTime(),
   tooltip: 'hide',
   formatter: function(value) {
     
     if(currentTime() && returnDuration)
-      console.log(Math.round(currentTime()/returnDuration()*100));
+      //console.log(Math.round(currentTime()/returnDuration()*100));
     return value;
   }
 });
 
 slider.on('slide',function(value){
-  console.log(value);
+  //console.log(value);
   youtubeSliderTime(value);
+});
+
+slider.on('change',function(value){
+  if(Math.abs(value.oldValue - value.newValue) > 12){
+    youtubeSliderTime(value.newValue);
+  }
 });
 
 
 function youtubeSliderTime(value){
   if(player){
+    player.seekTo(player.getDuration()*(value/1000), true);
     syncSkip(player.getDuration()*(value/1000));
   }
   
@@ -236,14 +264,19 @@ function returnDuration(){
 
 function currentTime(){
   if(player){
-    return player.getCurrentTime();
+    return (player.getCurrentTime());
   }
   else{
     return 0;
   }
 } 
 
+  
+
 function myTimer() {
-    slider.setValue(Math.round(currentTime()/returnDuration()*1000));
-    //console.log("play bar move");
+  if(player){
+    if(player.getCurrentTime){
+      slider.setValue(Math.round(currentTime()/returnDuration()*1000));
+    }
+  }
 }
