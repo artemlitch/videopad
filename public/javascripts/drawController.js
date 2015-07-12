@@ -136,11 +136,13 @@ function draw(x, y, pressed) {
 
 function erase(x, y, pressed) {
 	if (pressed) {
-		ctx.clearRect(x, y, -5, -5);
-		ctx.clearRect(x, y, 5, -5);
-		ctx.clearRect(x, y, -5, 5);
-		ctx.clearRect(x, y, 5, 5);
+		ctx.lineWidth = thickness;
+		ctx.clearRect(x, y, -thickness, -thickness);
+		ctx.clearRect(x, y, thickness, -thickness);
+		ctx.clearRect(x, y, -thickness, thickness);
+		ctx.clearRect(x, y, thickness, thickness);
         var data = {
+        	thickness: ctx.lineWidth,
             x: x,
             y: y
         }
@@ -162,10 +164,11 @@ function drawReceived(data) {
 }
 
 function eraseReceived(data) {
-	ctx.clearRect(data.x, data.y, -5, -5);
-	ctx.clearRect(data.x, data.y, 5, -5);
-	ctx.clearRect(data.x, data.y, -5, 5);
-	ctx.clearRect(data.x, data.y, 5, 5);
+	ctx.lineWidth = data.thickness;
+	ctx.clearRect(data.x, data.y, -data.thickness, -data.thickness);
+	ctx.clearRect(data.x, data.y, data.thickness, -data.thickness);
+	ctx.clearRect(data.x, data.y, -data.thickness, data.thickness);
+	ctx.clearRect(data.x, data.y, data.thickness, data.thickness);
 }
 
 function clearReceived() {
