@@ -137,9 +137,9 @@ function draw(x, y, pressed) {
 function erase(x, y, pressed) {
 	if (pressed) {
 		ctx.lineWidth = thickness;
-		ctx.clearRect(x, y, -thickness, -thickness);
-		ctx.clearRect(x, y, thickness, -thickness);
-		ctx.clearRect(x, y, -thickness, thickness);
+		//ctx.clearRect(x, y, -thickness, -thickness);
+		//ctx.clearRect(x, y, thickness, -thickness);
+		//ctx.clearRect(x, y, -thickness, thickness);
 		ctx.clearRect(x, y, thickness, thickness);
         var data = {
         	thickness: ctx.lineWidth,
@@ -165,9 +165,9 @@ function drawReceived(data) {
 
 function eraseReceived(data) {
 	ctx.lineWidth = data.thickness;
-	ctx.clearRect(data.x, data.y, -data.thickness, -data.thickness);
-	ctx.clearRect(data.x, data.y, data.thickness, -data.thickness);
-	ctx.clearRect(data.x, data.y, -data.thickness, data.thickness);
+	//ctx.clearRect(data.x, data.y, -data.thickness, -data.thickness);
+	//ctx.clearRect(data.x, data.y, data.thickness, -data.thickness);
+	//ctx.clearRect(data.x, data.y, -data.thickness, data.thickness);
 	ctx.clearRect(data.x, data.y, data.thickness, data.thickness);
 }
 
@@ -190,13 +190,11 @@ $(window).keypress(function(e) {
   }
   if (e.which == 101) { //e key
   		eraserPressed = true;
-  		$('#whiteboard').css('cursor',"url('../stylesheets/squareCursor.ico') 50 50, default");
+  		setCursor();
   }
   if (e.which == 100) { //d key
 	eraserPressed = false;
-	$('#whiteboard').css('cursor',"url('../stylesheets/circleCursor.ico') 50 50, default");
-	$('#whiteboard').css('width',"1%");
-	$('#whiteboard').css('height',"1%");
+	setCursor();
   }
 
 
@@ -238,7 +236,7 @@ $(window).keypress(function(e) {
 
 $('#drawButton').on('click', function() {
     eraserPressed = false;
-    $('#whiteboard').css('cursor',"url('../stylesheets/circleCursor.ico') 50 50, default");
+    setCursor();
 });
 
 
@@ -255,7 +253,7 @@ $('.colorpicker').mouseup(function() {
 
 $('#eraser').on('click', function() {
 		eraserPressed = true;	
-		$('#whiteboard').css('cursor',"url('../stylesheets/squareCursor.ico') 50 50, default");
+		setCursor();
 });
 
 $('#clear').on('click', function() {
@@ -267,6 +265,75 @@ $('#clear').on('click', function() {
 var brushSlider = new Slider('#ex2', {
   formatter: function(value) {
   	thickness = value;
+  	setCursor();
     return value;
   }
 });
+
+function setCursor(){
+	if(!eraserPressed){
+		if(thickness <= 5){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-5px.ico') 2 2, default");
+		}
+		else if(thickness > 5 && thickness <= 10){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-10px.ico') 5 5, default");
+		}
+		else if(thickness > 10 && thickness <= 15){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-15px.ico') 7 7, default");
+		}
+		else if(thickness > 15 && thickness <= 20){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-20px.ico') 10 10, default");
+		}
+		else if(thickness > 20 && thickness <= 25){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-25px.ico') 12 12, default");
+		}
+		else if(thickness > 25 && thickness <= 30){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-30px.ico') 15 15, default");
+		}
+		else if(thickness > 30 && thickness <= 35){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-35px.ico') 17 17, default");
+		}
+		else if(thickness > 35 && thickness <= 40){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-40px.ico') 20 20, default");
+		}
+		else if(thickness > 40 && thickness <= 45){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-45px.ico') 22 22, default");
+		}
+		else if(thickness > 45 && thickness <= 50){
+			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-50px.ico') 25 25, default");
+		}
+	}
+	else{
+		if(thickness <= 5){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-5px.ico') 0 0, default");
+		}
+		else if(thickness > 5 && thickness <= 10){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-10px.ico') 0 0, default");
+		}
+		else if(thickness > 10 && thickness <= 15){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-15px.ico') 0 0, default");
+		}
+		else if(thickness > 15 && thickness <= 20){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-20px.ico') 0 0, default");
+		}
+		else if(thickness > 20 && thickness <= 25){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-25px.ico') 0 0, default");
+		}
+		else if(thickness > 25 && thickness <= 30){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-30px.ico') 0 0, default");
+		}
+		else if(thickness > 30 && thickness <= 35){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-35px.ico') 0 0, default");
+		}
+		else if(thickness > 35 && thickness <= 40){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-40px.ico') 0 0, default");
+		}
+		else if(thickness > 40 && thickness <= 45){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-45px.ico') 0 0, default");
+		}
+		else if(thickness > 45 && thickness <= 50){
+			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-50px.ico') 0 0, default");
+		}
+		
+	}
+}

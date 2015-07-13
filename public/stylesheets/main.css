@@ -23,7 +23,7 @@ body {
     position: absolute;
     left: 0px;
     color: rgba(0, 0, 0, 0);
-    cursor: url('./circleCursor.ico') 50 50, default;
+    cursor: url('../Cursors/circleCursor-15px.ico') 7 7, default;
     z-index: 100;
 }
 
