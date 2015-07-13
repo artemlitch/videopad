@@ -250,8 +250,8 @@ slider.on('change',function(value){
 
 function youtubeSliderTime(value){
   if(player){
-    player.seekTo(player.getDuration()*(value/1000), true);
-    syncSkip(player.getDuration()*(value/1000));
+    player.seekTo(player.getDuration()*(value/10000), true);
+    syncSkip(player.getDuration()*(value/10000));
   }
   
 }
@@ -276,7 +276,8 @@ function currentTime(){
 function myTimer() {
   if(player){
     if(player.getCurrentTime){
-      slider.setValue(Math.round(currentTime()/returnDuration()*1000));
+      slider.setValue(Math.round(currentTime()/returnDuration()*10000));
     }
   }
 }
+
