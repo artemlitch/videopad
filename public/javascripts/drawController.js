@@ -5,11 +5,8 @@ var canvas, ctx, sidebar;
 var prevX, prevY;
 
 var colour = 'black';
+var colourPresets = ['red', 'blue', 'yellow','green'];
 
-var colourPreset1 = 'black';
-var colourPreset2 = 'black';
-var colourPreset3 = 'black';
-var colourPreset4 = 'black';
 
 var colourPreview = document.getElementById('colour-preview');
 var thickness = 5;
@@ -136,13 +133,13 @@ function draw(x, y, pressed) {
 
 function erase(x, y, pressed) {
 	if (pressed) {
-		ctx.lineWidth = thickness;
-		//ctx.clearRect(x, y, -thickness, -thickness);
-		//ctx.clearRect(x, y, thickness, -thickness);
-		//ctx.clearRect(x, y, -thickness, thickness);
-		ctx.clearRect(x, y, thickness, thickness);
+		var eraseThickness = Math.round(thickness/2);
+		ctx.clearRect(x, y, -eraseThickness, -eraseThickness);
+		ctx.clearRect(x, y, eraseThickness, -eraseThickness);
+		ctx.clearRect(x, y, -eraseThickness, eraseThickness);
+		ctx.clearRect(x, y, eraseThickness, eraseThickness);
         var data = {
-        	thickness: ctx.lineWidth,
+        	thickness: eraseThickness,
             x: x,
             y: y
         }
@@ -164,10 +161,9 @@ function drawReceived(data) {
 }
 
 function eraseReceived(data) {
-	ctx.lineWidth = data.thickness;
-	//ctx.clearRect(data.x, data.y, -data.thickness, -data.thickness);
-	//ctx.clearRect(data.x, data.y, data.thickness, -data.thickness);
-	//ctx.clearRect(data.x, data.y, -data.thickness, data.thickness);
+	ctx.clearRect(data.x, data.y, -data.thickness, -data.thickness);
+	ctx.clearRect(data.x, data.y, data.thickness, -data.thickness);
+	ctx.clearRect(data.x, data.y, -data.thickness, data.thickness);
 	ctx.clearRect(data.x, data.y, data.thickness, data.thickness);
 }
 
@@ -201,34 +197,34 @@ $(window).keypress(function(e) {
   //colour presets
   	//Preset 1
     if (e.which == 33) { //! key
-    	colourPreset1 = colour;
+    	colourPresets[0] = colour;
   	}
   	if (e.which == 49) { //1 key
-  		colour = colourPreset1;
+  		colour = colourPresets[0];
   		colourPreview.style.backgroundColor = colour;
   	}
   	//Preset 2
     if (e.which == 64) { //@ key
-    	colourPreset2 = colour;
+    	colourPresets[1] = colour;
   	}
   	if (e.which == 50) { //2 key
-  		colour = colourPreset2;
+  		colour = colourPresets[1];
   		colourPreview.style.backgroundColor = colour;
   	}
   	//Preset 3
     if (e.which == 35) { //# key
-    	colourPreset3 = colour;
+    	colourPresets[2] = colour;
   	}
   	if (e.which == 51) { //3 key
-  		colour = colourPreset3;
+  		colour = colourPresets[2];
   		colourPreview.style.backgroundColor = colour;
   	}
    	//Preset 4
     if (e.which == 36) { //$ key
-    	colourPreset4 = colour;
+    	colourPresets[3] = colour;
   	}
   	if (e.which == 52) { //4 key
-  		colour = colourPreset4;
+  		colour = colourPresets[3];
   		colourPreview.style.backgroundColor = colour;
   	}	
 
@@ -271,69 +267,18 @@ var brushSlider = new Slider('#ex2', {
 });
 
 function setCursor(){
+	var roundedThickness = Math.round(thickness/5)*5;
+	var url;
+	if(roundedThickness==0)
+		roundedThickness = 5;
+	var spacing = Math.round(roundedThickness/2);
+
 	if(!eraserPressed){
-		if(thickness <= 5){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-5px.ico') 2 2, default");
-		}
-		else if(thickness > 5 && thickness <= 10){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-10px.ico') 5 5, default");
-		}
-		else if(thickness > 10 && thickness <= 15){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-15px.ico') 7 7, default");
-		}
-		else if(thickness > 15 && thickness <= 20){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-20px.ico') 10 10, default");
-		}
-		else if(thickness > 20 && thickness <= 25){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-25px.ico') 12 12, default");
-		}
-		else if(thickness > 25 && thickness <= 30){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-30px.ico') 15 15, default");
-		}
-		else if(thickness > 30 && thickness <= 35){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-35px.ico') 17 17, default");
-		}
-		else if(thickness > 35 && thickness <= 40){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-40px.ico') 20 20, default");
-		}
-		else if(thickness > 40 && thickness <= 45){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-45px.ico') 22 22, default");
-		}
-		else if(thickness > 45 && thickness <= 50){
-			$('#whiteboard').css('cursor',"url('../Cursors/circleCursor-50px.ico') 25 25, default");
-		}
+		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		$('#whiteboard').css('cursor',url);
 	}
 	else{
-		if(thickness <= 5){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-5px.ico') 0 0, default");
-		}
-		else if(thickness > 5 && thickness <= 10){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-10px.ico') 0 0, default");
-		}
-		else if(thickness > 10 && thickness <= 15){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-15px.ico') 0 0, default");
-		}
-		else if(thickness > 15 && thickness <= 20){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-20px.ico') 0 0, default");
-		}
-		else if(thickness > 20 && thickness <= 25){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-25px.ico') 0 0, default");
-		}
-		else if(thickness > 25 && thickness <= 30){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-30px.ico') 0 0, default");
-		}
-		else if(thickness > 30 && thickness <= 35){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-35px.ico') 0 0, default");
-		}
-		else if(thickness > 35 && thickness <= 40){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-40px.ico') 0 0, default");
-		}
-		else if(thickness > 40 && thickness <= 45){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-45px.ico') 0 0, default");
-		}
-		else if(thickness > 45 && thickness <= 50){
-			$('#whiteboard').css('cursor',"url('../Cursors/squareCursor-50px.ico') 0 0, default");
-		}
-		
+		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		$('#whiteboard').css('cursor',url);			
 	}
 }
