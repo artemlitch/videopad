@@ -138,7 +138,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('playVid', function() {
-        console.log(user.room + " wants to play vid")
+        //console.log(user.room + " wants to play vid")
         if (user.room) {
             socket.broadcast.to(user.room).emit('playReceived');
         }
