@@ -24,9 +24,9 @@ $(document).ready(function() {
     });
 
     socket.on('getRoomInfo', function(userId) {
-        console.log(canvas.toDataURL());
-        console.log(userId + " WANTS TO SEE SOME SHIT");
-        console.log(player)
+        //console.log(canvas.toDataURL());
+        //console.log(userId + " WANTS TO SEE SOME SHIT");
+        //console.log(player)
         data = {
             userId: userId,
             img: canvas.toDataURL(),
@@ -37,7 +37,7 @@ $(document).ready(function() {
     });
     
     socket.on('enterRoomInfo', function(data) {
-        console.log(data);
+        //console.log(data);
         loadCanvasImage(data.img);
     });
         
