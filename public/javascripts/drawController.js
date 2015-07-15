@@ -275,10 +275,10 @@ function setCursor(){
 
 	if(!eraserPressed){
 		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor',url);
+		$('#whiteboard').css('cursor', url);
 	}
 	else{
 		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor',url);			
+		$('#whiteboard').css('cursor', url);			
 	}
 }
