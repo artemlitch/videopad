@@ -12,6 +12,4 @@ $(document).ready(function() {
        $('#roomNameLabel').text("Click To Show Room Key");
 
     });
-	 
-        
 })

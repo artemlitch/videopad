@@ -60,6 +60,9 @@ function init() {
     resizeCanvas();
 	window.addEventListener('resize', resizeCanvas, false);
 }
+
+init();
+
 function loadCanvasImage(imgSource) {
     var img = new Image();
     img.onload = function () {

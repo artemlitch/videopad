@@ -1,187 +1,53 @@
+// This is the main file of our chat app. It initializes a new 
+// express.js instance, requires the config and routes files
+// and listens on a port. Start the application by running
+// 'foreman start web' in your terminal
+var url = require('url');
 var express = require('express');
-var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser');
 
-var http = require('http');
-var app = express();
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.set('port', process.env.PORT || 3000);
+var config = require("./config_local.js");
 
-app.use(favicon());
-app.use(logger('dev'));
+app = express();
+// This is needed if the app is run on heroku:
+var port = process.env.PORT || 5000;
+
+// must use cookieParser before expressSession
+app.use(cookieParser(config.cookieSecret()));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// Set .html as the default template extension
+app.set('view engine', 'jade');
 
-/// Socket
-/// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+// Initialize the ejs template engine
+// Tell express where it can find the templates
+app.set('views', __dirname + '/views');
 
-/// error handlers
+app.use(express.static(__dirname + '/public'));
+// Make the files in the public folder available to the world
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
+
+var db = require('./server/redis.js')(app, config);
+var RedisStore = require("connect-redis")(expressSession);
+var sessionMiddleware = expressSession({
+        secret: config.cookieSecret(), 
+        saveUninitialized: true, 
+        resave: true,
+        store: new RedisStore({ host: config.dbHost(),  port: config.dbPort(), client: db.getClient() })
         });
-    });
-}
+app.use(sessionMiddleware);
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
-var server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on port: ' + server.address().port);
-});
-
-// Setting up IO client
-var io = require('socket.io').listen(server);
-io.on('connection', function(socket) {
-
-    var user = {
-        id: socket.id,
-        room: '',
-    };
-    console.log(user.id + ' connected ');
-    socket.emit('userInfo' , user);
-
-    socket.on('createRoom', function() {
-        var roomId = socket.id;
-        user.room = roomId;
-        socket.join(roomId);
-        socket.emit('roomCreateConf', user);
-        console.log(user.room + " new room ");
-    });
+var io = require('./server/socket.js')(app, db, sessionMiddleware);
 
 
-    socket.on('joinRoom', function(roomId) {
-        user.room = roomId;
-        if(io.sockets.adapter.rooms[roomId]){
-            var roomClients = io.sockets.adapter.rooms[roomId];
-            for (client in roomClients) {
-                socket.to(client).emit('getRoomInfo', user.id);
-                break;
-            }
-            socket.join(roomId);
-            socket.emit('roomJoinConf', user);        
-            console.log(user.room + " Entered Room");
-        } else {
-            //TODO: add handler on client to show stupid ppl to stop
-            console.log("ROOM DOESNT EXIST")
-        }
-    });
-    
-    socket.on('sentRoomInfo' , function(data) {
-        socket.to(data.userId).emit('enterRoomInfo', data);
-    });
-    socket.on('seeKey', function() {
-        var roomId = user.room;
-        socket.emit('showKey', roomId);
-    });
-    
-    socket.on('draw', function(data) {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('drawReceived', data);
-        }
-    });
+require('./routes/index')(app, db);
+console.log('Your application is running on http://localhost:' + port);
 
-    socket.on('erase', function(data) {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('eraseReceived', data);
-        }
-    });
-
-    socket.on('clear', function() {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('clearReceived');
-        }
-    });
-
-    //Youtube IO
-    socket.on('loadVid', function(url) {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('vidReceived', url);
-        }
-    });
-
-    socket.on('pauseVid', function() {
-
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('pauseReceived');
-        }
-    });
-
-    socket.on('playVid', function() {
-        //console.log(user.room + " wants to play vid")
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('playReceived');
-        }
-    });
-
-    socket.on('playFaster', function() {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('playFasterReceived');
-        }
-    });
-
-    socket.on('playSlower', function() {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('playSlowerReceived');
-        }
-    });
-
-    socket.on('normalPlayback', function() {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('normalPlaybackReceived');
-        }
-    });
-
-    socket.on('syncVid', function(time, state) {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('syncReceived', time, state);
-        }
-    });
-
-    socket.on('syncUrl', function(url) {
-        if (user.room) {
-            socket.broadcast.to(user.room).emit('urlReceived', url);
-        }
-    });
-    //End YouTube IO
-    socket.on('disconnect', function() {
-        socket.leave(user.room);
-        console.log('user disconnected');
-    });
-
-
-});
-
-
+//var redisURL = url.parse(process.env.REDISCLOUD_URL);
+//var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+//client.auth(redisURL.auth.split(":")[1]);
 
 module.exports = app;
