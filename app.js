@@ -12,6 +12,7 @@ var config = require("./config_local.js");
 
 app = express();
 // This is needed if the app is run on heroku:
+console.log(process.env)
 var port = process.env.PORT || 5000;
 
 // must use cookieParser before expressSession

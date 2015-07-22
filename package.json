@@ -16,6 +16,8 @@
     "connect-redis": "^2.0.0",
     "redis": "^0.12.1",
     "requirejs": "^2.1.19",
+    "uuid": "^2.0.1", 
+    "bcrypt-nodejs": "^0.0.3",
     "nodemon": "*"
   }
 }

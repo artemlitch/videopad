@@ -1,4 +1,5 @@
 // All redis code goes here
+var bcrypt = require('bcrypt-nodejs');
 module.exports = function(app, db, sessionMiddleware){
    
     var port = process.env.PORT || 5000;
@@ -16,7 +17,6 @@ module.exports = function(app, db, sessionMiddleware){
         };
         
         socket.on('joinRoom', function(roomId) {
-            console.log(socket.request.session)
             if(!socket.request.session) {
                 return;
             }    
@@ -25,32 +25,37 @@ module.exports = function(app, db, sessionMiddleware){
             //when we join a room attach the user for this socket session
             //to this room
             //do a DB check to make sure this user has access to room
-            redis.get(db.roomKey(roomId), function (err, response) {
-                room = response;
-                if(room) {
-                    redis.get(db.roomPasswordKey(roomId), function (err, response) {
+            console.log(sessUser +  " wants to join");
+            db.getRoomKey(roomId, function (err, response) {
+                var room = response;
+                if(!room) {
+                    socket.emit('failJoinConf', sessUser);        
+                    console.log("strange error Occured"); 
+                } else {
+                    db.getRoomPasswordKey(roomId, function (err, response) {
                         password = response;
                         if(sessPass == password) {
                             user.room = roomId; 
-                            var roomClients = io.sockets.adapter.rooms[roomId];
-                            console.log(roomClients)
-                            for (client in roomClients) {
-                                socket.to(client).emit('getRoomInfo', user.id);
-                                break;
-                            }
                             socket.join(roomId);
                             socket.emit('roomJoinConf', sessUser);        
                             console.log(sessUser + " entered room" + roomId);
                         } else {
+                            socket.emit('failJoinConf', sessUser);        
                             console.log("wrong password, how could thi be!");            
                         }
                     });
-                 } else {
-                    console.log("strange error Occured"); 
-                 }
+                }
             });
         });
-        
+        socket.on('getRoomInfo', function() {
+            if(user.room) {
+                var roomClients = io.sockets.adapter.rooms[user.room];
+                for (client in roomClients) {
+                    socket.to(client).emit('sendRoomInfo', user.id);
+                    break;
+                }
+            }
+        });
         socket.on('sentRoomInfo' , function(data) {
             socket.to(data.userId).emit('enterRoomInfo', data);
         });
@@ -88,7 +93,6 @@ module.exports = function(app, db, sessionMiddleware){
         });
 
         socket.on('playVid', function() {
-            console.log(user.room + " wants to play vid")
             if (user.room) {
                 socket.broadcast.to(user.room).emit('playReceived');
             }
@@ -127,7 +131,6 @@ module.exports = function(app, db, sessionMiddleware){
         //End YouTube IO
         socket.on('disconnect', function() {
             socket.leave(user.room);
-            console.log('user disconnected');
         });
 
     });

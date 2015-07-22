@@ -1,8 +1,19 @@
 $(document).ready(function() {
     var socket = io();
-	var roomId = Number(window.location.pathname.match(/\/room\/(\d+)$/)[1]);
 
-
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+    var roomId = getUrlVars()["next"];
     function alertName() {
         $('#usernameField').fadeOut(100).fadeIn(100);
     }    
@@ -29,7 +40,7 @@ $(document).ready(function() {
                 success: function(data) {
                     console.log('success');
                     if(data.password) {
-                        window.location.href = window.location.href; 
+                        window.location = data.redirect; 
                     } else {
                         console.log("failed Password");
                         alertPassword();

@@ -87,11 +87,7 @@ function resizeCanvas() {
     canvas.width = vidWidth;
     var canvasHolder = $("#whiteboard-holder");
     canvasHolder.css("left", xPosition);
-    var img = new Image();
-    img.onload = function () {
-        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
-    }
-    img.src = data;
+    loadCanvasImage(data);
 }
 
 socket.on('drawReceived', function(data) {
