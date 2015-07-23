@@ -8,13 +8,10 @@ module.exports = function(app, db){
         res.render('splash');
     });
     
-    var redis = db.getClient();
-
 	app.post('/createRoom', function(req,res){
 		// Generate unique id for the room
         var roomId = uuid.v1();
         console.log("create: " + roomId);
-        // Redirect to the random room
         var userData = req.body;
         //Hash the password given
         var passHash = bcrypt.hashSync(roomId + userData.ps);
@@ -64,10 +61,11 @@ module.exports = function(app, db){
             }
         });
     });
+
     app.get('/login', function(req, res) {
         res.render('password');
-
     });
+
     app.get('/room/:id', function(req, res){
         var room = null;
         var roomId = req.param('id');

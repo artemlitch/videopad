@@ -4,7 +4,6 @@ module.exports = function(app, db, sessionMiddleware){
    
     var port = process.env.PORT || 5000;
     var io = require('socket.io').listen(app.listen(port));
-    var redis = db.getClient();
 
     io.use(function(socket, next) {
         sessionMiddleware(socket.request, socket.request.res, next);
@@ -33,7 +32,7 @@ module.exports = function(app, db, sessionMiddleware){
                     console.log("strange error Occured"); 
                 } else {
                     db.getRoomPasswordKey(roomId, function (err, response) {
-                        password = response;
+                        var password = response;
                         if(sessPass == password) {
                             user.room = roomId; 
                             socket.join(roomId);

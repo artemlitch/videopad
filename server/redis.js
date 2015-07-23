@@ -1,8 +1,9 @@
 // All redis code goes here
 module.exports = function(app, config){
-    
-    var redis = require("redis").createClient(config.dbPort());
-
+    var url = require('url');
+    var redisURL = url.parse(process.env.REDISCLOUD_URL);
+    var redis = require("redis").createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+    redis.auth(redisURL.auth.split(":")[1]);
     redis.on("connect", function () {
         console.log("DB RUNNING");
     });
@@ -11,6 +12,8 @@ module.exports = function(app, config){
     });
 
     var db = {
+        port : redisURL.port,
+        hostname: redisURL.hostname,
         roomKey: function(id) {
             return "room:" + id;
         },
@@ -34,15 +37,10 @@ module.exports = function(app, config){
         getRoomKey: function(id, callback) {
             redis.get(this.roomKey(id), callback);
         },
+
         getRoomPasswordKey: function(id, callback) {
             redis.get(this.roomPasswordKey(id), callback);
         }, 
-
-        setRoomPasswordKey: function(id, key) {
-            redis.set(this.roomPasswordKey(id), key, function(err) {
-                if(err) throw err;
-            });
-        },
 
         getClient: function() {
             return redis;

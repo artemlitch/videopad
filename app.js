@@ -37,7 +37,7 @@ var sessionMiddleware = expressSession({
         secret: config.cookieSecret(), 
         saveUninitialized: true, 
         resave: true,
-        store: new RedisStore({ host: config.dbHost(),  port: config.dbPort(), client: db.getClient() })
+        store: new RedisStore({ host: db.hostname,  port: db.port, client: db.getClient() })
         });
 app.use(sessionMiddleware);
 
