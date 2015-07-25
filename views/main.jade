@@ -64,18 +64,32 @@ block content
             div(id='video-container' class='video-container') 
                 iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
 
-        div(class='container' style='background: white;') 
+        div(class='container' style='background: black; padding-bottom: 10px; padding-top: 5px;') 
                 input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
-                ul(class='nav navbar-nav pull-left') 
-                    li
-                        a(id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
-                                i(class='fa fa-play fa-lg')
-                    li
-                        a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
-                            i(class='fa fa-plus fa-lg')
-                    li
-                        a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
-                                i(class='fa fa-volume-off fa-lg')
+                div(class='row' style='padding-top: 10px;')
+                    div(class = 'col-sm-1')
+                         div(class = 'col-sm-6')
+                             a(id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                                    i(id="playButtonIcon" class='fa fa-play fa-lg')   
+                         div(class = 'col-sm-6')
+                                a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                                    i(class='fa fa-plus fa-lg')
+                    div(class = 'col-sm-2')
+                        div(class = 'col-sm-3')
+                            a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                                   i(class='fa fa-volume-off fa-lg') 
+                        div(class = 'col-sm-9')
+                               input(id='volumeSlider' data-slider-id='ex2Slider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='75' data-slider-tooltip='hide')  
+                div(class='row')     
+                   // li
+                    //    a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                   //             i(class='fa fa-volume-off fa-lg')
+                   // li
+                    ////    a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Volume')
+                       //     i(class='fa fa-volume-up fa-lg')
+                      //  ul(class='dropdown-menu')
+                       //     li
+                        //        input(id='volumeSlider' data-slider-id='ex2Slider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-//value='75')
 
                 
                 
