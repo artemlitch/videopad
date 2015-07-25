@@ -95,13 +95,20 @@ function loadVideo(url) {
 }
 
 function playPause(){
+  
+  console.log(player.getPlayerState());
   if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 ){
     player.playVideo();
     socket.emit('playVid');
-  }
+    $("#playButtonIcon").removeClass('fa-play');
+    $("#playButtonIcon").addClass('fa-pause');
+    
+}
   if(player.getPlayerState() == 1){
     player.pauseVideo();
     socket.emit('pauseVid');
+    $("#playButtonIcon").removeClass('fa-pause');
+    $("#playButtonIcon").addClass('fa-play');
   }
   if(player.getPlayerState() == 0){
     player.seekTo(0, true);
@@ -148,12 +155,12 @@ function normalize(){
 
 function turnUp(){
   var volume = player.getVolume() + 5;
-  player.setVolume(volume);
+  volumeSlider.setValue(volume);
 }
 
 function turnDown(){
   var volume = player.getVolume() - 5;
-  player.setVolume(volume);
+  volumeSlider.setValue(volume);
 }
 //End YouTubePlayer Functions
 function parseURL(url) {
@@ -185,6 +192,8 @@ socket.on('syncReceived', function(time, state) {
 });
 
 socket.on('pauseReceived', function(){
+  $("#playButtonIcon").addClass('fa-play');
+  $("#playButtonIcon").removeClass('fa-pause');
   if(player.getPlayerState != 2){
     player.pauseVideo();
 
@@ -207,6 +216,8 @@ socket.on('pauseReceived', function(){
 
 
 socket.on('playReceived', function(){
+  $("#playButtonIcon").removeClass('fa-play');
+  $("#playButtonIcon").addClass('fa-pause');
   if(player.getPlayerState != 1){
     player.playVideo();
   }
@@ -231,7 +242,7 @@ var slider = new Slider('#ex1', {
   tooltip: 'hide',
   formatter: function(value) {
     
-    if(currentTime() && returnDuration)
+   if(currentTime() && returnDuration) //i dont remember what this does exactly but it breaks shit if not here
       //console.log(Math.round(currentTime()/returnDuration()*100));
     return value;
   }
@@ -281,4 +292,12 @@ function myTimer() {
     }
   }
 }
+
+var volumeSlider = new Slider('#volumeSlider', {
+  formatter: function(value) {
+    if(player)
+      player.setVolume(value);
+    return value;
+  }
+});
 
