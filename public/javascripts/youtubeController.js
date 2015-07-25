@@ -16,6 +16,7 @@ function onYouTubePlayerAPIReady() {
       'onStateChange': onPlayerStateChange
     }
   });
+  socket.emit('getRoomInfo');
 }
 
 function onPlayerStateChange(event) {

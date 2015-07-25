@@ -1,0 +1,8 @@
+{
+  "name":"lolcoach",
+  "scripts":{},
+  "env":{},
+  "addons":[
+    "rediscloud"
+  ]
+}

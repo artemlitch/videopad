@@ -9,60 +9,48 @@ block content
             div(class='container')
 
                 div(class='navbar-header')
-                    a(class='navbar-brand' href='#') LoLCoach
-
-                //div(class='divider' id='first-divider')
+                    a(class='navbar-brand') LoLCoach
 
                 div(id='navbar')
                     ul(class='nav navbar-nav')
                         li(id='colour-preview')
-                            a(class='colourpicker' href='#' data-toggle='dropdown') 
-
-
+                            a(class='colourpicker' data-toggle='dropdown') 
 
                         li(class='dropdown thickness')
-                            a(href='#' data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
+                            a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
                                 i(class='fa fa-tint fa-lg')
                             ul(class='dropdown-menu')
                                 li
                                     input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12')   
                                 
                         li
-                            a(href='#' id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
+                            a(id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
                                 i(class='fa fa-pencil fa-lg')
 
                         li
-                            a(href='#' id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
+                            a(id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
                                 span(class='fa fa-eraser fa-lg')
 
                         li
-                            a(href='#' id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
+                            a(id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
                                 span(class='fa fa-trash-o fa-lg')
 
                     ul(class='nav navbar-nav pull-right')
                         //li
-                        //    a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                        //    a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
                         //        i(class='fa fa-plus fa-lg')
                         //li
-                        //    a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                        //    a(id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
                         //        i(class='fa fa-play fa-lg')
                         //li
-                        //    a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                        //    a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
                         //        i(class='fa fa-volume-off fa-lg') 
-                        li
-                            h3(href='#' id='roomNameLabel' class='label roomName label-success') No Current Room
                         li 
                             p(role='separator' class='divider')
                             p(role='separator' class='divider')
                             p(role='separator' class='divider')
                         li
-                            a(href='#' id='createRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Create Room')
-                                i(class='fa fa-plus fa-lg')
-                        li
-                            a(href='#' id='joinRoomBtn' data-tooltip='tooltip' data-placement='bottom' title='Join Room')
-                                i(class='fa fa-sign-in fa-lg') 
-                        li
-                            a(href='#' data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                            a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
                                 i(class='fa fa-sign-out fa-lg') 
 
 
@@ -80,17 +68,29 @@ block content
                 input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
                 ul(class='nav navbar-nav pull-left') 
                     li
-                        a(href='#' id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
+                        a(id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
                                 i(class='fa fa-play fa-lg')
                     li
-                        a(href='#' id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                        a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
                             i(class='fa fa-plus fa-lg')
                     li
-                        a(href='#' id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
+                        a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
                                 i(class='fa fa-volume-off fa-lg')
 
                 
                 
-
-                  
-            
+        
+        //load the scripts for this page
+        link(rel='stylesheet' href='/stylesheets/main.css')
+        script(src='/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js')
+        script(src='/notify/notify.js')
+        script(src='/bootstrap-slider/js/bootstrap-slider.js')
+        script(src='/javascripts/drawController.js')
+        script(src='/javascripts/roomController.js')
+        script(src='/javascripts/youtubeController.js')
+        script(src='/javascripts/inputController.js')
+        script(type='text/javascript').
+            $('.dropdown-toggle').dropdown();
+            $('[data-tooltip="tooltip"]').tooltip();
+        script.
+            console.log("room was entered");
