@@ -187,20 +187,7 @@ socket.on('syncReceived', function(time, state) {
 socket.on('pauseReceived', function(){
   if(player.getPlayerState != 2){
     player.pauseVideo();
-
-  $("#PlayButton").notify(
-  "Video Paused",
-
-
-  { 
-    position:"bottom",
-    style: 'bootstrap',
-    className: 'info',
-    autoHide: true,
-    autoHideDelay: 700
-  }
-  );
-
+    notifyPause();
   }
 });
 
@@ -209,6 +196,7 @@ socket.on('pauseReceived', function(){
 socket.on('playReceived', function(){
   if(player.getPlayerState != 1){
     player.playVideo();
+    notifyPlay();
   }
 });
 
