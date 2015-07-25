@@ -3,56 +3,58 @@ extends layout
 block content
     body
 
-        // navbar stuff
-        div(class='navbar navbar-inverse navbar-fixed-top' role='navigation')
+        nav.navbar.navbar-default
+            .container-fluid
+                // Brand and toggle get grouped for better mobile display
+                .navbar-header
+                  button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+                    span.sr-only Toggle navigation
+                    |         
+                    span.icon-bar
+                    |         
+                    span.icon-bar
+                    |         
+                    span.icon-bar
+                  |       
+                  a.navbar-brand(href='#') LoLCoach
+                // Collect the nav links, forms, and other content for toggling
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                  ul.nav.navbar-nav       
+                    li(id='colour-preview')
+                      a(class='colourpicker' data-toggle='dropdown') 
+                    | 
+                    li(class='dropdown thickness')
+                        a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
+                            i(class='fa fa-tint fa-lg')
+                        ul(class='dropdown-menu')
+                            li
+                                input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12')
+                    li
+                        a(data-tooltip='tooltip' data-placement='bottom' title='Draw')
+                            i(class='fa fa-pencil fa-lg')
 
-            div(class='container')
+                    li
+                        a(id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
+                            span(class='fa fa-eraser fa-lg')
 
-                div(class='navbar-header')
-                    a(class='navbar-brand') LoLCoach
+                    li
+                        a(id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
+                            span(class='fa fa-trash-o fa-lg')           
+                    
 
-                div(id='navbar')
-                    ul(class='nav navbar-nav')
-                        li(id='colour-preview')
-                            a(class='colourpicker' data-toggle='dropdown') 
-
-                        li(class='dropdown thickness')
-                            a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
-                                i(class='fa fa-tint fa-lg')
-                            ul(class='dropdown-menu')
-                                li
-                                    input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12')   
-                                
-                        li
-                            a(id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
-                                i(class='fa fa-pencil fa-lg')
-
-                        li
-                            a(id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
-                                span(class='fa fa-eraser fa-lg')
-
-                        li
-                            a(id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
-                                span(class='fa fa-trash-o fa-lg')
-
-                    ul(class='nav navbar-nav pull-right')
-                        //li
-                        //    a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
-                        //        i(class='fa fa-plus fa-lg')
-                        //li
-                        //    a(id='PlayButton' data-tooltip='tooltip' data-placement='bottom' title='Play Video')
-                        //        i(class='fa fa-play fa-lg')
-                        //li
-                        //    a(id='MuteButton' data-tooltip='tooltip' data-placement='bottom' title='Mute Video')
-                        //        i(class='fa fa-volume-off fa-lg') 
-                        li 
-                            p(role='separator' class='divider')
-                            p(role='separator' class='divider')
-                            p(role='separator' class='divider')
-                        li
-                            a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
-                                i(class='fa fa-sign-out fa-lg') 
-
+                  |       
+                  ul.nav.navbar-nav.navbar-right
+                    form.navbar-form.navbar-left(role='search')
+                      .form-group
+                        input.form-control(type='text', placeholder='Video URL')
+                      |         
+                      button.btn.btn-default(type='submit') Load
+                    li
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                                i(class='fa fa-sign-out fa-lg')
+                    
+                // /.navbar-collapse
+              // /.container-fluid
 
                             
         // content
