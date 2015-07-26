@@ -57,8 +57,8 @@ function init() {
 		drawMode = false;
 		eraserMode = false;
 	});
-    resizeCanvas();
-	window.addEventListener('resize', resizeCanvas, false);
+    resizeScreen();
+	window.addEventListener('resize', resizeScreen, false);
 }
 
 init();
@@ -70,6 +70,12 @@ function loadCanvasImage(imgSource) {
     }
     img.src = imgSource;
 }
+
+function resizeScreen() {
+    resizeVideo();
+    resizeCanvas();
+}
+
 function resizeCanvas() {
     //var width = window.innerWidth;
     var windowHeight = window.innerHeight;
@@ -79,8 +85,6 @@ function resizeCanvas() {
     var youtubeContainer = $('#video-container');
     var vidWidth = youtubeContainer.width();
     var xPosition = (windowWidth - vidWidth)/2 
-    
-    
     var videoWindow = $("#video")
     // scale and redraw the canvas content
     canvas.height = videoWindow.height();
@@ -88,6 +92,23 @@ function resizeCanvas() {
     var canvasHolder = $("#whiteboard-holder");
     canvasHolder.css("left", xPosition);
     loadCanvasImage(data);
+}
+function resizeVideo() {
+    var videoHolder = $('#video-holder')
+    if(videoHolder.width() >= 250) {
+        var hDiff = innerHeight - (videoHolder.height()+70);
+        var wDiff = innerWidth - (videoHolder.width() +100)
+        if (wDiff < 0) {
+            videoHolder.width(innerWidth - 105);
+            return;
+        }
+        var ratio = videoHolder.width()/videoHolder.height();
+        var diff = innerHeight - (videoHolder.height()+70);
+        diff = diff * ratio;
+        videoHolder.width(videoHolder.width() + diff - 70);
+    } else {
+        videoHolder.width(251);
+    }
 }
 
 socket.on('drawReceived', function(data) {
