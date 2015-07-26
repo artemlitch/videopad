@@ -61,8 +61,6 @@ function init() {
 	window.addEventListener('resize', resizeScreen, false);
 }
 
-init();
-
 function loadCanvasImage(imgSource) {
     var img = new Image();
     img.onload = function () {
@@ -99,14 +97,16 @@ function resizeVideo() {
     var bottomBarHeight = $('#controlBar').height()+20; 
     if(videoHolder.width() >= 250) {
         var hDiff = (innerHeight - topBarHeight - bottomBarHeight) - videoHolder.height();
-        var wDiff = innerWidth - (videoHolder.width() +100)
+        var wDiff = innerWidth - (videoHolder.width() -50)
         if (wDiff < 0) {
-            videoHolder.width(innerWidth - 90);
+            videoHolder.width(innerWidth - 50);
             return;
         }
         var ratio = videoHolder.width()/videoHolder.height();
         var diff = hDiff * ratio;
-        videoHolder.width(videoHolder.width() + diff);
+        if((videoHolder.width() + diff) < innerWidth) {
+            videoHolder.width(videoHolder.width() + diff);
+        }
     } else {
         videoHolder.width(251);
     }
