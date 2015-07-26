@@ -1,0 +1,138 @@
+extends layout
+
+block content
+    body
+        // Header
+        header#top.header
+          .text-vertical-center
+            img(src='./img/logo.png', alt='logo')
+            |             
+            |             
+            h3= roomId 
+            |             
+            br
+            |             
+            div(class="password-field-container")
+                input(id='usernameField' type="text" class="form-control" placeholder="Enter Username")
+            div(class="password-field-container")
+                input(id='passwordField' type="password" class="form-control" placeholder="Enter Password")
+            a.btn.btn-dark.btn-lg(id ="createRoomBtn") Create Room 
+        // Services
+        // The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/
+        section#services.services.bg-primary
+          .container
+            .row.text-center
+              .col-lg-10.col-lg-offset-1
+                h2 Our Services
+                |                     
+                hr.small
+                |                     
+                .row
+                  .col-md-3.col-sm-6
+                    .service-item
+                      span.fa-stack.fa-4x
+                        i.fa.fa-circle.fa-stack-2x
+                        |                                 
+                        i.fa.fa-cloud.fa-stack-1x.text-primary
+                      |                                 
+                      h4
+                        strong Service Name
+                      |                                 
+                      p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      |                                 
+                      a.btn.btn-light(href='#') Learn More
+                  |                         
+                  .col-md-3.col-sm-6
+                    .service-item
+                      span.fa-stack.fa-4x
+                        i.fa.fa-circle.fa-stack-2x
+                        |                                 
+                        i.fa.fa-compass.fa-stack-1x.text-primary
+                      |                                 
+                      h4
+                        strong Service Name
+                      |                                 
+                      p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      |                                 
+                      a.btn.btn-light(href='#') Learn More
+                  |                         
+                  .col-md-3.col-sm-6
+                    .service-item
+                      span.fa-stack.fa-4x
+                        i.fa.fa-circle.fa-stack-2x
+                        |                                 
+                        i.fa.fa-flask.fa-stack-1x.text-primary
+                      |                                 
+                      h4
+                        strong Service Name
+                      |                                 
+                      p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      |                                 
+                      a.btn.btn-light(href='#') Learn More
+                  |                         
+                  .col-md-3.col-sm-6
+                    .service-item
+                      span.fa-stack.fa-4x
+                        i.fa.fa-circle.fa-stack-2x
+                        |                                 
+                        i.fa.fa-shield.fa-stack-1x.text-primary
+                      |                                 
+                      h4
+                        strong Service Name
+                      |                                 
+                      p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      |                                 
+                      a.btn.btn-light(href='#') Learn More
+                // /.row (nested)
+              // /.col-lg-10
+            // /.row
+          // /.container
+        // Call to Action
+        aside.call-to-action.bg-primary
+          .container
+            .row
+              .col-lg-12.text-center
+                h3 The buttons below are impossible to resist.
+                |                     
+                a.btn.btn-lg.btn-light(href='#') Click Me!
+                |                     
+                a.btn.btn-lg.btn-dark(href='#') Look at Me!
+        // Footer
+        footer
+          .container
+            .row
+              .col-lg-10.col-lg-offset-1.text-center
+                h4
+                  strong LoLCoach 
+                |                     
+                ul.list-unstyled
+                  li
+                    i.fa.fa-envelope-o.fa-fw
+                    |   
+                    a(href='mailto:arlixdev@gmail.com') arlixdev@gmail.com
+                    |                     
+                br
+                |                     
+                ul.list-inline
+                  li
+                    a(href='#')
+                      i.fa.fa-facebook.fa-fw.fa-3x
+                  |                         
+                  li
+                    a(href='#')
+                      i.fa.fa-twitter.fa-fw.fa-3x
+                  |                         
+                  li
+                    a(href='#')
+                      i.fa.fa-dribbble.fa-fw.fa-3x
+                |                     
+                hr.small
+                |                     
+                p.text-muted Copyright &copy; lolCoach 
+    
+    
+        //load the scripts for this page
+        script(src='/javascripts/splashController.js')
+        link(href='/stylesheets/splash.css', rel='stylesheet')
+
+
