@@ -6,26 +6,29 @@ var socket = io();
 var player;
 var videoState;
 var newUser = true;
+var moveSlider=setInterval(function () {myTimer()}, 300);;
 
 function onYouTubePlayerAPIReady() {
+
   player = new YT.Player('video', {
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
     }
   });
+  socket.emit('getRoomInfo');
 }
 
 function onPlayerStateChange(event) {
   var embedCode = event.target.getVideoEmbedCode();
-  console.log(event);
+ // console.log(event);
   switch(event.data) {
      case -1:
         videoState = -1;
         break;
      case 1:
-        console.log("VIDEO IS PLAYING");
-        console.log(videoState);
+       // console.log("VIDEO IS PLAYING");
+        //console.log(videoState);
         videoState = 1;
         if (newUser) {
             sync();
@@ -45,8 +48,9 @@ function onPlayerReady(event) {
   var playButton = document.getElementById("PlayButton");
   playButton.addEventListener("click", function() {
     playPause();
+    //$.notify("Play Button Pressed");
   });
-  
+
   var muteButton = document.getElementById("MuteButton");
   muteButton.addEventListener("click", function() {
     mute();
@@ -54,13 +58,17 @@ function onPlayerReady(event) {
 
   var LoadVideo = document.getElementById("loadVideo");
   LoadVideo.addEventListener("click", function() {
-    var urlID = prompt("Enter YouTube URL");
-    if(urlID.length > 5){
+    var urlID = $('#videoURL').val();
+    $('#videoURL').val("")
+    if(urlID){
+    if(urlID.length > 5 && urlID){
     urlID = parseURL(urlID);
     loadVideo(urlID);
     socket.emit('loadVid', urlID);
     }
+  }
   });
+
 }
 //End Click events 
 
@@ -87,16 +95,24 @@ function loadVideo(url) {
 }
 
 function playPause(){
-  if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 ){
+  
+  console.log(player.getPlayerState());
+  if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 || player.getPlayerState() == 3){
     player.playVideo();
     socket.emit('playVid');
-  }
+    $("#playButtonIcon").removeClass('fa-play');
+    $("#playButtonIcon").addClass('fa-pause');
+    
+}
   if(player.getPlayerState() == 1){
     player.pauseVideo();
     socket.emit('pauseVid');
+    $("#playButtonIcon").removeClass('fa-pause');
+    $("#playButtonIcon").addClass('fa-play');
   }
   if(player.getPlayerState() == 0){
     player.seekTo(0, true);
+    syncSkip(0);
   }
 
 }
@@ -104,9 +120,13 @@ function playPause(){
 function mute(){
   if(player.isMuted()){
     player.unMute();
+    $("#muteButtonIcon").removeClass('fa-volume-off');
+    $("#muteButtonIcon").addClass('fa-volume-up');
   }
   else{
     player.mute();
+    $("#muteButtonIcon").removeClass('fa-volume-up');
+    $("#muteButtonIcon").addClass('fa-volume-off');
   }
 }
 
@@ -139,12 +159,12 @@ function normalize(){
 
 function turnUp(){
   var volume = player.getVolume() + 5;
-  player.setVolume(volume);
+  volumeSlider.setValue(volume);
 }
 
 function turnDown(){
   var volume = player.getVolume() - 5;
-  player.setVolume(volume);
+  volumeSlider.setValue(volume);
 }
 //End YouTubePlayer Functions
 function parseURL(url) {
@@ -167,24 +187,31 @@ socket.on('urlReceived', function(url) {
 });
 
 socket.on('syncReceived', function(time, state) {
-  player.playVideo();
   player.seekTo(time, true);
-    if (state == 1) {
-      player.playVideo();
-    } else {
+    if (state != 1 && state != 3) {
       player.pauseVideo();
+    }else if(state == 1 || state == 5){
+      player.playVideo();
     }
 });
 
 socket.on('pauseReceived', function(){
+  $("#playButtonIcon").addClass('fa-play');
+  $("#playButtonIcon").removeClass('fa-pause');
   if(player.getPlayerState != 2){
     player.pauseVideo();
+    notifyPause();
   }
 });
 
+
+
 socket.on('playReceived', function(){
+  $("#playButtonIcon").removeClass('fa-play');
+  $("#playButtonIcon").addClass('fa-pause');
   if(player.getPlayerState != 1){
     player.playVideo();
+    notifyPlay();
   }
 });
 
@@ -200,3 +227,69 @@ socket.on('normalPlaybackReceived', function(){
   normalize();
 });
 //End Socket IO Receivers
+
+//Slider
+var slider = new Slider('#ex1', {
+  //value: currentTime(),
+  tooltip: 'hide',
+  formatter: function(value) {
+    
+   if(currentTime() && returnDuration) //i dont remember what this does exactly but it breaks shit if not here
+      //console.log(Math.round(currentTime()/returnDuration()*100));
+    return value;
+  }
+});
+
+slider.on('slide',function(value){
+  //console.log(value);
+  youtubeSliderTime(value);
+});
+
+slider.on('change',function(value){
+  if(Math.abs(value.oldValue - value.newValue) > 12){
+    youtubeSliderTime(value.newValue);
+  }
+});
+
+
+function youtubeSliderTime(value){
+  if(player){
+    player.seekTo(player.getDuration()*(value/10000), true);
+    syncSkip(player.getDuration()*(value/10000));
+  }
+  
+}
+
+function returnDuration(){
+  if(player){
+    return player.getDuration();
+  }
+}
+
+function currentTime(){
+  if(player){
+    return (player.getCurrentTime());
+  }
+  else{
+    return 0;
+  }
+} 
+
+  
+
+function myTimer() {
+  if(player){
+    if(player.getCurrentTime){
+      slider.setValue(Math.round(currentTime()/returnDuration()*10000));
+    }
+  }
+}
+
+var volumeSlider = new Slider('#volumeSlider', {
+  formatter: function(value) {
+    if(player)
+      player.setVolume(value);
+    return value;
+  }
+});
+
