@@ -97,7 +97,7 @@ function loadVideo(url) {
 function playPause(){
   
   console.log(player.getPlayerState());
-  if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 ){
+  if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 || player.getPlayerState() == 3){
     player.playVideo();
     socket.emit('playVid');
     $("#playButtonIcon").removeClass('fa-play');
@@ -120,9 +120,13 @@ function playPause(){
 function mute(){
   if(player.isMuted()){
     player.unMute();
+    $("#muteButtonIcon").removeClass('fa-volume-off');
+    $("#muteButtonIcon").addClass('fa-volume-up');
   }
   else{
     player.mute();
+    $("#muteButtonIcon").removeClass('fa-volume-up');
+    $("#muteButtonIcon").addClass('fa-volume-off');
   }
 }
 
