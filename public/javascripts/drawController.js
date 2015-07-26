@@ -94,18 +94,19 @@ function resizeCanvas() {
     loadCanvasImage(data);
 }
 function resizeVideo() {
-    var videoHolder = $('#video-holder')
+    var videoHolder = $('#video-holder');
+    var topBarHeight = $('#navbar').height()+20;
+    var bottomBarHeight = $('#controlBar').height()+20; 
     if(videoHolder.width() >= 250) {
-        var hDiff = innerHeight - (videoHolder.height()+70);
+        var hDiff = (innerHeight - topBarHeight - bottomBarHeight) - videoHolder.height();
         var wDiff = innerWidth - (videoHolder.width() +100)
         if (wDiff < 0) {
-            videoHolder.width(innerWidth - 105);
+            videoHolder.width(innerWidth - 90);
             return;
         }
         var ratio = videoHolder.width()/videoHolder.height();
-        var diff = innerHeight - (videoHolder.height()+70);
-        diff = diff * ratio;
-        videoHolder.width(videoHolder.width() + diff - 70);
+        var diff = hDiff * ratio;
+        videoHolder.width(videoHolder.width() + diff);
     } else {
         videoHolder.width(251);
     }
