@@ -58,7 +58,8 @@ function onPlayerReady(event) {
 
   var LoadVideo = document.getElementById("loadVideo");
   LoadVideo.addEventListener("click", function() {
-    var urlID = prompt("Enter YouTube URL");
+    var urlID = $('#videoURL').val();
+    $('#videoURL').val("")
     if(urlID){
     if(urlID.length > 5 && urlID){
     urlID = parseURL(urlID);
@@ -67,7 +68,6 @@ function onPlayerReady(event) {
     }
   }
   });
-
 
 }
 //End Click events 

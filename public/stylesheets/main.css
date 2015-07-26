@@ -1,5 +1,4 @@
 body {
-    padding-top: 50px;
     overflow: hidden;
     background-color: #040404;
     font-family: 'Lato', sans-serif;
@@ -26,9 +25,6 @@ body {
     z-index: 100;
 }
 
-.navbar-collapse.collapse {
-display: block!important;
-}
 
 
 .navbar {
@@ -126,4 +122,9 @@ display: block!important;
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
+}
+
+.container-fluid{
+    padding-left: 10%;
+    padding-right: 10%
 }
