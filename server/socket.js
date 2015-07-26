@@ -84,16 +84,15 @@ module.exports = function(app, db, sessionMiddleware){
             }
         });
 
-        socket.on('pauseVid', function() {
-
+        socket.on('pauseVid', function(time) {
             if (user.room) {
-                socket.broadcast.to(user.room).emit('pauseReceived');
+                socket.broadcast.to(user.room).emit('pauseReceived', time);
             }
         });
 
-        socket.on('playVid', function() {
+        socket.on('playVid', function(time) {
             if (user.room) {
-                socket.broadcast.to(user.room).emit('playReceived');
+                socket.broadcast.to(user.room).emit('playReceived', time);
             }
         });
 

@@ -13,6 +13,7 @@ $(document).ready(function() {
         data = {
             userId: userId,
             img: canvas.toDataURL(),
+            time: player.getCurrentTime(),
             videoURL: player.getVideoUrl()
         }
         socket.emit('sentRoomInfo',data)
@@ -20,6 +21,8 @@ $(document).ready(function() {
     
     socket.on('enterRoomInfo', function(data) {
         loadCanvasImage(data.img);
+        loadVideo(parseURL(data.videoURL));
+        syncSkip(data.time);
     });
         
 })
