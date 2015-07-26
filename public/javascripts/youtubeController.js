@@ -21,14 +21,11 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerStateChange(event) {
   var embedCode = event.target.getVideoEmbedCode();
- // console.log(event);
   switch(event.data) {
      case -1:
         videoState = -1;
         break;
      case 1:
-       // console.log("VIDEO IS PLAYING");
-        //console.log(videoState);
         videoState = 1;
         if (newUser) {
             sync();
@@ -43,11 +40,13 @@ function onPlayerStateChange(event) {
         break;
   }
 }
+
 //Start Click Events
 function onPlayerReady(event) {
   socket.emit('getRoomInfo');
   var playButton = document.getElementById("PlayButton");
   playButton.addEventListener("click", function() {
+    playPause();
   });
 
   var muteButton = document.getElementById("MuteButton");
