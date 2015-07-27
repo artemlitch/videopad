@@ -56,19 +56,19 @@ block content
 
                   |       
                   ul.nav.navbar-nav.navbar-right
-                    li(style = 'padding-top: 8px;')
-                        input.navbar-form.navbar-left(type='text', placeholder='Video URL' id='videoURL') 
-                    li      
-                        a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48); border-left-style: solid; border-right-style: solid;")
-                             b Load
                     li
-                      a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
-                          i(class='fa fa-users fa-lg')
-                    li
-                      a(data-tooltip='tooltip' data-placement='bottom' title='Sync Room' id='syncRoom')
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Sync Room' id='syncRoom' )
                           i(class='fa fa-refresh fa-lg') 
                           span(class="badge navbadge") S
                     li
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
+                          i(class='fa fa-users fa-lg')
+                    li(style = 'padding-top: 8px;')
+                        input.navbar-form.navbar-left(type='text', placeholder='Video URL' id='videoURL') 
+                    li      
+                        a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
+                             b Load
+                    li(style= "margin: 0px; margin-left: -5px;")
                       a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room' id='leaveRoom')
                                 i(class='fa fa-sign-out fa-lg')
                     

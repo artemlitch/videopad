@@ -55,7 +55,7 @@ module.exports = function(app, db, sessionMiddleware){
 
               for (socketId in sockets_in_room) {
                   //socket_objects.push(io.sockets.connected[socketId])
-                  console.log(io.sockets.connected[socketId]);
+                  //console.log(io.sockets.connected[socketId]);
               }
                  
             }
