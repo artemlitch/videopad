@@ -28,5 +28,8 @@ $(document).ready(function() {
     $('#leaveRoom').on('click', function() {
       window.location.href = '/'
     });
-        
+    
+    $('#usersButton').on('click', function() {
+        socket.emit('getUsers'); 
+    });
 })
