@@ -6,8 +6,8 @@ var socket = io();
 var player;
 var videoState;
 var newUser = true;
-var moveSlider=setInterval(function () {myTimer()}, 300);;
-
+var moveSlider=setInterval(function () {myTimer()}, 1000);;
+var totalVideoTime='';
 function onYouTubePlayerAPIReady() {
 
   player = new YT.Player('video', {
@@ -296,6 +296,9 @@ function myTimer() {
   if(player){
     if(player.getCurrentTime){
       slider.setValue(Math.round(currentTime()/returnDuration()*10000));
+      var time = Math.round(currentTime());
+      totalVideoTime = secondsToHMS(returnDuration()); //this number is static while a video is playing, probably shouldnt be set every time here (maybe it doesnt matter idk)
+      document.getElementById("time").innerHTML = secondsToHMS(time) + " / " + totalVideoTime;
     }
   }
 }
@@ -308,3 +311,10 @@ var volumeSlider = new Slider('#volumeSlider', {
   }
 });
 
+function secondsToHMS(d) {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor(d % 3600 / 60);
+  var s = Math.floor(d % 3600 % 60);
+  return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
+}
