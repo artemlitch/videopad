@@ -49,6 +49,7 @@ $.notify.addStyle('normalizeStyle', {
 function removePrevNotification() {
     var notification = $('#notifContainer').parent('.notifyjs-container').parent('.notifyjs-wrapper');
     if(notification) {
+        notification.css('visibility', 'hidden');
         notification.trigger('notify-hide');
     }
 }
