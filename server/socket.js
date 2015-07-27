@@ -25,12 +25,10 @@ module.exports = function(app, db, sessionMiddleware){
             //when we join a room attach the user for this socket session
             //to this room
             //do a DB check to make sure this user has access to room
-            console.log(sessUser +  " wants to join");
             db.getRoomKey(roomId, function (err, response) {
                 var room = response;
                 if(!room) {
                     socket.emit('failJoinConf', sessUser);        
-                    console.log("strange error Occured"); 
                 } else {
                     db.getRoomPasswordKey(roomId, function (err, response) {
                         var password = response;
@@ -39,10 +37,8 @@ module.exports = function(app, db, sessionMiddleware){
                             user.username = sessUser; 
                             socket.join(roomId);
                             socket.emit('roomJoinConf', sessUser);        
-                            console.log(sessUser + " entered room" + roomId);
                         } else {
                             socket.emit('failJoinConf', sessUser);        
-                            console.log("wrong password, how could thi be!");            
                         }
                     });
                 }
