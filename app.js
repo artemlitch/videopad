@@ -12,7 +12,6 @@ var config = require("./config_local.js");
 
 app = express();
 // This is needed if the app is run on heroku:
-console.log(process.env)
 var port = process.env.PORT || 5000;
 
 // must use cookieParser before expressSession
@@ -45,10 +44,5 @@ var io = require('./server/socket.js')(app, db, sessionMiddleware);
 
 
 require('./routes/index')(app, db);
-console.log('Your application is running on http://localhost:' + port);
-
-//var redisURL = url.parse(process.env.REDISCLOUD_URL);
-//var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-//client.auth(redisURL.auth.split(":")[1]);
 
 module.exports = app;

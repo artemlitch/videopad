@@ -38,11 +38,9 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 url: '/joinRoom',						
                 success: function(data) {
-                    console.log('success');
                     if(data.password) {
                         window.location = data.redirect; 
                     } else {
-                        console.log("failed Password");
                         alertPassword();
                     }
                 }
