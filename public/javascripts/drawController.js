@@ -4,11 +4,13 @@ var eraserPressed = false;
 var canvas, ctx, sidebar;
 var prevX, prevY;
 
-var colour = 'black';
 var colourPresets = ['red', 'blue', 'yellow','green'];
-
+var colour = colourPresets[0];
 
 var colourPreview = document.getElementById('colour-preview');
+var colourPreview2 = document.getElementById('colour-preview2');
+var colourPreview3 = document.getElementById('colour-preview3');
+var colourPreview4 = document.getElementById('colour-preview4');
 var thickness = 5;
 
 var dividers = document.getElementsByClassName('divider');
@@ -20,8 +22,13 @@ var socket = io();
 function init() {
 	// initiate colour picker
 	$('.colourpicker').colorpicker();
-	colourPreview.style.backgroundColor = 'black';
-
+  $('.colourpicker2').colorpicker();
+  $('.colourpicker3').colorpicker();
+  $('.colourpicker4').colorpicker();
+	colourPreview.style.backgroundColor = colourPresets[0];
+  colourPreview2.style.backgroundColor = colourPresets[1];
+  colourPreview3.style.backgroundColor = colourPresets[2];
+  colourPreview4.style.backgroundColor = colourPresets[3];
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
 
@@ -194,62 +201,6 @@ function clearReceived() {
 
 var thicknessAmt = 6;
 
-$(window).keypress(function(e) {
-  if (e.which == 91 && thickness > 1) { // "[" Key
-  	  brushSlider.setValue(thickness - thicknessAmt);
-  }
-  if (e.which == 93 && thickness < 60) { // "]" Key
-      brushSlider.setValue(thickness + thicknessAmt);
-  }
-  if (e.which == 99) { //c key
-  	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	socket.emit('clear');
-  }
-  if (e.which == 101) { //e key
-  		eraserPressed = true;
-  		setCursor();
-  }
-  if (e.which == 100) { //d key
-	eraserPressed = false;
-	setCursor();
-  }
-
-
-  //colour presets
-  	//Preset 1
-    if (e.which == 33) { //! key
-    	colourPresets[0] = colour;
-  	}
-  	if (e.which == 49) { //1 key
-  		colour = colourPresets[0];
-  		colourPreview.style.backgroundColor = colour;
-  	}
-  	//Preset 2
-    if (e.which == 64) { //@ key
-    	colourPresets[1] = colour;
-  	}
-  	if (e.which == 50) { //2 key
-  		colour = colourPresets[1];
-  		colourPreview.style.backgroundColor = colour;
-  	}
-  	//Preset 3
-    if (e.which == 35) { //# key
-    	colourPresets[2] = colour;
-  	}
-  	if (e.which == 51) { //3 key
-  		colour = colourPresets[2];
-  		colourPreview.style.backgroundColor = colour;
-  	}
-   	//Preset 4
-    if (e.which == 36) { //$ key
-    	colourPresets[3] = colour;
-  	}
-  	if (e.which == 52) { //4 key
-  		colour = colourPresets[3];
-  		colourPreview.style.backgroundColor = colour;
-  	}	
-
-});
 
 $('#drawButton').on('click', function() {
     eraserPressed = false;
@@ -257,15 +208,79 @@ $('#drawButton').on('click', function() {
 });
 
 
+$('#fullscreenButton').on('click', function() {
+    console.log(fullScreenApi.supportsFullScreen);
+    if(fullScreenApi.supportsFullScreen) {
+        if(fullScreenApi.isFullScreen()){
+            fullScreenApi.cancelFullScreen(document.body);
+        } else {
+            fullScreenApi.requestFullScreen(document.body);
+        }
+    }
+});
 
 $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
     colourPreview.style.backgroundColor = colour;
+    colourPresets[0] = colour;
     eraserPressed = false;
 });
 
-$('.colorpicker').mouseup(function() {
-	$('.colourpicker').colorpicker('hide');
+$('.colourpicker').on('click', function() {
+  colour = colourPresets[0];
+  eraserPressed = false;
+  $('#colour-preview').addClass('selectedColour');
+  $('#colour-preview2').removeClass('selectedColour');
+  $('#colour-preview3').removeClass('selectedColour');
+  $('#colour-preview4').removeClass('selectedColour');
+});
+
+$('.colourpicker2').on('changeColor', function(ev) {
+    colour = ev.color.toHex();
+    colourPreview2.style.backgroundColor = colour;
+    colourPresets[1] = colour;
+    eraserPressed = false;
+});
+
+$('.colourpicker2').on('click', function() {
+  colour = colourPresets[1];
+  eraserPressed = false;
+  $('#colour-preview').removeClass('selectedColour');
+  $('#colour-preview2').addClass('selectedColour');
+  $('#colour-preview3').removeClass('selectedColour');
+  $('#colour-preview4').removeClass('selectedColour');
+});
+
+$('.colourpicker3').on('changeColor', function(ev) {
+    colour = ev.color.toHex();
+    colourPreview3.style.backgroundColor = colour;
+    colourPresets[2] = colour;
+    eraserPressed = false;
+});
+
+$('.colourpicker3').on('click', function() {
+  colour = colourPresets[2];
+  eraserPressed = false;
+  $('#colour-preview').removeClass('selectedColour');
+  $('#colour-preview2').removeClass('selectedColour');
+  $('#colour-preview3').addClass('selectedColour');
+  $('#colour-preview4').removeClass('selectedColour');
+});
+
+$('.colourpicker4').on('changeColor', function(ev) {
+    colour = ev.color.toHex();
+    colourPreview4.style.backgroundColor = colour;
+    colourPresets[3] = colour;
+    eraserPressed = false;
+});
+
+$('.colourpicker4').on('click', function() {
+  colour = colourPresets[3];
+  eraserPressed = false;
+  $('#colour-preview').removeClass('selectedColour');
+  $('#colour-preview2').removeClass('selectedColour');
+  $('#colour-preview3').removeClass('selectedColour');
+  $('#colour-preview4').addClass('selectedColour');
 });
 
 $('#eraser').on('click', function() {

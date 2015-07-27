@@ -13,6 +13,7 @@ module.exports = function(app, db, sessionMiddleware){
         var user = {
             id: socket.id,
             room: '',
+            username: 'Anonymous'
         };
         
         socket.on('joinRoom', function(roomId) {
@@ -34,7 +35,8 @@ module.exports = function(app, db, sessionMiddleware){
                     db.getRoomPasswordKey(roomId, function (err, response) {
                         var password = response;
                         if(sessPass == password) {
-                            user.room = roomId; 
+                            user.room = roomId;
+                            user.username = sessUser; 
                             socket.join(roomId);
                             socket.emit('roomJoinConf', sessUser);        
                             console.log(sessUser + " entered room" + roomId);
@@ -45,6 +47,18 @@ module.exports = function(app, db, sessionMiddleware){
                     });
                 }
             });
+        });
+        socket.on('getUsers', function(){
+            if(user.room) {
+              var sockets_in_room = io.nsps['/'].adapter.rooms[user.id]
+              var socket_objects = []
+
+              for (socketId in sockets_in_room) {
+                  //socket_objects.push(io.sockets.connected[socketId])
+                  console.log(io.sockets.connected[socketId]);
+              }
+                 
+            }
         });
         socket.on('getRoomInfo', function() {
             if(user.room) {

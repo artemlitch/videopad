@@ -4,18 +4,6 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-#ex1Slider .slider-selection {
-    background: red;
-}
-#ex1Slider .slider-handle {
-    background: black;
-}
-#ex2Slider .slider-selection {
-    background: grey;
-}
-#ex2Slider .slider-handle {
-    background-color: rgb(0, 174, 205);
-}
 
 .whiteboard {
     position: absolute;
@@ -33,9 +21,10 @@ body {
     border: none;
 }
 
-.navbar .navbar-brand, .navbar .navbar-nav li a :not(#color-preview) {
+.navbar .navbar-brand, .navbar .navbar-nav li a {
     color: rgb(233, 233, 233);
 }
+
 
 .navbar .navbar-brand {
     font-weight: bold;
@@ -50,10 +39,35 @@ body {
     background-color: rgb(0, 200, 236);
 }
 
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    background-color: rgb(0, 200, 236);
+}
+
 .navbar #colour-preview {
     height: 30px;
     margin-top: 10px;
     border-radius: 4px;
+}
+
+.navbar #colour-preview2 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview3 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview4 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.colorpicker-element:hover {
+    background-color: rgba(0,0,0,0)!important;
 }
 
 .navbar li {
@@ -72,14 +86,17 @@ body {
     color: inherit;
 }
 
-.navbar #eraser:active {
-    background-color: blue;
-}
 
 .navbar #clear {
     margin-right: 20px;
 }
 
+.selectedColour {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 4px;
+}
 .roomName {
     position: relative;
     left: 13px;
@@ -126,6 +143,24 @@ body {
 }
 
 .container-fluid{
-    padding-left: 10%;
-    padding-right: 10%
+    padding-left: 12%;
+    padding-right: 12%
+}
+
+.navbadge {
+    background-color: rgba(0, 217, 255, 0.93);
+    color: white;
+    position: absolute;
+    top: 32px;
+    right: 3px;
+    padding: 2px 5px;
+}
+
+.navbadgeColor {
+    background-color: rgba(0, 217, 255, 0.93);
+    color: white;
+    position: absolute;
+    top: 22px;
+    right: -6px;
+    padding: 2px 5px;
 }

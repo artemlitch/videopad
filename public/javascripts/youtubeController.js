@@ -69,6 +69,24 @@ function onPlayerReady(event) {
 
 }
 //End Click events 
+$('#syncRoom').on('click', function() {
+  sync();
+});
+
+$('#slowDownButton').on('click', function() {
+  slowDown();
+  socket.emit('playSlower');
+});
+
+$('#normalizeButton').on('click', function() {
+  normalize();
+  socket.emit('normalPlayback');
+});
+
+$('#speedUpButton').on('click', function() {
+  speedUp();
+  socket.emit('playFaster');
+});
 
 //YouTube Player Functions
 function syncLink(){
@@ -189,6 +207,7 @@ socket.on('syncReceived', function(time, state) {
     }else if(state == 1 || state == 5){
       player.playVideo();
     }
+    notifySync();
 });
 
 socket.on('pauseReceived', function(time){
@@ -215,14 +234,17 @@ socket.on('playReceived', function(time){
 
 socket.on('playFasterReceived', function(){
   speedUp();
+  notifySpeedUp();
 });
 
 socket.on('playSlowerReceived', function(){
   slowDown();
+  notifySlowDown();
 });
 
 socket.on('normalPlaybackReceived', function(){
   normalize();
+  notifyNormalize();
 });
 //End Socket IO Receivers
 
