@@ -11,11 +11,9 @@ module.exports = function(app, db){
 	app.post('/createRoom', function(req,res){
 		// Generate unique id for the room
         var roomId = uuid.v1();
-        console.log("create: " + roomId);
         var userData = req.body;
         //Hash the password given
         var passHash = bcrypt.hashSync(roomId + userData.ps);
-        console.log(passHash);
         try {
             db.setRoomKey(roomId, roomId);
             db.setRoomPasswordKey(roomId, passHash);
