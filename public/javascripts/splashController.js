@@ -30,7 +30,6 @@ $(document).ready(function() {
                 url: '/createRoom',						
                 success: function(data) {
                     var roomId = data.roomId;
-                    console.log(roomId);
                     window.location.href = 'room/'+roomId
                 }
             });

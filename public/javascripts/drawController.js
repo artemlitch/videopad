@@ -209,7 +209,6 @@ $('#drawButton').on('click', function() {
 
 
 $('#fullscreenButton').on('click', function() {
-    console.log(fullScreenApi.supportsFullScreen);
     if(fullScreenApi.supportsFullScreen) {
         if(fullScreenApi.isFullScreen()){
             fullScreenApi.cancelFullScreen(document.body);
@@ -308,15 +307,12 @@ function setCursor(){
 	if(roundedThickness==0)
 		roundedThickness = 5;
 	var spacing = Math.round(roundedThickness/2);
-
 	if(!eraserPressed){
 		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
 		$('#whiteboard').css('cursor', url);
-    //console.log(url);
 	}
 	else{
 		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
 		$('#whiteboard').css('cursor', url);
-    //console.log(url);			
 	}
 }

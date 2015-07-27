@@ -255,7 +255,6 @@ var slider = new Slider('#ex1', {
   formatter: function(value) {
     
    if(currentTime() && returnDuration) //i dont remember what this does exactly but it breaks shit if not here
-      //console.log(Math.round(currentTime()/returnDuration()*100));
     return value;
   }
 });
