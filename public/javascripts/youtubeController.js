@@ -207,6 +207,7 @@ socket.on('syncReceived', function(time, state) {
     }else if(state == 1 || state == 5){
       player.playVideo();
     }
+    notifySync();
 });
 
 socket.on('pauseReceived', function(time){
@@ -233,14 +234,17 @@ socket.on('playReceived', function(time){
 
 socket.on('playFasterReceived', function(){
   speedUp();
+  notifySpeedUp();
 });
 
 socket.on('playSlowerReceived', function(){
   slowDown();
+  notifySlowDown();
 });
 
 socket.on('normalPlaybackReceived', function(){
   normalize();
+  notifyNormalize();
 });
 //End Socket IO Receivers
 
