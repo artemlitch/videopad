@@ -56,6 +56,24 @@ body {
     border-radius: 4px;
 }
 
+.navbar #colour-preview2 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview3 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview4 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
 .navbar li {
     margin: 0px 5px;
 }
@@ -72,9 +90,6 @@ body {
     color: inherit;
 }
 
-.navbar #eraser:active {
-    background-color: blue;
-}
 
 .navbar #clear {
     margin-right: 20px;
@@ -126,6 +141,6 @@ body {
 }
 
 .container-fluid{
-    padding-left: 10%;
-    padding-right: 10%
+    padding-left: 12%;
+    padding-right: 12%
 }

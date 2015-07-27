@@ -24,5 +24,9 @@ $(document).ready(function() {
         loadVideo(parseURL(data.videoURL));
         syncSkip(data.time);
     });
+
+    $('#leaveRoom').on('click', function() {
+      window.location.href = '/'
+    });
         
 })

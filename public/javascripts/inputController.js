@@ -37,6 +37,5 @@ $(window).keydown(function(e) {
   if (e.which == 39) { //right arrow
       goForward();
   }
-
 });
 //End Keyboard Events
