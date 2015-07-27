@@ -21,7 +21,13 @@ block content
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
                   ul.nav.navbar-nav       
                     li(id='colour-preview')
-                      a(class='colourpicker' data-toggle='dropdown') 
+                        a(class='colourpicker' data-toggle='dropdown')
+                    li(id='colour-preview2')
+                      a(class='colourpicker2' data-toggle='dropdown') 
+                    li(id='colour-preview3')
+                      a(class='colourpicker3' data-toggle='dropdown') 
+                    li(id='colour-preview4')
+                      a(class='colourpicker4' data-toggle='dropdown') 
                     | 
                     li(class='dropdown thickness')
                         a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
@@ -44,12 +50,19 @@ block content
 
                   |       
                   ul.nav.navbar-nav.navbar-right
-                    li
+                    li(style = 'padding-top: 8px;')
                         input.navbar-form.navbar-left(type='text', placeholder='Video URL' id='videoURL') 
-                    li       
-                        button.btn.btn-default(id='loadVideo') Load
+                    li      
+                        a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48); border-left-style: solid; border-right-style: solid;")
+                             b Load
                     li
-                      a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
+                                i(class='fa fa-users fa-lg')
+                    li
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Sync Room' id='syncRoom')
+                                i(class='fa fa-refresh fa-lg') 
+                    li
+                      a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room' id='leaveRoom')
                                 i(class='fa fa-sign-out fa-lg')
                     
                 // /.navbar-collapse
@@ -76,7 +89,14 @@ block content
                                    i(id="muteButtonIcon" class='fa fa-volume-up fa-lg') 
                         div(class = 'col-sm-4')
                             input(id='volumeSlider' data-slider-id='ex2Slider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='75' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
-                        
+                        div(class  = 'col-sm-6')
+                            a(id='slowDownButton' style='padding-left: 10px; color: white;')
+                                   i(class='fa fa-fast-backward fa-lg')
+                            a(id='normalizeButton' style='padding-left: 10px; color: white;')
+                                   i(class='fa fa-caret-square-o-right fa-lg')
+                            a(id='speedUpButton' style='padding-left: 10px; color: white;')
+                                   i(class='fa fa-fast-forward fa-lg')
+                            
                 
         
         //load the scripts for this page

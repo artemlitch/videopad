@@ -69,6 +69,24 @@ function onPlayerReady(event) {
 
 }
 //End Click events 
+$('#syncRoom').on('click', function() {
+  sync();
+});
+
+$('#slowDownButton').on('click', function() {
+  slowDown();
+  socket.emit('playSlower');
+});
+
+$('#normalizeButton').on('click', function() {
+  normalize();
+  socket.emit('normalPlayback');
+});
+
+$('#speedUpButton').on('click', function() {
+  speedUp();
+  socket.emit('playFaster');
+});
 
 //YouTube Player Functions
 function syncLink(){
