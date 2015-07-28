@@ -69,6 +69,68 @@ function onPlayerReady(event) {
 
 }
 //End Click events 
+$('#quality').on('click', function() {
+  console.log(player.getPlaybackQuality());
+  document.getElementById("dropUp").innerHTML = "";
+  var options = player.getAvailableQualityLevels();
+  for(i = 0; i < options.length; i++){ //resets playback options on each click possibly can be more efficent
+    //console.log(options[i]);
+    if(options[i] == player.getPlaybackQuality()){
+      optionString = "<li id='" + options[i] + "'><a>" + options[i] + " (current)</a></li>"
+      $("#dropUp").append(optionString);
+    }
+    else if(options[i] == 'auto'){
+
+    }
+    else{
+      optionString = "<li id='" + options[i] + "'><a>" + options[i] + " </a></li>"
+      $("#dropUp").append(optionString);
+    }
+    
+
+  }
+
+  $('#hd1080').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('hd1080');
+    player.playVideo();
+  });
+
+  $('#hd720').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('hd720');
+    player.playVideo();
+  });
+
+  $('#large').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('large');
+    player.playVideo();
+  });
+
+  $('#medium').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('medium');
+    player.playVideo();
+  });
+
+  $('#small').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('small');
+    player.playVideo();
+  });
+
+  $('#tiny').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('tiny');
+    player.playVideo();
+  });
+});
+
+
+
+
+
 $('#syncRoom').on('click', function() {
   sync();
 });
@@ -89,6 +151,10 @@ $('#speedUpButton').on('click', function() {
 });
 
 //YouTube Player Functions
+function setQuality(){
+  player.setPlaybackQuality('small');
+}
+
 function syncLink(){
   var url = player.getVideoUrl();
   socket.emit('syncUrl', url);
@@ -254,7 +320,7 @@ var slider = new Slider('#ex1', {
   tooltip: 'hide',
   formatter: function(value) {
     
-   if(currentTime() && returnDuration) //i dont remember what this does exactly but it breaks shit if not here
+   if(currentTime() && returnDuration)
     return value;
   }
 });

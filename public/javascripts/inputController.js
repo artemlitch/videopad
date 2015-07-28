@@ -51,6 +51,7 @@
       $('#colour-preview2').removeClass('selectedColour');
       $('#colour-preview3').removeClass('selectedColour');
       $('#colour-preview4').removeClass('selectedColour');
+      eraserPressed = false;
     }
     //Preset 2
     if (e.which == 50) { //2 key
@@ -59,6 +60,7 @@
       $('#colour-preview2').addClass('selectedColour');
       $('#colour-preview3').removeClass('selectedColour');
       $('#colour-preview4').removeClass('selectedColour');
+      eraserPressed = false;
     }
     //Preset 3
     if (e.which == 51) { //3 key
@@ -67,6 +69,7 @@
       $('#colour-preview2').removeClass('selectedColour');
       $('#colour-preview3').addClass('selectedColour');
       $('#colour-preview4').removeClass('selectedColour');
+      eraserPressed = false;
     }
     //Preset 4
     if (e.which == 52) { //4 key
@@ -75,6 +78,7 @@
       $('#colour-preview2').removeClass('selectedColour');
       $('#colour-preview3').removeClass('selectedColour');
       $('#colour-preview4').addClass('selectedColour');
+      eraserPressed = false;
     }	
 });
 
