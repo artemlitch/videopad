@@ -70,11 +70,10 @@ function onPlayerReady(event) {
 }
 //End Click events 
 $('#quality').on('click', function() {
-  console.log(player.getPlaybackQuality());
   document.getElementById("dropUp").innerHTML = "";
   var options = player.getAvailableQualityLevels();
-  for(i = 0; i < options.length; i++){ //resets playback options on each click possibly can be more efficent
-    //console.log(options[i]);
+  for(i = 0; i < options.length; i++){
+
     if(options[i] == player.getPlaybackQuality()){
       optionString = "<li id='" + options[i] + "'><a>" + options[i] + " (current)</a></li>"
       $("#dropUp").append(optionString);
@@ -151,10 +150,6 @@ $('#speedUpButton').on('click', function() {
 });
 
 //YouTube Player Functions
-function setQuality(){
-  player.setPlaybackQuality('small');
-}
-
 function syncLink(){
   var url = player.getVideoUrl();
   socket.emit('syncUrl', url);
