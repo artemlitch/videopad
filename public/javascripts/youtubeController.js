@@ -8,7 +8,7 @@ var videoState;
 var newUser = true;
 var moveSlider=setInterval(function () {myTimer()}, 1000);;
 var totalVideoTime='';
-function onYouTubePlayerAPIReady() {
+function onYouTubeIframeAPIReady() {
 
   player = new YT.Player('video', {
     events: {
