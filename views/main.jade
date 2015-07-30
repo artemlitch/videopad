@@ -111,17 +111,10 @@ block content
                             div(class ='col-sm-6')
                             div(class ='col-sm-3')
                                 div(class='dropup')
-                                    a(data-toggle='dropdown')
+                                    ul(class='dropdown-menu' id='dropUp')
+                                    a(data-toggle='dropdown' id='quality' aria-expanded='true')
                                         i(class='glyphicon glyphicon-cog')
-                                    ul(class='dropdown-menu')
-                                        li
-                                            a 1080p
-                                        li
-                                            a 720p
-                                        li
-                                            a 480p
-                                        li
-                                            a 360p
+                                    
                             div(class ='col-sm-3')
                                 a(id='fullscreenButton' data-tooltip='tooltip' data-placement='top' title='Toggle Fullscreen')
                                     span(class='glyphicon glyphicon-fullscreen')           
