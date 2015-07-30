@@ -6,9 +6,9 @@ var socket = io();
 var player;
 var videoState;
 var newUser = true;
-var moveSlider=setInterval(function () {myTimer()}, 300);;
-
-function onYouTubePlayerAPIReady() {
+var moveSlider=setInterval(function () {myTimer()}, 1000);;
+var totalVideoTime='';
+function onYouTubeIframeAPIReady() {
 
   player = new YT.Player('video', {
     events: {
@@ -69,6 +69,73 @@ function onPlayerReady(event) {
 
 }
 //End Click events 
+$('#quality').on('click', function() {
+  document.getElementById("dropUp").innerHTML = "";
+  var options = player.getAvailableQualityLevels();
+  for(i = 0; i < options.length; i++){
+
+    if(options[i] == player.getPlaybackQuality()){
+      optionString = "<li id='" + options[i] + "'><a>" + options[i] + " (current)</a></li>"
+      $("#dropUp").append(optionString);
+    }
+    else if(options[i] == 'auto'){
+
+    }
+    else{
+      optionString = "<li id='" + options[i] + "'><a>" + options[i] + " </a></li>"
+      $("#dropUp").append(optionString);
+    }
+    
+
+  }
+
+  $('#hd1080').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('hd1080');
+    player.playVideo();
+    sync();
+  });
+
+  $('#hd720').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('hd720');
+    player.playVideo();
+    sync();
+  });
+
+  $('#large').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('large');
+    player.playVideo();
+    sync();
+  });
+
+  $('#medium').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('medium');
+    player.playVideo();
+    sync();
+  });
+
+  $('#small').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('small');
+    player.playVideo();
+    sync();
+  });
+
+  $('#tiny').on('click', function() {
+    player.stopVideo();
+    player.setPlaybackQuality('tiny');
+    player.playVideo();
+    sync();
+  });
+});
+
+
+
+
+
 $('#syncRoom').on('click', function() {
   sync();
 });
@@ -254,7 +321,7 @@ var slider = new Slider('#ex1', {
   tooltip: 'hide',
   formatter: function(value) {
     
-   if(currentTime() && returnDuration) //i dont remember what this does exactly but it breaks shit if not here
+   if(currentTime() && returnDuration)
     return value;
   }
 });
@@ -295,6 +362,9 @@ function myTimer() {
   if(player){
     if(player.getCurrentTime){
       slider.setValue(Math.round(currentTime()/returnDuration()*10000));
+      var time = Math.round(currentTime());
+      totalVideoTime = secondsToHMS(returnDuration()); //this number is static while a video is playing, probably shouldnt be set every time here (maybe it doesnt matter idk)
+      document.getElementById("time").innerHTML = secondsToHMS(time) + " / " + totalVideoTime;
     }
   }
 }
@@ -307,3 +377,10 @@ var volumeSlider = new Slider('#volumeSlider', {
   }
 });
 
+function secondsToHMS(d) {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor(d % 3600 / 60);
+  var s = Math.floor(d % 3600 % 60);
+  return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
+}

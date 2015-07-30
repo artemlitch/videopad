@@ -38,7 +38,7 @@ block content
                             i(class='fa fa-tint fa-lg')
                         ul(class='dropdown-menu')
                             li
-                                input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12')
+                                input(id='ex2' data-slider-id='ex2Slider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12' data-slider-tooltip='hide' data-slider-scale='logarithmic')
                     li
                         a(id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
                             i(class='fa fa-pencil fa-lg')
@@ -64,7 +64,7 @@ block content
                       a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
                           i(class='fa fa-users fa-lg')
                     li(style = 'padding-top: 8px;')
-                        input.navbar-form.navbar-left(type='text', placeholder='Video URL' id='videoURL') 
+                        input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL') 
                     li      
                         a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
                              b Load
@@ -83,7 +83,7 @@ block content
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
             div(id='video-holder' class='container')
                 div(id='video-container' class='video-container') 
-                    iframe(width='1920' height='930' src='https://www.youtube.com/embed/3BRjf1xKUoo?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
+                    iframe(width='1920' height='930' src='https://www.youtube.com/embed/5LZB4o_qmZ8?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
 
             div(id="controlBar" class='container' style='background: black; padding-bottom: 10px; padding-top: 5px;') 
                     input(id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
@@ -95,8 +95,10 @@ block content
                             div(class = 'col-sm-1')
                                 a(id='MuteButton')
                                        i(id="muteButtonIcon" class='fa fa-volume-up fa-lg') 
-                            div(class = 'col-sm-4')
+                            div(class = 'col-sm-3')
                                 input(id='volumeSlider' data-slider-id='ex2Slider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='75' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
+                            div(class  = 'col-sm-3') 
+                                p(id = 'time' style = 'color: rgba(243, 243, 243, 0.85)') 0:00 / 0:00
                             div(class  = 'col-sm-4')
                                 a(id='slowDownButton')
                                        i(class='fa fa-fast-backward fa-lg')
@@ -106,8 +108,14 @@ block content
                                        i(class='fa fa-fast-forward fa-lg')
                         div(class ='col-sm-4')
                         div(class ='col-sm-2')
-                            div(class ='col-sm-8')
-                            div(class ='col-sm-4')
+                            div(class ='col-sm-6')
+                            div(class ='col-sm-3')
+                                div(class='dropup')
+                                    ul(class='dropdown-menu' id='dropUp')
+                                    a(data-toggle='dropdown' id='quality' aria-expanded='true')
+                                        i(class='glyphicon glyphicon-cog')
+                                    
+                            div(class ='col-sm-3')
                                 a(id='fullscreenButton' data-tooltip='tooltip' data-placement='top' title='Toggle Fullscreen')
                                     span(class='glyphicon glyphicon-fullscreen')           
         
