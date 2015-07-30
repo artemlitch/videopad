@@ -5,6 +5,11 @@ var canvas, ctx, sidebar;
 var prevX, prevY;
 
 var colourPresets = ['red', 'blue', 'yellow','green'];
+for(i = 0; i < 4; i++) {
+  if(localStorage.getItem('colour' + i)) {
+    colourPresets[i] = localStorage.getItem('colour' + i);
+  }
+}
 var colour = colourPresets[0];
 
 var colourPreview = document.getElementById('colour-preview');
@@ -222,6 +227,7 @@ $('.colourpicker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
     colourPreview.style.backgroundColor = colour;
     colourPresets[0] = colour;
+    localStorage.setItem('colour0', colour);
     eraserPressed = false;
 });
 
@@ -238,6 +244,7 @@ $('.colourpicker2').on('changeColor', function(ev) {
     colour = ev.color.toHex();
     colourPreview2.style.backgroundColor = colour;
     colourPresets[1] = colour;
+    localStorage.setItem('colour1', colour);
     eraserPressed = false;
 });
 
@@ -254,6 +261,7 @@ $('.colourpicker3').on('changeColor', function(ev) {
     colour = ev.color.toHex();
     colourPreview3.style.backgroundColor = colour;
     colourPresets[2] = colour;
+    localStorage.setItem('colour2', colour);
     eraserPressed = false;
 });
 
@@ -270,6 +278,7 @@ $('.colourpicker4').on('changeColor', function(ev) {
     colour = ev.color.toHex();
     colourPreview4.style.backgroundColor = colour;
     colourPresets[3] = colour;
+    localStorage.setItem('colour3', colour);
     eraserPressed = false;
 });
 

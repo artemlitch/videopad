@@ -8,6 +8,8 @@ var videoState;
 var newUser = true;
 var moveSlider=setInterval(function () {myTimer()}, 1000);;
 var totalVideoTime='';
+
+
 function onYouTubeIframeAPIReady() {
 
   player = new YT.Player('video', {
@@ -43,6 +45,11 @@ function onPlayerStateChange(event) {
 
 //Start Click Events
 function onPlayerReady(event) {
+  if(localStorage.getItem("sound")){
+    player.setVolume(localStorage.getItem("sound"));
+  } else {
+    player.setVolume(75);
+  }
   socket.emit('getRoomInfo');
   var playButton = document.getElementById("PlayButton");
   playButton.addEventListener("click", function() {
@@ -368,11 +375,16 @@ function myTimer() {
     }
   }
 }
-
+var defaultVolume = 75;
+if(localStorage.getItem("sound")) {
+  defaultVolume = parseInt(localStorage.getItem("sound"));
+}
 var volumeSlider = new Slider('#volumeSlider', {
+  value: defaultVolume,
   formatter: function(value) {
     if(player)
       player.setVolume(value);
+      localStorage.setItem("sound", value);
     return value;
   }
 });
