@@ -13,7 +13,7 @@ Left/Right Arrows - Rewind/Skip by 5 seconds
 C - Clear Canvas
 E - Select Eraser
 D - Select Drawing Tool
-
+            
 1 - Select Preset Colour 1
 2 - Select Preset Colour 2
 3 - Select Preset Colour 3

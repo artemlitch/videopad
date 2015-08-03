@@ -47,7 +47,7 @@ $(window).keypress(function(e) {
     //Preset 1
     if (e.which == 49) { //1 key
         colour = colourPresets[0];
-        $('#colour-preview').addClass('selectedColour');
+        $('#colour-preview1').addClass('selectedColour');
         $('#colour-preview2').removeClass('selectedColour');
         $('#colour-preview3').removeClass('selectedColour');
         $('#colour-preview4').removeClass('selectedColour');
@@ -56,7 +56,7 @@ $(window).keypress(function(e) {
     //Preset 2
     if (e.which == 50) { //2 key
         colour = colourPresets[1];
-        $('#colour-preview').removeClass('selectedColour');
+        $('#colour-preview1').removeClass('selectedColour');
         $('#colour-preview2').addClass('selectedColour');
         $('#colour-preview3').removeClass('selectedColour');
         $('#colour-preview4').removeClass('selectedColour');
@@ -65,7 +65,7 @@ $(window).keypress(function(e) {
     //Preset 3
     if (e.which == 51) { //3 key
         colour = colourPresets[2];
-        $('#colour-preview').removeClass('selectedColour');
+        $('#colour-preview1').removeClass('selectedColour');
         $('#colour-preview2').removeClass('selectedColour');
         $('#colour-preview3').addClass('selectedColour');
         $('#colour-preview4').removeClass('selectedColour');
@@ -74,7 +74,7 @@ $(window).keypress(function(e) {
     //Preset 4
     if (e.which == 52) { //4 key
         colour = colourPresets[3];
-        $('#colour-preview').removeClass('selectedColour');
+        $('#colour-preview1').removeClass('selectedColour');
         $('#colour-preview2').removeClass('selectedColour');
         $('#colour-preview3').removeClass('selectedColour');
         $('#colour-preview4').addClass('selectedColour');
