@@ -302,7 +302,7 @@ $('#clear').on('click', function() {
 });
 
 
-var brushSlider = new Slider('#ex2', {
+var brushSlider = new Slider('#brushSlider', {
   formatter: function(value) {
   	thickness = value;
   	setCursor();

@@ -1,8 +1,11 @@
-#ex1Slider .slider-selection {
+#controlSlider .slider-selection {
     background: red;
 }
-#ex2Slider .slider-selection {
+#volumeSlider .slider-selection {
     background: grey;
+}
+#brushSlider .slider-selection {
+  background: grey;
 }
 
 #controlBar a {
