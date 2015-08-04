@@ -1,6 +1,23 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    body
+        // Header
+        header#top.header
+          .text-vertical-center(style='color: white')
+            img(src='./img/Logo.png', alt='logo')
+            br
+            h1 404 OOPS, this page is not found 
+        footer
+          .container
+            .row
+              .col-lg-10.col-lg-offset-1.text-center
+                p.text-muted Created By: Artem Litchmanov & Mike Ashcroft 
+                p.text-muted Copyright &copy; lolCoach 
+    
+    
+        //load the scripts for this page
+        link(href='/stylesheets/splash.css', rel='stylesheet')
+
+
+                
