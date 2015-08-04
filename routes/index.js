@@ -83,4 +83,9 @@ module.exports = function(app, db){
             }
         });
     });
+
+    app.use(function(req, res, next) {
+        res.render('error');
+    });
+    
 };    
