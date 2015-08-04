@@ -12,6 +12,19 @@ var tempCanvas, tempCtx;
 var socket = io();
 var colour = colourPresets[0];
 var x; //for loop things
+var drawKeysEnabled = true;
+
+$('#infoButton').on('click', function() {
+    drawKeysEnabled = false;
+});
+
+$('#finishTut').on('click', function() {
+    drawKeysEnabled = true;
+});
+
+$('#exitInfoButton').on('click', function() {
+    drawKeysEnabled = true;
+});
 
 for(i = 0; i < numOfColourPickers; i++) {
     if(localStorage.getItem('colour' + i)) {
@@ -210,15 +223,6 @@ $('#drawButton').on('click', function() {
     setCursor();
 });
 
-$('#fullscreenButton').on('click', function() {
-    if(fullScreenApi.supportsFullScreen) {
-        if(fullScreenApi.isFullScreen()){
-            fullScreenApi.cancelFullScreen(document.body);
-        } else {
-            fullScreenApi.requestFullScreen(document.body);
-        }
-    }
-});
 
 $('.picker').on('click', function() {
     x = 1;
@@ -277,3 +281,64 @@ function setCursor() {
 		$('#whiteboard').css('cursor', url);
 	}
 }
+
+//DRAWING KEYBINDS
+$(window).keypress(function(e) {
+    if(drawKeysEnabled){
+        if (e.which == 91 && thickness > 1) { // "[" Key
+            brushSlider.setValue(thickness - thicknessAmt);
+        }
+        if (e.which == 93 && thickness < 60) { // "]" Key
+            brushSlider.setValue(thickness + thicknessAmt);
+        }
+        if (e.which == 99 || e.which == 67) { //c key
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            socket.emit('clear');
+        }
+        if (e.which == 101 || e.which == 69) { //e key
+            eraserPressed = true;
+            setCursor();
+        }
+        if (e.which == 100 || e.which == 68) { //d key
+            eraserPressed = false;
+            setCursor();
+        }
+
+        if (e.which == 49) { //1 key
+            colour = colourPresets[0];
+            $('#colour-preview1').addClass('selectedColour');
+            $('#colour-preview2').removeClass('selectedColour');
+            $('#colour-preview3').removeClass('selectedColour');
+            $('#colour-preview4').removeClass('selectedColour');
+            eraserPressed = false;
+        }
+        
+        if (e.which == 50) { //2 key
+            colour = colourPresets[1];
+            $('#colour-preview1').removeClass('selectedColour');
+            $('#colour-preview2').addClass('selectedColour');
+            $('#colour-preview3').removeClass('selectedColour');
+            $('#colour-preview4').removeClass('selectedColour');
+          eraserPressed = false;
+        }
+        
+        if (e.which == 51) { //3 key
+            colour = colourPresets[2];
+            $('#colour-preview1').removeClass('selectedColour');
+            $('#colour-preview2').removeClass('selectedColour');
+            $('#colour-preview3').addClass('selectedColour');
+            $('#colour-preview4').removeClass('selectedColour');
+            eraserPressed = false;
+        }
+        
+        if (e.which == 52) { //4 key
+            colour = colourPresets[3];
+            $('#colour-preview1').removeClass('selectedColour');
+            $('#colour-preview2').removeClass('selectedColour');
+            $('#colour-preview3').removeClass('selectedColour');
+            $('#colour-preview4').addClass('selectedColour');
+            eraserPressed = false;
+        }  
+    }
+});
+//END DRAWING KEYBINDS

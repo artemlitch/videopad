@@ -22,9 +22,18 @@ function onPlayerStateChange(event) {
     var embedCode = event.target.getVideoEmbedCode();
     switch(event.data) {
         case -1:
+            $("#playButtonIcon").addClass('fa-play');
+            $("#playButtonIcon").removeClass('fa-pause');
             videoState = -1;
             break;
+        case 0:
+            $("#playButtonIcon").addClass('fa-play');
+            $("#playButtonIcon").removeClass('fa-pause');
+            videoState = 0;
+            break; 
         case 1:
+            $("#playButtonIcon").addClass('fa-pause');
+            $("#playButtonIcon").removeClass('fa-play');
             videoState = 1;
             if (newUser) {
                 sync();
@@ -32,23 +41,28 @@ function onPlayerStateChange(event) {
             }
             break;
         case 2:
+            $("#playButtonIcon").addClass('fa-play');
+            $("#playButtonIcon").removeClass('fa-pause');
             videoState = 2;
             break;
         case 3:
             videoState = 3;
             break;
+        case 5:
+            $("#playButtonIcon").addClass('fa-play');
+            $("#playButtonIcon").removeClass('fa-pause');
+            videoState = 5;
+            break;
     }
 }
 
 function onPlayerReady(event) {
-
+    $('#controlBar').fadeIn(1000);
     if(localStorage.getItem("sound")) {
         player.setVolume(localStorage.getItem("sound"));
     } else {
         player.setVolume(75);
     }
-
-    socket.emit('getRoomInfo');
 
     var playButton = document.getElementById("PlayButton");
     playButton.addEventListener("click", function() {
@@ -59,20 +73,6 @@ function onPlayerReady(event) {
     muteButton.addEventListener("click", function() {
         mute();
     });
-
-    var LoadVideo = document.getElementById("loadVideo");
-    LoadVideo.addEventListener("click", function() {
-        var urlID = $('#videoURL').val();
-        $('#videoURL').val("")
-        if(urlID) {
-            if(urlID.length > 5 && urlID) {
-                urlID = parseURL(urlID);
-                loadVideo(urlID);
-                socket.emit('loadVid', urlID);
-            }
-        }
-    });
-
 }
 
 //Quality Button
@@ -180,17 +180,18 @@ function playPause() {
     var time = player.getCurrentTime();
     if(player.getPlayerState() == -1 || player.getPlayerState() == 5 || player.getPlayerState() == 2 || player.getPlayerState() == 3) {
         player.playVideo();
+        player.seekTo(time, true);
         socket.emit('playVid',time);
-        $("#playButtonIcon").removeClass('fa-play');
-        $("#playButtonIcon").addClass('fa-pause');
+        //$("#playButtonIcon").removeClass('fa-play');
+        //$("#playButtonIcon").addClass('fa-pause');
     }
     if(player.getPlayerState() == 1) {
         player.pauseVideo();
         socket.emit('pauseVid',time);
-        $("#playButtonIcon").removeClass('fa-pause');
-        $("#playButtonIcon").addClass('fa-play');
+       // $("#playButtonIcon").removeClass('fa-pause');
+        //$("#playButtonIcon").addClass('fa-play');
     }
-    player.seekTo(time, true);
+    
     if(player.getPlayerState() == 0) {
         player.seekTo(0, true);
         syncSkip(0);
@@ -247,24 +248,6 @@ function turnDown() {
     volumeSlider.setValue(volume);
 }
 
-function parseURL(url) {
-    var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
-    parsedURL = "https://www.youtube.com/embed/" + parsedURL + "?rel=0&amp;controls=1&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3";
-    return parsedURL;
-}
-
-//Socket IO Receivers 
-socket.on('vidReceived', function(url) {
-    loadVideo(url);
-});
-
-socket.on('urlReceived', function(url) {
-    var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
-    var parsedMyUrl = (player.getVideoUrl()).split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
-    if(parsedURL != parsedMyUrl) { 
-        loadVideo(parseURL(url));
-    } 
-});
 
 socket.on('syncReceived', function(time, state) {
     player.seekTo(time, true);
@@ -277,8 +260,8 @@ socket.on('syncReceived', function(time, state) {
 });
 
 socket.on('pauseReceived', function(time) {
-    $("#playButtonIcon").addClass('fa-play');
-    $("#playButtonIcon").removeClass('fa-pause');
+    //$("#playButtonIcon").addClass('fa-play');
+    //$("#playButtonIcon").removeClass('fa-pause');
     if(player.getPlayerState != 2) {
         player.seekTo(time, true);
         player.pauseVideo();
@@ -287,8 +270,8 @@ socket.on('pauseReceived', function(time) {
 });
 
 socket.on('playReceived', function(time) {
-    $("#playButtonIcon").removeClass('fa-play');
-    $("#playButtonIcon").addClass('fa-pause');
+    //$("#playButtonIcon").removeClass('fa-play');
+    //$("#playButtonIcon").addClass('fa-pause');
     if(player.getPlayerState != 1) {
         player.seekTo(time, true);
         player.playVideo();

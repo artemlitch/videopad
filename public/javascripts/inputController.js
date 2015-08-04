@@ -1,99 +1,58 @@
 var socket = io();
-//Keyboard Events
+var ytKeysEnabled = true;
+
+$('#infoButton').on('click', function() {
+    ytKeysEnabled = false;
+});
+
+$('#exitInfoButton').on('click', function() {
+    ytKeysEnabled = true;
+});
+
+$('#finishTut').on('click', function() {
+    ytKeysEnabled = true;
+});
+//Input Controller For Handling Custom YouTube Controls
 $(window).keypress(function(e) {
-    if (e.which == 32) { //spacebar
-        playPause(); 
+    if(ytKeysEnabled){
+        if (e.which == 32) { //spacebar
+            playPause(); 
+        }
+        if (e.which == 122 || e.which == 90) { //z key
+            slowDown();
+            socket.emit('playSlower');
+        }
+        if (e.which == 120 || e.which == 88) { //x key
+            speedUp();
+            socket.emit('playFaster');
+        }
+        if (e.which == 110 || e.which == 78) { //n key
+            normalize();
+            socket.emit('normalPlayback');
+        }
+        if (e.which == 109 || e.which == 77) { //m key
+            mute();
+        }
+        if (e.which == 115 || e.which == 83) { //s key
+            sync();
+        }
     }
-    if (e.which == 122) { //z key
-        slowDown();
-        socket.emit('playSlower');
-    }
-    if (e.which == 120) { //x key
-        speedUp();
-        socket.emit('playFaster');
-    }
-    if (e.which == 110) { //n key
-        normalize();
-        socket.emit('normalPlayback');
-    }
-    if (e.which == 109) { //m key
-        mute();
-    }
-    if (e.which == 115) { //s key
-        sync();
-    }
-
-    if (e.which == 91 && thickness > 1) { // "[" Key
-        brushSlider.setValue(thickness - thicknessAmt);
-    }
-    if (e.which == 93 && thickness < 60) { // "]" Key
-        brushSlider.setValue(thickness + thicknessAmt);
-    }
-    if (e.which == 99) { //c key
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        socket.emit('clear');
-    }
-    if (e.which == 101) { //e key
-        eraserPressed = true;
-        setCursor();
-    }
-    if (e.which == 100) { //d key
-        eraserPressed = false;
-        setCursor();
-    }
-
-
-    //colour presets
-    //Preset 1
-    if (e.which == 49) { //1 key
-        colour = colourPresets[0];
-        $('#colour-preview1').addClass('selectedColour');
-        $('#colour-preview2').removeClass('selectedColour');
-        $('#colour-preview3').removeClass('selectedColour');
-        $('#colour-preview4').removeClass('selectedColour');
-        eraserPressed = false;
-    }
-    //Preset 2
-    if (e.which == 50) { //2 key
-        colour = colourPresets[1];
-        $('#colour-preview1').removeClass('selectedColour');
-        $('#colour-preview2').addClass('selectedColour');
-        $('#colour-preview3').removeClass('selectedColour');
-        $('#colour-preview4').removeClass('selectedColour');
-      eraserPressed = false;
-    }
-    //Preset 3
-    if (e.which == 51) { //3 key
-        colour = colourPresets[2];
-        $('#colour-preview1').removeClass('selectedColour');
-        $('#colour-preview2').removeClass('selectedColour');
-        $('#colour-preview3').addClass('selectedColour');
-        $('#colour-preview4').removeClass('selectedColour');
-        eraserPressed = false;
-    }
-    //Preset 4
-    if (e.which == 52) { //4 key
-        colour = colourPresets[3];
-        $('#colour-preview1').removeClass('selectedColour');
-        $('#colour-preview2').removeClass('selectedColour');
-        $('#colour-preview3').removeClass('selectedColour');
-        $('#colour-preview4').addClass('selectedColour');
-        eraserPressed = false;
-    }	
 });
 
 $(window).keydown(function(e) {
-    if (e.which == 40) { //down arrow
-        turnDown();
-    }
-    if (e.which == 38) { //up arrow
-        turnUp();
-    }
-    if (e.which == 37) { //left arrow
-        goBack();
-    }
-    if (e.which == 39) { //right arrow
-        goForward();
+    if(ytKeysEnabled){
+        if (e.which == 40) { //down arrow
+            turnDown();
+        }
+        if (e.which == 38) { //up arrow
+            turnUp();
+        }
+        if (e.which == 37) { //left arrow
+            goBack();
+        }
+        if (e.which == 39) { //right arrow
+            goForward();
+        }
     }
 });
 //End Keyboard Events

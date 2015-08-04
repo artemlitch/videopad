@@ -2,8 +2,39 @@ extends layout
 
 block content
     body(class= "unselectable")
+        div(class = "box" id = "welcomeBox" style="display: none;")
+            div(class = "welcomebox")
+                a(role = "button" class = "welcomeX" id = "exitInfoButton")
+                    span(class="glyphicon glyphicon-remove-sign")
+                div(class = "welcome" id="infoPage1") 
+                    u Welcome
+                    p(style=" font-size: 30px; margin-bottom:0px;") Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
+                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(id ="placeholder" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
+                div(class = "welcome" id="infoPage2" style="display: none;")
+                    u Invite
+                    p(style=" font-size: 30px; margin-bottom:0px;") To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
+                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="http://localhost:5000/room/52f1bb10-3aba-11e5-b852-1393f371b3f4" aria-describedby="basic-addon1")
+                div(class = "welcome" id="infoPage3" style="display: none;")
+                    u That's It!
+                    p(style=" font-size: 30px; margin-bottom:0px;") You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
+                    button.btn.btn-dark.btn-lg(id ="finishTut" style="padding: 20px; background-color: green; margin-bottom: 50px; margin: 5px;") Finish
+                div(class = "welcome" id="infoPage4" style="display: none;")
+                    u Coacher.io
+                    br
+                    p(style="display: inline; font-size: 30px") Load Video:     
+                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(id ="placeholder" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
+                    br
+                    p(style="display: inline; font-size: 30px") Share URL:
+                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="http://localhost:5000/room/52f1bb10-3aba-11e5-b852-1393f371b3f4" aria-describedby="basic-addon1")
+                div(id='navButtons')
+                    button.btn.btn-dark.btn-lg(id ="back1" style="padding: 10px; background-color: black; margin-bottom: 50px; margin: 5px;") 
+                        span(class='glyphicon glyphicon-chevron-left')
+                    button.btn.btn-dark.btn-lg(id ="next1" style="padding: 10px; background-color: black; margin-bottom: 50px; margin: 5px;") 
+                        span(class='glyphicon glyphicon-chevron-right')
 
-        nav(id="navbar" class= "navbar navbar-default")
+        nav(id="navbar" class= "navbar navbar-default") 
             .container-fluid
                 // Brand and toggle get grouped for better mobile display
                 .navbar-header
@@ -16,7 +47,7 @@ block content
                         |         
                         span.icon-bar
                     |       
-                    a.navbar-brand() LoLCoach
+                    a.navbar-brand() Coacher.io
                 // Collect the nav links, forms, and other content for toggling
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
                     ul.nav.navbar-nav       
@@ -62,29 +93,35 @@ block content
                         li
                             a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
                                 i(class='fa fa-users fa-lg')
+                                span(class="badge navbadge") U
                         li(style = 'padding-top: 8px;')
-                            input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL') 
+                            input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL' onkeypress='handleKeyPress(event)') 
                         li      
                             a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
                                 b Load
-                        li(style= "margin: 0px; margin-left: -5px;")
+                        li
+                            a(data-tooltip='tooltip' data-placement='bottom' title='Help' id='infoButton')
+                                i(class='glyphicon glyphicon-question-sign')
+                        li
                             a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room' id='leaveRoom')
                                 i(class='fa fa-sign-out fa-lg')
+
                     
                 // /.navbar-collapse
               // /.container-fluid
 
                             
         // content
+        
         div(id='contentHolder')
             div(class='container')
                 div(id='whiteboard-holder' class='whiteboard')
                     canvas(id='whiteboard') Your browser does not support the HTML5 tag.
             div(id='video-holder' class='container')
                 div(id='video-container' class='video-container') 
-                    iframe(width='1920' height='930' src='https://www.youtube.com/embed/5LZB4o_qmZ8?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;' frameborder='0' id='video')
+                    iframe(width='1920' height='930' src='' frameborder='0' id='video')
 
-            div(id="controlBar" class='container' style='background: black; padding-bottom: 10px; padding-top: 5px;') 
+            div(id="controlBar" class='container' style='background: black; padding-bottom: 10px; padding-top: 5px; display:none;') 
                     input(id='controlSlider' data-slider-id='controlSlider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
                     div(class='row' style='padding-top: 10px;')
                         div(class ='col-sm-6')
@@ -122,13 +159,20 @@ block content
         link(rel='stylesheet' href='/stylesheets/main.css')
         link(rel='stylesheet' href='/stylesheets/controlbar.css')
         link(rel='stylesheet' href='/stylesheets/notif.css')
+
+        script(id="draw_script" type="text/JavaScript")
+        script(id="yt_script" type="text/JavaScript")
+        script(id="input_script" type="text/JavaScript")
+
+        script(src='/javascripts/roomController.js')
         script(src='/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js')
         script(src='/notify/notify.js')
         script(src='/bootstrap-slider/js/bootstrap-slider.js')
-        script(src='/javascripts/drawController.js')
-        script(src='/javascripts/roomController.js')
-        script(src='/javascripts/youtubeController.js')
-        script(src='/javascripts/inputController.js')
+
+        //script(src='/javascripts/drawController.js')
+        //script(src='/javascripts/youtubeController.js')
+        //script(src='/javascripts/inputController.js')
+
         script(src='/javascripts/notificationController.js')
         script(src='/javascripts/fullscreen.js')
         script(type='text/javascript').
