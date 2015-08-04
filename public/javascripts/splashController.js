@@ -43,7 +43,4 @@ $(document).ready(function() {
             socket.emit('joinRoom', roomId);
         }
     });
-
-    
-
 });

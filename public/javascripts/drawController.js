@@ -3,44 +3,42 @@ var eraserMode = false;
 var eraserPressed = false;
 var canvas, ctx, sidebar;
 var prevX, prevY;
-
+var numOfColourPickers = 4;
+var colourPreview = ['1','2','3','4'];
 var colourPresets = ['red', 'blue', 'yellow','green'];
-for(i = 0; i < 4; i++) {
-  if(localStorage.getItem('colour' + i)) {
-    colourPresets[i] = localStorage.getItem('colour' + i);
-  }
-}
-var colour = colourPresets[0];
-
-var colourPreview = document.getElementById('colour-preview');
-var colourPreview2 = document.getElementById('colour-preview2');
-var colourPreview3 = document.getElementById('colour-preview3');
-var colourPreview4 = document.getElementById('colour-preview4');
 var thickness = 5;
-
 var dividers = document.getElementsByClassName('divider');
-
 var tempCanvas, tempCtx;
-
 var socket = io();
+var colour = colourPresets[0];
+var x; //for loop things
+
+for(i = 0; i < numOfColourPickers; i++) {
+    if(localStorage.getItem('colour' + i)) {
+        colourPresets[i] = localStorage.getItem('colour' + i);
+    }
+}
+
+x = 1;
+for(i = 0; i < numOfColourPickers; i++){
+    colourPreview[i] = $('#colour-preview' + x)[0];
+    x++;
+}
 
 function init() {
-	// initiate colour picker
-	$('.colourpicker').colorpicker();
-  $('.colourpicker2').colorpicker();
-  $('.colourpicker3').colorpicker();
-  $('.colourpicker4').colorpicker();
-	colourPreview.style.backgroundColor = colourPresets[0];
-  colourPreview2.style.backgroundColor = colourPresets[1];
-  colourPreview3.style.backgroundColor = colourPresets[2];
-  colourPreview4.style.backgroundColor = colourPresets[3];
+	// initiate colour pickers
+    x = 1;
+    for(i = 0; i < numOfColourPickers; i++) {
+        colourPreview[i].style.backgroundColor = colourPresets[i];
+        $('.colourpicker' + x).colorpicker();
+        x++;   
+    }
+
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
 
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
-	//dividers[0].style.left = (3 * (window.innerWidth / 12)) + 'px';
 
 	$('#whiteboard').mousedown(function(e) {
 		if (eraserPressed) {
@@ -103,6 +101,7 @@ function resizeCanvas() {
     canvasHolder.css("left", xPosition);
     loadCanvasImage(data);
 }
+
 function resizeVideo() {
     var videoHolder = $('#video-holder');
     var topBarHeight = $('#navbar').height()+20;
@@ -206,12 +205,10 @@ function clearReceived() {
 
 var thicknessAmt = 6;
 
-
 $('#drawButton').on('click', function() {
     eraserPressed = false;
     setCursor();
 });
-
 
 $('#fullscreenButton').on('click', function() {
     if(fullScreenApi.supportsFullScreen) {
@@ -223,77 +220,33 @@ $('#fullscreenButton').on('click', function() {
     }
 });
 
-$('.colourpicker').on('changeColor', function(ev) {
-    colour = ev.color.toHex();
-    colourPreview.style.backgroundColor = colour;
-    colourPresets[0] = colour;
-    localStorage.setItem('colour0', colour);
+$('.picker').on('click', function() {
+    x = 1;
     eraserPressed = false;
+    for(i = 0; i < numOfColourPickers; i++){ 
+        compare = 'colourpicker' + x;
+        if($(this).hasClass(compare)) {
+            $('#colour-preview' + x).addClass('selectedColour'); 
+            colour = colourPresets[i];
+        } else {
+            $('#colour-preview' + x).removeClass('selectedColour');
+        }
+        x++;
+    }
 });
 
-$('.colourpicker').on('click', function() {
-  colour = colourPresets[0];
-  eraserPressed = false;
-  $('#colour-preview').addClass('selectedColour');
-  $('#colour-preview2').removeClass('selectedColour');
-  $('#colour-preview3').removeClass('selectedColour');
-  $('#colour-preview4').removeClass('selectedColour');
-});
-
-$('.colourpicker2').on('changeColor', function(ev) {
+$('.picker').on('changeColor', function(ev) {
     colour = ev.color.toHex();
-    colourPreview2.style.backgroundColor = colour;
-    colourPresets[1] = colour;
-    localStorage.setItem('colour1', colour);
+    var i = parseInt($(this).attr('class')[12]) - 1;
+    colourPreview[i].style.backgroundColor = colour;
+    colourPresets[i] = colour;
+    localStorage.setItem('colour' + i, colour);
     eraserPressed = false;
-});
-
-$('.colourpicker2').on('click', function() {
-  colour = colourPresets[1];
-  eraserPressed = false;
-  $('#colour-preview').removeClass('selectedColour');
-  $('#colour-preview2').addClass('selectedColour');
-  $('#colour-preview3').removeClass('selectedColour');
-  $('#colour-preview4').removeClass('selectedColour');
-});
-
-$('.colourpicker3').on('changeColor', function(ev) {
-    colour = ev.color.toHex();
-    colourPreview3.style.backgroundColor = colour;
-    colourPresets[2] = colour;
-    localStorage.setItem('colour2', colour);
-    eraserPressed = false;
-});
-
-$('.colourpicker3').on('click', function() {
-  colour = colourPresets[2];
-  eraserPressed = false;
-  $('#colour-preview').removeClass('selectedColour');
-  $('#colour-preview2').removeClass('selectedColour');
-  $('#colour-preview3').addClass('selectedColour');
-  $('#colour-preview4').removeClass('selectedColour');
-});
-
-$('.colourpicker4').on('changeColor', function(ev) {
-    colour = ev.color.toHex();
-    colourPreview4.style.backgroundColor = colour;
-    colourPresets[3] = colour;
-    localStorage.setItem('colour3', colour);
-    eraserPressed = false;
-});
-
-$('.colourpicker4').on('click', function() {
-  colour = colourPresets[3];
-  eraserPressed = false;
-  $('#colour-preview').removeClass('selectedColour');
-  $('#colour-preview2').removeClass('selectedColour');
-  $('#colour-preview3').removeClass('selectedColour');
-  $('#colour-preview4').addClass('selectedColour');
 });
 
 $('#eraser').on('click', function() {
-		eraserPressed = true;	
-		setCursor();
+	eraserPressed = true;	
+	setCursor();
 });
 
 $('#clear').on('click', function() {
@@ -301,8 +254,7 @@ $('#clear').on('click', function() {
 	socket.emit('clear');
 });
 
-
-var brushSlider = new Slider('#ex2', {
+var brushSlider = new Slider('#brushSlider', {
   formatter: function(value) {
   	thickness = value;
   	setCursor();
@@ -310,7 +262,7 @@ var brushSlider = new Slider('#ex2', {
   }
 });
 
-function setCursor(){
+function setCursor() {
 	var roundedThickness = Math.round(thickness/5)*5;
 	var url;
 	if(roundedThickness==0)

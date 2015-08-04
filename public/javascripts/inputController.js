@@ -1,6 +1,6 @@
-  var socket = io();
-  //Keyboard Events
-  $(window).keypress(function(e) {
+var socket = io();
+//Keyboard Events
+$(window).keypress(function(e) {
     if (e.which == 32) { //spacebar
         playPause(); 
     }
@@ -24,22 +24,22 @@
     }
 
     if (e.which == 91 && thickness > 1) { // "[" Key
-      brushSlider.setValue(thickness - thicknessAmt);
+        brushSlider.setValue(thickness - thicknessAmt);
     }
     if (e.which == 93 && thickness < 60) { // "]" Key
-      brushSlider.setValue(thickness + thicknessAmt);
+        brushSlider.setValue(thickness + thicknessAmt);
     }
     if (e.which == 99) { //c key
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    socket.emit('clear');
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        socket.emit('clear');
     }
     if (e.which == 101) { //e key
         eraserPressed = true;
         setCursor();
     }
     if (e.which == 100) { //d key
-    eraserPressed = false;
-    setCursor();
+        eraserPressed = false;
+        setCursor();
     }
 
 
@@ -47,53 +47,53 @@
     //Preset 1
     if (e.which == 49) { //1 key
         colour = colourPresets[0];
-      $('#colour-preview').addClass('selectedColour');
-      $('#colour-preview2').removeClass('selectedColour');
-      $('#colour-preview3').removeClass('selectedColour');
-      $('#colour-preview4').removeClass('selectedColour');
-      eraserPressed = false;
+        $('#colour-preview1').addClass('selectedColour');
+        $('#colour-preview2').removeClass('selectedColour');
+        $('#colour-preview3').removeClass('selectedColour');
+        $('#colour-preview4').removeClass('selectedColour');
+        eraserPressed = false;
     }
     //Preset 2
     if (e.which == 50) { //2 key
         colour = colourPresets[1];
-      $('#colour-preview').removeClass('selectedColour');
-      $('#colour-preview2').addClass('selectedColour');
-      $('#colour-preview3').removeClass('selectedColour');
-      $('#colour-preview4').removeClass('selectedColour');
+        $('#colour-preview1').removeClass('selectedColour');
+        $('#colour-preview2').addClass('selectedColour');
+        $('#colour-preview3').removeClass('selectedColour');
+        $('#colour-preview4').removeClass('selectedColour');
       eraserPressed = false;
     }
     //Preset 3
     if (e.which == 51) { //3 key
         colour = colourPresets[2];
-      $('#colour-preview').removeClass('selectedColour');
-      $('#colour-preview2').removeClass('selectedColour');
-      $('#colour-preview3').addClass('selectedColour');
-      $('#colour-preview4').removeClass('selectedColour');
-      eraserPressed = false;
+        $('#colour-preview1').removeClass('selectedColour');
+        $('#colour-preview2').removeClass('selectedColour');
+        $('#colour-preview3').addClass('selectedColour');
+        $('#colour-preview4').removeClass('selectedColour');
+        eraserPressed = false;
     }
     //Preset 4
     if (e.which == 52) { //4 key
         colour = colourPresets[3];
-      $('#colour-preview').removeClass('selectedColour');
-      $('#colour-preview2').removeClass('selectedColour');
-      $('#colour-preview3').removeClass('selectedColour');
-      $('#colour-preview4').addClass('selectedColour');
-      eraserPressed = false;
+        $('#colour-preview1').removeClass('selectedColour');
+        $('#colour-preview2').removeClass('selectedColour');
+        $('#colour-preview3').removeClass('selectedColour');
+        $('#colour-preview4').addClass('selectedColour');
+        eraserPressed = false;
     }	
 });
 
 $(window).keydown(function(e) {
-  if (e.which == 40) { //down arrow
-      turnDown();
-  }
-  if (e.which == 38) { //up arrow
-      turnUp();
-  }
-  if (e.which == 37) { //left arrow
-      goBack();
-  }
-  if (e.which == 39) { //right arrow
-      goForward();
-  }
+    if (e.which == 40) { //down arrow
+        turnDown();
+    }
+    if (e.which == 38) { //up arrow
+        turnUp();
+    }
+    if (e.which == 37) { //left arrow
+        goBack();
+    }
+    if (e.which == 39) { //right arrow
+        goForward();
+    }
 });
 //End Keyboard Events

@@ -16,34 +16,34 @@
 
   $.notify.addStyle('syncStyle', {
    html: "<div id='notifContainer'>"+
-             "<span class='glyphicon glyphicon-refresh custom-icon' aria-hidden='true'></span>" +
-             "<div class='title' data-notify-html='title'/>" +
-             "<div class='transparent-notif' </div>" +
-         "</div>"
+            "<span class='glyphicon glyphicon-refresh custom-icon' aria-hidden='true'></span>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='transparent-notif' </div>" +
+        "</div>"
  }); 
 
 $.notify.addStyle('speedUpStyle', {
    html: "<div id='notifContainer'>"+
-             "<span class='glyphicon glyphicon-fast-forward custom-icon' aria-hidden='true'></span>" +
-             "<div class='title' data-notify-html='title'/>" +
-             "<div class='transparent-notif' </div>" +
-         "</div>"
+            "<span class='glyphicon glyphicon-fast-forward custom-icon' aria-hidden='true'></span>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='transparent-notif' </div>" +
+        "</div>"
  });
 
 $.notify.addStyle('slowDownStyle', {
    html: "<div id='notifContainer'>"+
-             "<span class='glyphicon glyphicon-fast-backward custom-icon' aria-hidden='true'></span>" +
-             "<div class='title' data-notify-html='title'/>" +
-             "<div class='transparent-notif' </div>" +
-         "</div>"
+            "<span class='glyphicon glyphicon-fast-backward custom-icon' aria-hidden='true'></span>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='transparent-notif' </div>" +
+        "</div>"
  });
 
 $.notify.addStyle('normalizeStyle', {
    html: "<div id='notifContainer'>"+
-             "<span class='fa fa-caret-square-o-right fa-lg custom-icon' aria-hidden='true'></span>" +
-             "<div class='title' data-notify-html='title'/>" +
-             "<div class='transparent-notif' </div>" +
-         "</div>"
+            "<span class='fa fa-caret-square-o-right fa-lg custom-icon' aria-hidden='true'></span>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='transparent-notif' </div>" +
+        "</div>"
  });
 
 function removePrevNotification() {

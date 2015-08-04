@@ -7,16 +7,14 @@ M - Mute (local)
 S- Sync Video
 Up Arrow - Increase Volume
 Down Arrow - Decrease Volume
-Left/Right Arrows - Rewind/Skip by 5 seconds*
+Left/Right Arrows - Rewind/Skip by 5 seconds
 [ - Decrease Size of brush
 ] - Increase size of brush
 C - Clear Canvas
 E - Select Eraser
 D - Select Drawing Tool
-
+            
 1 - Select Preset Colour 1
 2 - Select Preset Colour 2
 3 - Select Preset Colour 3
 4 - Select Preset Colour 4
-
-* currently has no GUI option
