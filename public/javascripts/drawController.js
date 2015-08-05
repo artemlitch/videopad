@@ -37,6 +37,7 @@ for(i = 0; i < numOfColourPickers; i++){
     colourPreview[i] = $('#colour-preview' + x)[0];
     x++;
 }
+colour = colourPresets[0];
 
 function init() {
 	// initiate colour pickers

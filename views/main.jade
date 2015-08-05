@@ -2,15 +2,15 @@ extends layout
 
 block content
     body(class= "unselectable")
-        div(class = "box" id = "welcomeBox" style="display: none;")
+        div(class = "box" id = "welcomeBox")
             div(class = "welcomebox")
                 a(role = "button" class = "welcomeX" id = "exitInfoButton")
                     span(class="glyphicon glyphicon-remove-sign")
                 div(class = "welcome" id="infoPage1") 
                     u Welcome
                     p(style=" font-size: 30px; margin-bottom:0px;") Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
-                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(id ="placeholder" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
+                    input(id="videoURLTut" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(class ="loadVideo" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
                 div(class = "welcome" id="infoPage2" style="display: none;")
                     u Invite
                     p(style=" font-size: 30px; margin-bottom:0px;") To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
@@ -23,8 +23,8 @@ block content
                     u Coacher.io
                     br
                     p(style="display: inline; font-size: 30px") Load Video:     
-                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(id ="placeholder" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
+                    input(id="videoURLSplash" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(class ="loadVideo" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
                     br
                     p(style="display: inline; font-size: 30px") Share URL:
                     input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="http://localhost:5000/room/52f1bb10-3aba-11e5-b852-1393f371b3f4" aria-describedby="basic-addon1")
@@ -97,7 +97,7 @@ block content
                         li(style = 'padding-top: 8px;')
                             input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL' onkeypress='handleKeyPress(event)') 
                         li      
-                            a(id='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
+                            a(class='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
                                 b Load
                         li
                             a(data-tooltip='tooltip' data-placement='bottom' title='Help' id='infoButton')

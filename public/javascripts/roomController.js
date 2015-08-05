@@ -6,6 +6,7 @@ var roomVideoTime = 0;
 var roomVideoState = 0;
 var roomId = window.location.pathname.match(/\/room\/([-0-9a-zA-Z]+)/)[1];
 var infoPage = 1;
+var newUser = 0;
 
 socket.on('connect', function() {
 	socket.emit('joinRoom', roomId);
@@ -30,7 +31,8 @@ socket.on('enterRoomInfo', function(data) { //data should send video state
     roomVideoTime = Math.round(data.time);
     roomVideoState = data.state;
     loadCanvasImage(data.img);
-    loadVideo(parseURL(data.videoURL)); 
+    loadVideo(parseURL(data.videoURL));
+    $('#welcomeBox').hide(); 
 });
 
 socket.on('urlReceived', function(url) {
@@ -43,12 +45,14 @@ socket.on('urlReceived', function(url) {
 
 socket.on('vidReceived', function(url) {
     loadVideo(url);
+    
 });
 
-$('#infoPage1').hide();
-$('#welcomeBox').fadeIn(1000);
-$('#infoPage4').show();
-$('#navButtons').hide();
+if(localStorage.getItem('new') == 1) {
+    $('#infoPage1').hide();
+    $('#infoPage4').show();
+    $('#navButtons').hide();
+}
 
 $('#next1').on('click', function() {
     $('#infoPage'+ infoPage).hide();
@@ -102,7 +106,8 @@ $('#finishTut').on('click', function() {
     $('#welcomeBox').fadeOut(1000);
 });
 
-$('#loadVideo').on('click', function() {
+$('.loadVideo').on('click', function() {
+
     if($('#videoURL').val().match(/youtu/)) {
         var url = $('#videoURL').val();
         if(url.length > 5 && url) {
@@ -112,10 +117,32 @@ $('#loadVideo').on('click', function() {
         }
     }
     $('#videoURL').val(''); 
+
+    if($('#videoURLTut').val().match(/youtu/)) {
+        var url = $('#videoURLTut').val();
+        if(url.length > 5 && url) {
+            url = parseURL(url);
+            loadVideo(url);
+            socket.emit('loadVid', url);
+        }
+    }
+    $('#videoURLTut').val('');
+
+    if($('#videoURLSplash').val().match(/youtu/)) {
+        var url = $('#videoURLSplash').val();
+        if(url.length > 5 && url) {
+            url = parseURL(url);
+            loadVideo(url);
+            socket.emit('loadVid', url);
+        }
+    }
+    $('#videoURLSplash').val('');
 });
+
 
 function loadVideo(url){
     if(firstVidLoad) {
+        localStorage.setItem('new', 1);
         var autoplay;
         if(roomVideoState == 1){
             autoplay = "&autoplay=1;"
