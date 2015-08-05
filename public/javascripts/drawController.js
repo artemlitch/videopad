@@ -62,15 +62,17 @@ function init() {
 			drawMode = true;
 			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
 		}
+        $('#whiteboard').mousemove(function(e) {
+            if (drawMode) {
+                draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+                console.log(draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true));
+            } else if (eraserMode) {
+                erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            }
+        });
 	});
 
-	$('#whiteboard').mousemove(function(e) {
-		if (drawMode) {
-			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		} else if (eraserMode) {
-			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		}
-	});
+
 
 	$('#whiteboard').mouseup(function(e) {
 		drawMode = false;
