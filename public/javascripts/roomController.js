@@ -33,7 +33,7 @@ socket.on('enterRoomInfo', function(data) { //data should send video state
     roomVideoState = data.state;
     loadCanvasImage(data.img);
     loadVideo(parseURL(data.videoURL));
-    $('#welcomeBox').hide(); 
+    $(".exitInfo").click();
 });
 
 socket.on('urlReceived', function(url) {
@@ -49,6 +49,8 @@ socket.on('vidReceived', function(url) {
     
 });
 
+$('.shareURL').click(function() { $(this).select(); });
+
 if(localStorage.getItem('new') == 1) {
     $('#infoPage1').hide();
     $('#infoPage4').show();
@@ -61,6 +63,7 @@ $('#next1').on('click', function() {
         infoPage++;
     }
     $('#infoPage' + infoPage).show();
+    $(".shareURL").select();
 });
 
 $('#back1').on('click', function() {
@@ -69,6 +72,8 @@ $('#back1').on('click', function() {
         infoPage--;
     }       
     $('#infoPage' + infoPage).show();
+    $(".shareURL").select();
+
 });
 
 $('#fullscreenButton').on('click', function() {
@@ -100,13 +105,11 @@ $('#infoButton').on('click', function() {
     $('#welcomeBox').fadeIn(1000);
 });
 
-$('#exitInfoButton').on('click', function() {
+$('.exitInfo').on('click', function() {
     $('#welcomeBox').fadeOut(1000);
 });
 
-$('#finishTut').on('click', function() {
-    $('#welcomeBox').fadeOut(1000);
-});
+
 
 $('.loadVideo').on('click', function() {
 

@@ -69,3 +69,9 @@
     display: inline; 
     font-size: 30px
 }
+
+.align {
+    position: relative;
+    left: -50px;
+    margin: 3px;
+}

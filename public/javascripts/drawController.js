@@ -12,18 +12,14 @@ var tempCanvas, tempCtx;
 var socket = io();
 var colour = colourPresets[0];
 var x; //for loop things
-var drawKeysEnabled = true;
+var drawKeysEnabled = false;
 
 $('#infoButton').on('click', function() {
     drawKeysEnabled = false;
 });
 
-$('#finishTut').on('click', function() {
-    drawKeysEnabled = true;
-});
-
-$('#exitInfoButton').on('click', function() {
-    drawKeysEnabled = true;
+$('.exitInfo').on('click', function() {
+     drawKeysEnabled = true;
 });
 
 for(i = 0; i < numOfColourPickers; i++) {

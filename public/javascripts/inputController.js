@@ -5,13 +5,10 @@ $('#infoButton').on('click', function() {
     ytKeysEnabled = false;
 });
 
-$('#exitInfoButton').on('click', function() {
+$('.exitInfo').on('click', function() {
     ytKeysEnabled = true;
 });
 
-$('#finishTut').on('click', function() {
-    ytKeysEnabled = true;
-});
 //Input Controller For Handling Custom YouTube Controls
 $(window).keypress(function(e) {
     if(ytKeysEnabled){

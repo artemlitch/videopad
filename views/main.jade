@@ -4,7 +4,7 @@ block content
     body(class= "unselectable")
         div(class = "box" id = "welcomeBox")
             div(class = "welcomebox")
-                a(role = "button" class = "welcomeX" id = "exitInfoButton")
+                a(role = "button" class = "welcomeX exitInfo" id = "exitInfoButton")
                     span(class="glyphicon glyphicon-remove-sign")
                 div(class = "welcome" id="infoPage1") 
                     u Welcome
@@ -18,7 +18,7 @@ block content
                 div(class = "welcome" id="infoPage3")
                     u That's It!
                     p You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
-                    button.btn.btn-dark.btn-lg(id ="finishTut") Finish
+                    button.btn.btn-dark.btn-lg(id ="finishTut" class = "exitInfo") Finish
                 div(class = "welcome" id="infoPage4")
                     u Coacher.io
                     br
@@ -26,8 +26,8 @@ block content
                     input(id="videoURLSplash" type="text" placeholder="YouTube URL" aria-describedby="basic-addon1")
                     button.btn.btn-dark.btn-lg(class ="loadVideo") Load
                     br
-                    p Share URL:
-                    input(class="shareURL" type="text" value="" aria-describedby="basic-addon1")
+                    p(class = "align") Share URL:
+                    input(class="shareURL align" type="text")
                 div(id='navButtons')
                     button.btn.btn-dark.btn-lg(id ="back1") 
                         span(class='glyphicon glyphicon-chevron-left')
