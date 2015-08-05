@@ -14,7 +14,7 @@ block content
                 div(class = "welcome" id="infoPage2" style="display: none;")
                     u Invite
                     p(style=" font-size: 30px; margin-bottom:0px;") To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
-                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="http://localhost:5000/room/52f1bb10-3aba-11e5-b852-1393f371b3f4" aria-describedby="basic-addon1")
+                    input(class="shareURL" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="" aria-describedby="basic-addon1")
                 div(class = "welcome" id="infoPage3" style="display: none;")
                     u That's It!
                     p(style=" font-size: 30px; margin-bottom:0px;") You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
@@ -27,7 +27,7 @@ block content
                     button.btn.btn-dark.btn-lg(class ="loadVideo" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
                     br
                     p(style="display: inline; font-size: 30px") Share URL:
-                    input(type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="http://localhost:5000/room/52f1bb10-3aba-11e5-b852-1393f371b3f4" aria-describedby="basic-addon1")
+                    input(class="shareURL" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="" aria-describedby="basic-addon1")
                 div(id='navButtons')
                     button.btn.btn-dark.btn-lg(id ="back1" style="padding: 10px; background-color: black; margin-bottom: 50px; margin: 5px;") 
                         span(class='glyphicon glyphicon-chevron-left')

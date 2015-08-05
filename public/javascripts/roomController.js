@@ -10,6 +10,8 @@ var newUser = 0;
 
 socket.on('connect', function() {
 	socket.emit('joinRoom', roomId);
+    console.log(window.location.href);
+    $(".shareURL").val(window.location.href);
 });
 
 socket.on('roomJoinConf', function() {
@@ -90,6 +92,7 @@ $('#usersButton').on('click', function() {
 
 $('#infoButton').on('click', function() {
     infoPage = 1;
+    $(".shareURL").val(window.location.href);
     $('#navButtons').show();
     $('#infoPage1').show();
     $('#infoPage2').hide();
