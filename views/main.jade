@@ -8,30 +8,30 @@ block content
                     span(class="glyphicon glyphicon-remove-sign")
                 div(class = "welcome" id="infoPage1") 
                     u Welcome
-                    p(style=" font-size: 30px; margin-bottom:0px;") Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
-                    input(id="videoURLTut" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(class ="loadVideo" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
-                div(class = "welcome" id="infoPage2" style="display: none;")
+                    p Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
+                    input(id="videoURLTut" type="text" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(class ="loadVideo") Load
+                div(class = "welcome" id="infoPage2")
                     u Invite
-                    p(style=" font-size: 30px; margin-bottom:0px;") To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
-                    input(class="shareURL" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="" aria-describedby="basic-addon1")
-                div(class = "welcome" id="infoPage3" style="display: none;")
+                    p To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
+                    input(class="shareURL" type="text" value="" aria-describedby="basic-addon1")
+                div(class = "welcome" id="infoPage3")
                     u That's It!
-                    p(style=" font-size: 30px; margin-bottom:0px;") You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
-                    button.btn.btn-dark.btn-lg(id ="finishTut" style="padding: 20px; background-color: green; margin-bottom: 50px; margin: 5px;") Finish
-                div(class = "welcome" id="infoPage4" style="display: none;")
+                    p You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
+                    button.btn.btn-dark.btn-lg(id ="finishTut") Finish
+                div(class = "welcome" id="infoPage4")
                     u Coacher.io
                     br
-                    p(style="display: inline; font-size: 30px") Load Video:     
-                    input(id="videoURLSplash" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(class ="loadVideo" style="padding: 10px; background-color: black; position: relative; top: 10px; margin: 5px;") Load
+                    p Load Video:     
+                    input(id="videoURLSplash" type="text" placeholder="YouTube URL" aria-describedby="basic-addon1")
+                    button.btn.btn-dark.btn-lg(class ="loadVideo") Load
                     br
-                    p(style="display: inline; font-size: 30px") Share URL:
-                    input(class="shareURL" type="text" style="font-size: 20px; color: black; width: 50%; align = center; margin: 0px;" value="" aria-describedby="basic-addon1")
+                    p Share URL:
+                    input(class="shareURL" type="text" value="" aria-describedby="basic-addon1")
                 div(id='navButtons')
-                    button.btn.btn-dark.btn-lg(id ="back1" style="padding: 10px; background-color: black; margin-bottom: 50px; margin: 5px;") 
+                    button.btn.btn-dark.btn-lg(id ="back1") 
                         span(class='glyphicon glyphicon-chevron-left')
-                    button.btn.btn-dark.btn-lg(id ="next1" style="padding: 10px; background-color: black; margin-bottom: 50px; margin: 5px;") 
+                    button.btn.btn-dark.btn-lg(id ="next1") 
                         span(class='glyphicon glyphicon-chevron-right')
 
         nav(id="navbar" class= "navbar navbar-default") 
@@ -94,10 +94,10 @@ block content
                             a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
                                 i(class='fa fa-users fa-lg')
                                 span(class="badge navbadge") U
-                        li(style = 'padding-top: 8px;')
+                        li(id = 'urlLi')
                             input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL' onkeypress='handleKeyPress(event)') 
                         li      
-                            a(class='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video' style="border-color: rgba(214, 213, 213, 0.48);  border-right-style: solid; border-left-style: solid;")
+                            a(class='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
                                 b Load
                         li
                             a(data-tooltip='tooltip' data-placement='bottom' title='Help' id='infoButton')
@@ -121,9 +121,9 @@ block content
                 div(id='video-container' class='video-container') 
                     iframe(width='1920' height='930' src='' frameborder='0' id='video')
 
-            div(id="controlBar" class='container' style='background: black; padding-bottom: 10px; padding-top: 5px; display:none;') 
+            div(id="controlBar" class='container') 
                     input(id='controlSlider' data-slider-id='controlSlider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
-                    div(class='row' style='padding-top: 10px;')
+                    div(class='row')
                         div(class ='col-sm-6')
                             div(class = 'col-sm-1')
                                 a(id='PlayButton')
@@ -134,7 +134,7 @@ block content
                             div(class = 'col-sm-3')
                                 input(id='volumeSlider' data-slider-id='volumeSlider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
                             div(class  = 'col-sm-3') 
-                                p(id = 'time' style = 'color: rgba(243, 243, 243, 0.85)') 0:00 / 0:00
+                                p(id = 'time') 0:00 / 0:00
                             div(class  = 'col-sm-4')
                                 a(id='slowDownButton')
                                        i(class='fa fa-fast-backward fa-lg')
@@ -159,6 +159,8 @@ block content
         link(rel='stylesheet' href='/stylesheets/main.css')
         link(rel='stylesheet' href='/stylesheets/controlbar.css')
         link(rel='stylesheet' href='/stylesheets/notif.css')
+        link(rel='stylesheet' href='/stylesheets/navbar.css')
+        link(rel='stylesheet' href='/stylesheets/infopage.css')
 
         script(id="draw_script" type="text/JavaScript")
         script(id="yt_script" type="text/JavaScript")
@@ -175,6 +177,8 @@ block content
 
         script(src='/javascripts/notificationController.js')
         script(src='/javascripts/fullscreen.js')
+
+        //What is this? Does it do anything    
         script(type='text/javascript').
             $('.dropdown-toggle').dropdown();
             $('[data-tooltip="tooltip"]').tooltip();

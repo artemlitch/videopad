@@ -1,0 +1,71 @@
+.welcomebox{
+    background-color: rgba(0, 50, 100, 0.5);
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 7%;
+}
+
+.welcomeX{
+    color: black;
+    float: right;
+    font-size: 40px;
+    padding-bottom: 100px;
+    margin: 0px;
+    padding-top: 0px;
+    line-height: 0px;
+}
+
+.welcomeX:hover{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.welcome {
+    font-size: 70px;
+}
+
+.welcome p {
+    font-size: 30px; 
+    margin-bottom:0px;
+}
+
+#infoPage2, #infoPage3, #infoPage4 {
+    display: none;
+} 
+
+.welcome input {
+    font-size: 20px; 
+    color: black; 
+    width: 50%; 
+    margin: 0px;
+}
+
+.welcome button.loadVideo {
+    padding: 10px; 
+    background-color: black; 
+    position: relative; 
+    top: 10px; 
+    margin: 5px;
+}
+
+#navButtons button {
+    padding: 10px; 
+    background-color: black; 
+    margin-bottom: 50px; 
+    margin: 5px;
+}
+
+#navButtons button:focus {
+    color: white;
+}
+
+#finishTut {
+    padding: 20px; 
+    background-color: green; 
+    margin-bottom: 50px; 
+    margin: 5px;
+}
+
+#infoPage4 p {
+    display: inline; 
+    font-size: 30px
+}

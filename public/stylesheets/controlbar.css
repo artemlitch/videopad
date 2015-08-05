@@ -20,6 +20,21 @@
     padding: 10px;
 }
 
+#time {
+    color: rgba(243, 243, 243, 0.85)
+}
+
+#controlBar {
+    background: black; 
+    padding-bottom: 10px; 
+    padding-top: 5px; 
+    display:none;
+}
+
+#controlBar .row {
+    padding-top: 10px;
+}
+
 .slider-handle {
   width: 22px;
   height: 22px;
