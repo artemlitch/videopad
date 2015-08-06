@@ -22,12 +22,13 @@ block content
                 #infoPage4.welcome
                     u Coacher.io
                     br
+                    p.align.bump Share URL:
+                    input.shareURL.align(type='text')
+                    br
                     p Load Video:     
                     input#videoURLSplash(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1')
-                    button.btn.btn-dark.btn-lg.loadVideo Load
+                    button.btn.btn-dark.btn-lg.loadVideo.exitInfo Load
                     br
-                    p.align Share URL:
-                    input.shareURL.align(type='text')
                 #navButtons
                     button#back1.btn.btn-dark.btn-lg
                         span.glyphicon.glyphicon-chevron-left
@@ -131,37 +132,31 @@ block content
 
             #controlBar.container 
                     input#controlSlider(data-slider-id='controlSlider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
-                    .row
-                        .col-sm-6
-                            .col-sm-1
-                                a#PlayButton
-                                    i#playButtonIcon.fa.fa-play.fa-lg
-                            .col-sm-1
-                                a#MuteButton
-                                       i#muteButtonIcon.fa.fa-volume-up.fa-lg
-                            .col-sm-3
-                                input#volumeSlider(data-slider-id='volumeSlider' type='text' data-slider-min='0' 
-                                    data-slider-max='100' data-slider-step='1' 
-                                    data-slider-tooltip='hide' data-slider-scale='logarithmic')  
-                            .col-sm-3 
-                                p#time 0:00 / 0:00
-                            .col-sm-4
+                    .controlsRow
+                        .controlCol
+                            a#PlayButton
+                                i#playButtonIcon.fa.fa-play.fa-lg
+                        .controlCol
+                            a#MuteButton
+                                    i#muteButtonIcon.fa.fa-volume-up.fa-lg
+                    
+                            input#volumeSlider(data-slider-id='volumeSlider' type='text' data-slider-min='0' 
+                                data-slider-max='100' data-slider-step='1' 
+                                data-slider-tooltip='hide' data-slider-scale='logarithmic')  
+                        .controlCol.moveTime
+                            p#time 0:00 / 0:00
+                        .controlCol.speedControls
                                 a#slowDownButton
                                        p.fa.fa-fast-backward.fa-lg
                                 a#normalizeButton(style="text-decoration: none;")
                                        p#speedText(style="display: inline; vertical-align: middle;") 1.0x
                                 a#speedUpButton
                                        p.fa.fa-fast-forward.fa-lg
-                        .col-sm-4
-                        .col-sm-2
-                            .col-sm-6
-                            .col-sm-3
-                                .dropup
-                                    ul#dropUp.dropdown-menu
-                                    a#quality(data-toggle='dropdown' aria-expanded='true')
-                                        i.glyphicon.glyphicon-cog
-                                    
-                            .col-sm-3
+                        .controlCol.rightSide
+                            .dropup
+                                ul#dropUp.dropdown-menu
+                                a#quality(data-toggle='dropdown' aria-expanded='true')
+                                    i.glyphicon.glyphicon-cog   
                                 a#fullscreenButton(data-tooltip='tooltip' data-placement='top' title='Toggle Fullscreen')
                                     span.glyphicon.glyphicon-fullscreen           
         

@@ -75,4 +75,9 @@
     position: relative;
     left: -50px;
     margin: 3px;
+    
+}
+
+.bump {
+  padding-left: 60px;  
 }
