@@ -37,6 +37,8 @@ block content
         nav#navbar.navbar.navbar-default
             .container-fluid
                 .navbar-header
+                    a.navbar-brand Coacher.io
+
                     button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#collapse1', aria-expanded='false')
                         span.sr-only Toggle navigation
                         span.icon-bar       
@@ -52,7 +54,8 @@ block content
                         span.icon-bar       
                         span.icon-bar       
                         span.icon-bar 
-                    a.navbar-brand() Coacher.io
+
+                    
 
                 ul#collapse1.nav.navbar-nav.collapse.navbar-collapse.custom
                     li#colour-preview1.selectedColour
@@ -93,7 +96,7 @@ block content
                             span.badge.navbadge C
                 
             
-                ul#collapse3.nav.navbar-nav.navbar-right.navbar-collapse.custom
+                ul#collapse3.nav.navbar-nav.navbar-right.navbar-collapse.custom.roomControlCollapse
                     li
                         a#syncRoom(data-tooltip='tooltip' data-placement='bottom' title='Sync Room')
                             i.fa.fa-refresh.fa-lg
@@ -134,16 +137,18 @@ block content
                                 a#MuteButton
                                        i#muteButtonIcon.fa.fa-volume-up.fa-lg
                             .col-sm-3
-                                input#volumeSlider(data-slider-id='volumeSlider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
+                                input#volumeSlider(data-slider-id='volumeSlider' type='text' data-slider-min='0' 
+                                    data-slider-max='100' data-slider-step='1' 
+                                    data-slider-tooltip='hide' data-slider-scale='logarithmic')  
                             .col-sm-3 
                                 p#time 0:00 / 0:00
                             .col-sm-4
                                 a#slowDownButton
-                                       i.fa.fa-fast-backward.fa-lg
-                                a#normalizeButton
-                                       i.fa.fa-caret-square-o-right.fa-lg
+                                       p.fa.fa-fast-backward.fa-lg
+                                a#normalizeButton(style="text-decoration: none;")
+                                       p#speedText(style="display: inline; vertical-align: middle;") 1.0x
                                 a#speedUpButton
-                                       i.fa.fa-fast-forward.fa-lg
+                                       p.fa.fa-fast-forward.fa-lg
                         .col-sm-4
                         .col-sm-2
                             .col-sm-6

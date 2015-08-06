@@ -1,11 +1,12 @@
 #controlSlider .slider-selection {
     background: red;
 }
+
 #volumeSlider .slider-selection {
     background: grey;
 }
 #brushSlider .slider-selection {
-  background: grey;
+    background: grey;
 }
 
 #controlBar a {
@@ -20,15 +21,29 @@
     padding: 10px;
 }
 
+.speedButtons i{
+    text-decoration: none;
+
+}
+
 #time {
     color: rgba(243, 243, 243, 0.85)
 }
+#controlsBar p {
+    display:inline;
+}
 
 #controlBar {
+    padding: 10px;
     background: black; 
-    padding-bottom: 10px; 
+    padding-bottom: 5px; 
     padding-top: 5px; 
     display:none;
+    border: solid 1px #313131
+}
+
+#controlBar a {
+    margin-left: -7px;
 }
 
 #controlBar .row {
@@ -36,20 +51,24 @@
 }
 
 .slider-handle {
-  width: 22px;
-  height: 22px;
-  line-height: 160px;
-  border-radius: 80px;
-  background-image: -webkit-radial-gradient(  50%   0%,  8% 50%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
+    width: 22px;
+    height: 22px;
+    line-height: 160px;
+    border-radius: 80px;
+    position: relative;
+    bottom: 1px;
+    background-image: -webkit-radial-gradient(  50%   0%,  8% 50%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
     -webkit-radial-gradient(  50% 100%, 12% 50%, hsla(0,0%,100%,.6) 0%, hsla(0,0%,100%,0) 100%),
     -webkit-radial-gradient(   0%  50%, 50%  7%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
     -webkit-radial-gradient( 100%  50%, 50%  5%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
-    
     -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   3%, hsla(0,0%,  0%,.1) 3.5%),
     -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%,.1) 7.5%),
     -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.2) 2.2%),
-    
     -webkit-radial-gradient( 50% 50%, 200% 50%, hsla(0,0%,90%,1) 5%, hsla(0,0%,85%,1) 30%, hsla(0,0%,60%,1) 100%);
+}
+
+#controlSlider .slider-track-high{
+    background-color: #ADADAD;
 }
 
 

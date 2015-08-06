@@ -110,23 +110,29 @@
     padding-top: 8px;
 }
 
+#brushSlider .slider-track-high{
+    background-color: #CECECE;
+}
+
 @media (max-width:767px) {
     .navbar-nav.navbar-collapse {
         margin-left: 0;
         margin-right: 0;
         padding-left: 0;
         padding-right: 0;
-        width: 33%;
+        width: 50%;
         overflow: hidden;
         float: right;
-        display: inline;
         padding-bottom: 10px;
     }  
-    .navbar-nav.navbar-collapse ul{
-
+    .navbar-nav.navbar-collapse a{
+        display: block;
     }
     .navbar-nav.navbar-collapse li{
-
+       display: inline-block; 
+    }
+    .navbar-nav.navbar-collapse.roomControlCollapse {
+       width: 100%; 
     }
 }
 

@@ -8,7 +8,8 @@ var videoState;
 var newUser = true;
 var moveSlider=setInterval(function () {myTimer()}, 1000);;
 var totalVideoTime='';
- 
+var speeds = [0.25, 0.5, 1.0, 1.25, 1.5, 2.0];
+var speedIndex = 2;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('video', {
         events: {
@@ -16,8 +17,8 @@ function onYouTubeIframeAPIReady() {
         'onStateChange': onPlayerStateChange
         }
     });
-}
-       
+} 
+
 function onPlayerStateChange(event) {
     var embedCode = event.target.getVideoEmbedCode();
     switch(event.data) {
@@ -58,6 +59,7 @@ function onPlayerStateChange(event) {
 
 function onPlayerReady(event) {
     $('#controlBar').fadeIn(1000);
+    speeds = player.getAvailablePlaybackRates();
     if(localStorage.getItem("sound")) {
         player.setVolume(localStorage.getItem("sound"));
     } else {
@@ -74,6 +76,14 @@ function onPlayerReady(event) {
         mute();
     });
 }
+
+function onPlaybackRateChange(event) { //this function isnt calling?
+
+    //Updating this in the timer for now
+    //$('#speedText').html(player.getPlaybackRate() + 'x');
+    console.log('hello?');
+
+} 
 
 //Quality Button
 $('#quality').on('click', function() {
@@ -182,14 +192,10 @@ function playPause() {
         player.playVideo();
         player.seekTo(time, true);
         socket.emit('playVid',time);
-        //$("#playButtonIcon").removeClass('fa-play');
-        //$("#playButtonIcon").addClass('fa-pause');
     }
     if(player.getPlayerState() == 1) {
         player.pauseVideo();
         socket.emit('pauseVid',time);
-       // $("#playButtonIcon").removeClass('fa-pause');
-        //$("#playButtonIcon").addClass('fa-play');
     }
     
     if(player.getPlayerState() == 0) {
@@ -224,18 +230,25 @@ function goForward() {
 }
 
 function speedUp() {
-    var speed = player.getPlaybackRate() * 1.5;
-    player.setPlaybackRate(speed);
-
+    if(speedIndex < (speeds.length - 1)) {
+        speedIndex++;
+        player.setPlaybackRate(speeds[speedIndex]);
+        $('#speedText').html(speeds[speedIndex] + "x");
+    }
 }
 
 function slowDown() {
-    var speed = player.getPlaybackRate() / 2;
-    player.setPlaybackRate(speed);
+    if(speedIndex > 0) {
+        speedIndex--;
+        player.setPlaybackRate(speeds[speedIndex]);
+        $('#speedText').html(speeds[speedIndex] + "x");
+    }
+    
 }
 
 function normalize() {
     player.setPlaybackRate(1.0);
+    $('#speedText').html('1x');
 }
 
 function turnUp() {
@@ -297,7 +310,6 @@ socket.on('normalPlaybackReceived', function() {
 
 //Slider
 var slider = new Slider('#controlSlider', {
-    //value: currentTime(),
     tooltip: 'hide',
     formatter: function(value) {
     
@@ -342,6 +354,7 @@ function myTimer() {
             var time = Math.round(currentTime());
             totalVideoTime = secondsToHMS(returnDuration()); 
             document.getElementById("time").innerHTML = secondsToHMS(time) + " / " + totalVideoTime;
+            $('#speedText').html(player.getPlaybackRate() + 'x');
         }
     }
 }
