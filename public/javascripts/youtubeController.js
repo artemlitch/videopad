@@ -270,14 +270,14 @@ socket.on('syncReceived', function(time, state) {
     } else if(state == 1 || state == 5) {
         player.playVideo();
     }
-    notifySync();
+    sendNotify("Sync", "syncStyle");
 });
 
 socket.on('pauseReceived', function(time) {
     if(player.getPlayerState != 2) {
         player.seekTo(time, true);
         player.pauseVideo();
-        notifyPause();
+        sendNotify("Pause", "pauseStyle");
     }
 });
 
@@ -285,23 +285,23 @@ socket.on('playReceived', function(time) {
     if(player.getPlayerState != 1) {
         player.seekTo(time, true);
         player.playVideo();
-        notifyPlay();
+        sendNotify("Play", "playStyle");
     }
 });
 
 socket.on('playFasterReceived', function() {
     speedUp();
-    notifySpeedUp();
+    sendNotify("Speed Increased", "speedUpStyle");
 });
 
 socket.on('playSlowerReceived', function() {
     slowDown();
-    notifySlowDown();
+    sendNotify("Speed Decreased", "slowDownStyle");
 });
 
 socket.on('normalPlaybackReceived', function() {
     normalize();
-    notifyNormalize();
+    sendNotify("Normal Speed", "normalizeStyle");
 });
 //End Socket IO Receivers
 

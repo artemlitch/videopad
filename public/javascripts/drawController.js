@@ -1,3 +1,4 @@
+//Initiations
 var drawMode = false;
 var eraserMode = false;
 var eraserPressed = false;
@@ -13,13 +14,14 @@ var socket = io();
 var colour = colourPresets[0];
 var x; //for loop things
 var drawKeysEnabled = false;
+var thicknessAmt = 6;
 
-$('#infoButton').on('click', function() {
-    drawKeysEnabled = false;
-});
-
-$('.exitInfo').on('click', function() {
-     drawKeysEnabled = true;
+var brushSlider = new Slider('#brushSlider', {
+  formatter: function(value) {
+    thickness = value;
+    setCursor();
+    return value;
+  }
 });
 
 for(i = 0; i < numOfColourPickers; i++) {
@@ -36,52 +38,22 @@ for(i = 0; i < numOfColourPickers; i++){
 colour = colourPresets[0];
 
 function init() {
-	// initiate colour pickers
     x = 1;
     for(i = 0; i < numOfColourPickers; i++) {
         colourPreview[i].style.backgroundColor = colourPresets[i];
         $('.colourpicker' + x).colorpicker();
         x++;   
     }
-
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
-
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
-	$('#whiteboard').mousedown(function(e) {
-		if (eraserPressed) {
-			eraserMode = true;
-			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		} else {
-			drawMode = true;
-			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-		}
-        $('#whiteboard').mousemove(function(e) {
-            if (drawMode) {
-                draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-            } else if (eraserMode) {
-                erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-            }
-        });
-	});
-
-
-
-	$('#whiteboard').mouseup(function(e) {
-		drawMode = false;
-		eraserMode = false;
-	});
-
-	$('#whiteboard').mouseleave(function(e) {
-		drawMode = false;
-		eraserMode = false;
-	});
     resizeScreen();
 	window.addEventListener('resize', resizeScreen, false);
 }
+//End Initiations
 
+//Functions
 function loadCanvasImage(imgSource) {
     var img = new Image();
     img.onload = function () {
@@ -133,18 +105,6 @@ function resizeVideo() {
         videoHolder.width(251);
     }
 }
-
-socket.on('drawReceived', function(data) {
-	drawReceived(data);
-});
-
-socket.on('eraseReceived', function(x, y) {
-	eraseReceived(x, y);
-});
-
-socket.on('clearReceived', function() {
-	clearReceived();
-});
 
 function draw(x, y, pressed) {
 	if (pressed) {
@@ -214,13 +174,77 @@ function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-var thicknessAmt = 6;
+function setCursor() {
+	var roundedThickness = Math.round(thickness/5)*5;
+	var url;
+	if(roundedThickness==0)
+		roundedThickness = 5;
+	var spacing = Math.round(roundedThickness/2);
+	if(!eraserPressed){
+		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		$('#whiteboard').css('cursor', url);
+	}
+	else{
+		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		$('#whiteboard').css('cursor', url);
+	}
+}
+//End Functions
+
+//Socket Receivers
+socket.on('drawReceived', function(data) {
+    drawReceived(data);
+});
+
+socket.on('eraseReceived', function(x, y) {
+    eraseReceived(x, y);
+});
+
+socket.on('clearReceived', function() {
+    clearReceived();
+});
+//End Socket Receivers
+
+//User Input
+$('#whiteboard').mousedown(function(e) {
+    if (eraserPressed) {
+        eraserMode = true;
+        erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+    } else {
+        drawMode = true;
+        draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+    }
+    $('#whiteboard').mousemove(function(e) {
+        if (drawMode) {
+            draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        } else if (eraserMode) {
+            erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        }
+    });
+});
+
+$('#whiteboard').mouseup(function(e) {
+    drawMode = false;
+    eraserMode = false;
+});
+
+$('#whiteboard').mouseleave(function(e) {
+    drawMode = false;
+    eraserMode = false;
+});
+
+$('#infoButton').on('click', function() {
+    drawKeysEnabled = false;
+});
+
+$('.exitInfo').on('click', function() {
+     drawKeysEnabled = true;
+});
 
 $('#drawButton').on('click', function() {
     eraserPressed = false;
     setCursor();
 });
-
 
 $('.picker').on('click', function() {
     x = 1;
@@ -247,40 +271,15 @@ $('.picker').on('changeColor', function(ev) {
 });
 
 $('#eraser').on('click', function() {
-	eraserPressed = true;	
-	setCursor();
+    eraserPressed = true;   
+    setCursor();
 });
 
 $('#clear').on('click', function() {
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	socket.emit('clear');
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    socket.emit('clear');
 });
 
-var brushSlider = new Slider('#brushSlider', {
-  formatter: function(value) {
-  	thickness = value;
-  	setCursor();
-    return value;
-  }
-});
-
-function setCursor() {
-	var roundedThickness = Math.round(thickness/5)*5;
-	var url;
-	if(roundedThickness==0)
-		roundedThickness = 5;
-	var spacing = Math.round(roundedThickness/2);
-	if(!eraserPressed){
-		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor', url);
-	}
-	else{
-		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor', url);
-	}
-}
-
-//DRAWING KEYBINDS
 $(window).keypress(function(e) {
     if(drawKeysEnabled){
         if (e.which == 91 && thickness > 1) { // "[" Key
@@ -339,4 +338,4 @@ $(window).keypress(function(e) {
         }  
     }
 });
-//END DRAWING KEYBINDS
+//End User Input
