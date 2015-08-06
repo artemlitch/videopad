@@ -96,7 +96,7 @@ block content
                             span.badge.navbadge C
                 
             
-                ul#collapse3.nav.navbar-nav.navbar-right.navbar-collapse.custom.roomControlCollapse
+                ul#collapse3.nav.navbar-nav.collapse.navbar-collapse.custom.navbar-right
                     li
                         a#syncRoom(data-tooltip='tooltip' data-placement='bottom' title='Sync Room')
                             i.fa.fa-refresh.fa-lg
@@ -109,13 +109,16 @@ block content
                         input#videoURL.navbar-form.navbar-left(type='text', placeholder='YouTube URL' onkeypress='handleKeyPress(event)') 
                     li      
                         a.loadVideo(data-tooltip='tooltip' data-placement='bottom' title='Load Video')
-                            b Load
+                           b Load
+                           span.badge.navbadge
                     li
                         a#infoButton(data-tooltip='tooltip' data-placement='bottom' title='Help')
                             i.glyphicon.glyphicon-question-sign
+                            span.badge.navbadge
                     li
                         a#leaveRoom(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
                             i.fa.fa-sign-out.fa-lg
+                            span.badge.navbadge
                       
         // content
         #contentHolder

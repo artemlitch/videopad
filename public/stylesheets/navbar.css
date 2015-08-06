@@ -114,7 +114,7 @@
     background-color: #CECECE;
 }
 
-@media (max-width:767px) {
+@media (max-width:1200px) {
     .navbar-nav.navbar-collapse {
         margin-left: 0;
         margin-right: 0;
@@ -130,10 +130,29 @@
     }
     .navbar-nav.navbar-collapse li{
        display: inline-block; 
+       float: right;
     }
+
     .navbar-nav.navbar-collapse.roomControlCollapse {
        width: 100%; 
     }
+
+    #collapse1 {
+        width: 200px;
+    }
+    #collapse1 li {
+        width: 35px;
+    }
+    #collapse2 {
+        width: 200px;
+    }
+    #collapse2 li {
+        width: 35px;
+    }
+    #collapse3 {
+        width: 470px;
+    }
+
 }
 
 

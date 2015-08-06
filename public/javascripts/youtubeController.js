@@ -249,6 +249,7 @@ function slowDown() {
 function normalize() {
     player.setPlaybackRate(1.0);
     $('#speedText').html('1x');
+    speedIndex = 2;
 }
 
 function turnUp() {
@@ -273,8 +274,6 @@ socket.on('syncReceived', function(time, state) {
 });
 
 socket.on('pauseReceived', function(time) {
-    //$("#playButtonIcon").addClass('fa-play');
-    //$("#playButtonIcon").removeClass('fa-pause');
     if(player.getPlayerState != 2) {
         player.seekTo(time, true);
         player.pauseVideo();
@@ -283,8 +282,6 @@ socket.on('pauseReceived', function(time) {
 });
 
 socket.on('playReceived', function(time) {
-    //$("#playButtonIcon").removeClass('fa-play');
-    //$("#playButtonIcon").addClass('fa-pause');
     if(player.getPlayerState != 1) {
         player.seekTo(time, true);
         player.playVideo();
@@ -308,7 +305,6 @@ socket.on('normalPlaybackReceived', function() {
 });
 //End Socket IO Receivers
 
-//Slider
 var slider = new Slider('#controlSlider', {
     tooltip: 'hide',
     formatter: function(value) {
