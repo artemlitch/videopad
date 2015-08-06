@@ -1,159 +1,153 @@
 extends layout
 
 block content
-    body(class= "unselectable")
-        div(class = "box" id = "welcomeBox")
-            div(class = "welcomebox")
-                a(role = "button" class = "welcomeX exitInfo" id = "exitInfoButton")
-                    span(class="glyphicon glyphicon-remove-sign")
-                div(class = "welcome" id="infoPage1") 
+    body.unselectable
+        #welcomeBox.box
+            .welcomebox
+                a#exitInfoButton.welcomeX.exitInfo(role = 'button')
+                    span.glyphicon.glyphicon-remove-sign
+                #infoPage1.welcome
                     u Welcome
                     p Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
-                    input(id="videoURLTut" type="text" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(class ="loadVideo") Load
-                div(class = "welcome" id="infoPage2")
+                    input#videoURLTut(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1')
+                    button.btn.btn-dark.btn-lg.loadVideo Load
+                #infoPage2.welcome
                     u Invite
                     p To invite someone to the room, send them the link below (also in your browsers address bar) along with the room password.
-                    input(class="shareURL" type="text" value="" aria-describedby="basic-addon1")
-                div(class = "welcome" id="infoPage3")
+                    input.shareURL(type='text' aria-describedby='basic-addon1')
+                #infoPage3.welcome
                     u That's It!
                     p You're ready to go. Drawing and room controls are on the top, YouTube controls are on the bottom.
-                    button.btn.btn-dark.btn-lg(id ="finishTut" class = "exitInfo") Finish
-                div(class = "welcome" id="infoPage4")
+                    button#finishTut.btn.btn-dark.btn-lg.exitInfo Finish
+                #infoPage4.welcome
                     u Coacher.io
                     br
                     p Load Video:     
-                    input(id="videoURLSplash" type="text" placeholder="YouTube URL" aria-describedby="basic-addon1")
-                    button.btn.btn-dark.btn-lg(class ="loadVideo") Load
+                    input#videoURLSplash(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1')
+                    button.btn.btn-dark.btn-lg.loadVideo Load
                     br
-                    p(class = "align") Share URL:
-                    input(class="shareURL align" type="text")
-                div(id='navButtons')
-                    button.btn.btn-dark.btn-lg(id ="back1") 
-                        span(class='glyphicon glyphicon-chevron-left')
-                    button.btn.btn-dark.btn-lg(id ="next1") 
-                        span(class='glyphicon glyphicon-chevron-right')
+                    p.align Share URL:
+                    input.shareURL.align(type='text')
+                #navButtons
+                    button#back1.btn.btn-dark.btn-lg
+                        span.glyphicon.glyphicon-chevron-left
+                    button#next1.btn.btn-dark.btn-lg
+                        span.glyphicon.glyphicon-chevron-right
 
-        nav(id="navbar" class= "navbar navbar-default") 
+        nav#navbar.navbar.navbar-default
             .container-fluid
-                // Brand and toggle get grouped for better mobile display
                 .navbar-header
                     button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
                         span.sr-only Toggle navigation
-                        |         
-                        span.icon-bar
-                        |         
-                        span.icon-bar
-                        |         
-                        span.icon-bar
-                    |       
+       
+                        span.icon-bar       
+                        span.icon-bar       
+                        span.icon-bar  
+
                     a.navbar-brand() Coacher.io
-                // Collect the nav links, forms, and other content for toggling
                 #bs-example-navbar-collapse-1.collapse.navbar-collapse
-                    ul.nav.navbar-nav       
-                        li(id='colour-preview1' class='selectedColour')
-                            a(class='colourpicker1 picker' data-toggle='dropdown')
-                            span(class="badge navbadgeColor") 1
-                        li(id='colour-preview2')
-                            a(class='colourpicker2 picker' data-toggle='dropdown') 
-                            span(class="badge navbadgeColor") 2
-                        li(id='colour-preview3')
-                            a(class='colourpicker3 picker' data-toggle='dropdown') 
-                            span(class="badge navbadgeColor") 3
-                        li(id='colour-preview4')
-                            a(class='colourpicker4 picker' data-toggle='dropdown') 
-                            span(class="badge navbadgeColor") 4
-                        | 
-                        li(class='dropdown thickness')
+                    ul.nav.navbar-nav
+                        li#colour-preview1.selectedColour
+                            a.colourpicker1.picker(data-toggle='dropdown')
+                            span.badge.navbadgeColor 1
+                        li#colour-preview2
+                            a.colourpicker2.picker(data-toggle='dropdown')
+                            span.badge.navbadgeColor 2
+                        li#colour-preview3
+                            a.colourpicker3.picker(data-toggle='dropdown') 
+                            span.badge.navbadgeColor 3
+                        li#colour-preview4
+                            a.colourpicker4.picker(data-toggle='dropdown') 
+                            span.badge.navbadgeColor 4
+
+                        li.dropdown.thickness
                             a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
-                               i(class='fa fa-tint fa-lg')
-                            ul(class='dropdown-menu')
+                               i.fa.fa-tint.fa-lg
+                            ul.dropdown-menu
                                 li
-                                    input(id='brushSlider' data-slider-id='brushSlider' type='text' data-slider-min='1' data-slider-max='50' data-slider-step='1' data-slider-value='12' data-slider-tooltip='hide')
+                                    input#brushSlider( 
+                                        data-slider-id='brushSlider' type='text' 
+                                        data-slider-min='1' data-slider-max='50' 
+                                        data-slider-step='1' data-slider-value='12' 
+                                        data-slider-tooltip='hide')
                         li
-                            a(id='drawButton' data-tooltip='tooltip' data-placement='bottom' title='Draw')
-                                i(class='fa fa-pencil fa-lg')
-                                span(class="badge navbadge") D
+                            a#drawButton(data-tooltip='tooltip' data-placement='bottom' title='Draw')
+                                i.fa.fa-pencil.fa-lg
+                                span.badge.navbadge D
                         li
-                            a(id='eraser' data-tooltip='tooltip' data-placement='bottom' title='Erase')
-                                i(class='fa fa-eraser fa-lg')
-                                span(class="badge navbadge") E
+                            a#eraser(data-tooltip='tooltip' data-placement='bottom' title='Erase')
+                                i.fa.fa-eraser.fa-lg
+                                span.badge.navbadge E
 
                         li
-                            a(id='clear' data-tooltip='tooltip' data-placement='bottom' title='Clear')
-                                i(class='fa fa-trash-o fa-lg')           
-                                span(class="badge navbadge") C
+                            a#clear(data-tooltip='tooltip' data-placement='bottom' title='Clear')
+                                i.fa.fa-trash-o.fa-lg           
+                                span.badge.navbadge C
                     
     
                     ul.nav.navbar-nav.navbar-right
                         li
-                            a(data-tooltip='tooltip' data-placement='bottom' title='Sync Room' id='syncRoom' )
-                                i(class='fa fa-refresh fa-lg') 
-                                span(class="badge navbadge") S
+                            a#syncRoom(data-tooltip='tooltip' data-placement='bottom' title='Sync Room')
+                                i.fa.fa-refresh.fa-lg
+                                span.badge.navbadge S
                         li
-                            a(data-tooltip='tooltip' data-placement='bottom' title='Users' id='usersButton')
-                                i(class='fa fa-users fa-lg')
-                                span(class="badge navbadge") U
-                        li(id = 'urlLi')
-                            input.navbar-form.navbar-left(type='text', placeholder='YouTube URL' id='videoURL' onkeypress='handleKeyPress(event)') 
+                            a#usersButton(data-tooltip='tooltip' data-placement='bottom' title='Users')
+                                i.fa.fa-users.fa-lg
+                                span.badge.navbadge U
+                        li#urlLi
+                            input#videoURL.navbar-form.navbar-left(type='text', placeholder='YouTube URL' onkeypress='handleKeyPress(event)') 
                         li      
-                            a(class='loadVideo' data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                            a.loadVideo(data-tooltip='tooltip' data-placement='bottom' title='Load Video')
                                 b Load
                         li
-                            a(data-tooltip='tooltip' data-placement='bottom' title='Help' id='infoButton')
-                                i(class='glyphicon glyphicon-question-sign')
+                            a#infoButton(data-tooltip='tooltip' data-placement='bottom' title='Help')
+                                i.glyphicon.glyphicon-question-sign
                         li
-                            a(data-tooltip='tooltip' data-placement='bottom' title='Leave Room' id='leaveRoom')
-                                i(class='fa fa-sign-out fa-lg')
-
-                    
-                // /.navbar-collapse
-              // /.container-fluid
-
-                            
+                            a#leaveRoom(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                                i.fa.fa-sign-out.fa-lg
+                      
         // content
-        
-        div(id='contentHolder')
-            div(class='container')
-                div(id='whiteboard-holder' class='whiteboard')
-                    canvas(id='whiteboard') Your browser does not support the HTML5 tag.
-            div(id='video-holder' class='container')
-                div(id='video-container' class='video-container') 
-                    iframe(width='1920' height='930' src='' frameborder='0' id='video')
+        #contentHolder
+            .container
+                #whiteboard-holder.whiteboard
+                    canvas#whiteboard Your browser does not support the HTML5 tag.
+            #video-holder.container
+                #video-container.video-container
+                    iframe#video(width='1920' height='930' frameborder='0')
 
-            div(id="controlBar" class='container') 
-                    input(id='controlSlider' data-slider-id='controlSlider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
-                    div(class='row')
-                        div(class ='col-sm-6')
-                            div(class = 'col-sm-1')
-                                a(id='PlayButton')
-                                    i(id="playButtonIcon" class='fa fa-play fa-lg')
-                            div(class = 'col-sm-1')
-                                a(id='MuteButton')
-                                       i(id="muteButtonIcon" class='fa fa-volume-up fa-lg') 
-                            div(class = 'col-sm-3')
-                                input(id='volumeSlider' data-slider-id='volumeSlider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
-                            div(class  = 'col-sm-3') 
-                                p(id = 'time') 0:00 / 0:00
-                            div(class  = 'col-sm-4')
-                                a(id='slowDownButton')
-                                       i(class='fa fa-fast-backward fa-lg')
-                                a(id='normalizeButton')
-                                       i(class='fa fa-caret-square-o-right fa-lg')
-                                a(id='speedUpButton')
-                                       i(class='fa fa-fast-forward fa-lg')
-                        div(class ='col-sm-4')
-                        div(class ='col-sm-2')
-                            div(class ='col-sm-6')
-                            div(class ='col-sm-3')
-                                div(class='dropup')
-                                    ul(class='dropdown-menu' id='dropUp')
-                                    a(data-toggle='dropdown' id='quality' aria-expanded='true')
-                                        i(class='glyphicon glyphicon-cog')
+            #controlBar.container 
+                    input#controlSlider(data-slider-id='controlSlider' type='text' data-slider-min='0' data-slider-max='10000' data-slider-step='1' data-slider-value='0') 
+                    .row
+                        .col-sm-6
+                            .col-sm-1
+                                a#PlayButton
+                                    i#playButtonIcon.fa.fa-play.fa-lg
+                            .col-sm-1
+                                a#MuteButton
+                                       i#muteButtonIcon.fa.fa-volume-up.fa-lg
+                            .col-sm-3
+                                input#volumeSlider(data-slider-id='volumeSlider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-tooltip='hide' data-slider-scale='logarithmic')  
+                            .col-sm-3 
+                                p#time 0:00 / 0:00
+                            .col-sm-4
+                                a#slowDownButton
+                                       i.fa.fa-fast-backward.fa-lg
+                                a#normalizeButton
+                                       i.fa.fa-caret-square-o-right.fa-lg
+                                a#speedUpButton
+                                       i.fa.fa-fast-forward.fa-lg
+                        .col-sm-4
+                        .col-sm-2
+                            .col-sm-6
+                            .col-sm-3
+                                .dropup
+                                    ul#dropUp.dropdown-menu
+                                    a#quality(data-toggle='dropdown' aria-expanded='true')
+                                        i.glyphicon.glyphicon-cog
                                     
-                            div(class ='col-sm-3')
-                                a(id='fullscreenButton' data-tooltip='tooltip' data-placement='top' title='Toggle Fullscreen')
-                                    span(class='glyphicon glyphicon-fullscreen')           
+                            .col-sm-3
+                                a#fullscreenButton(data-tooltip='tooltip' data-placement='top' title='Toggle Fullscreen')
+                                    span.glyphicon.glyphicon-fullscreen           
         
         //load the scripts for this page
         link(rel='stylesheet' href='/stylesheets/main.css')
@@ -162,18 +156,14 @@ block content
         link(rel='stylesheet' href='/stylesheets/navbar.css')
         link(rel='stylesheet' href='/stylesheets/infopage.css')
 
-        script(id="draw_script" type="text/JavaScript")
-        script(id="yt_script" type="text/JavaScript")
-        script(id="input_script" type="text/JavaScript")
+        script#draw_script(type='text/JavaScript')
+        script#yt_script(type='text/JavaScript')
+        script#input_script(type='text/JavaScript')
 
         script(src='/javascripts/roomController.js')
         script(src='/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js')
         script(src='/notify/notify.js')
         script(src='/bootstrap-slider/js/bootstrap-slider.js')
-
-        //script(src='/javascripts/drawController.js')
-        //script(src='/javascripts/youtubeController.js')
-        //script(src='/javascripts/inputController.js')
 
         script(src='/javascripts/notificationController.js')
         script(src='/javascripts/fullscreen.js')
@@ -181,4 +171,4 @@ block content
         //What is this? Does it do anything    
         script(type='text/javascript').
             $('.dropdown-toggle').dropdown();
-            $('[data-tooltip="tooltip"]').tooltip();
+            $('[data-tooltip='tooltip']').tooltip();
