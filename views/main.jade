@@ -37,74 +37,82 @@ block content
         nav#navbar.navbar.navbar-default
             .container-fluid
                 .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#collapse1', aria-expanded='false')
                         span.sr-only Toggle navigation
-       
                         span.icon-bar       
                         span.icon-bar       
                         span.icon-bar  
-
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#collapse2', aria-expanded='false')
+                        span.sr-only Toggle navigation
+                        span.icon-bar       
+                        span.icon-bar       
+                        span.icon-bar 
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#collapse3', aria-expanded='false')
+                        span.sr-only Toggle navigation
+                        span.icon-bar       
+                        span.icon-bar       
+                        span.icon-bar 
                     a.navbar-brand() Coacher.io
-                #bs-example-navbar-collapse-1.collapse.navbar-collapse
-                    ul.nav.navbar-nav
-                        li#colour-preview1.selectedColour
-                            a.colourpicker1.picker(data-toggle='dropdown')
-                            span.badge.navbadgeColor 1
-                        li#colour-preview2
-                            a.colourpicker2.picker(data-toggle='dropdown')
-                            span.badge.navbadgeColor 2
-                        li#colour-preview3
-                            a.colourpicker3.picker(data-toggle='dropdown') 
-                            span.badge.navbadgeColor 3
-                        li#colour-preview4
-                            a.colourpicker4.picker(data-toggle='dropdown') 
-                            span.badge.navbadgeColor 4
 
-                        li.dropdown.thickness
-                            a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
-                               i.fa.fa-tint.fa-lg
-                            ul.dropdown-menu
-                                li
-                                    input#brushSlider( 
-                                        data-slider-id='brushSlider' type='text' 
-                                        data-slider-min='1' data-slider-max='50' 
-                                        data-slider-step='1' data-slider-value='12' 
-                                        data-slider-tooltip='hide')
-                        li
-                            a#drawButton(data-tooltip='tooltip' data-placement='bottom' title='Draw')
-                                i.fa.fa-pencil.fa-lg
-                                span.badge.navbadge D
-                        li
-                            a#eraser(data-tooltip='tooltip' data-placement='bottom' title='Erase')
-                                i.fa.fa-eraser.fa-lg
-                                span.badge.navbadge E
+                ul#collapse1.nav.navbar-nav.collapse.navbar-collapse.custom
+                    li#colour-preview1.selectedColour
+                        a.colourpicker1.picker(data-toggle='dropdown')
+                        span.badge.navbadgeColor 1
+                    li#colour-preview2
+                        a.colourpicker2.picker(data-toggle='dropdown')
+                        span.badge.navbadgeColor 2
+                    li#colour-preview3
+                        a.colourpicker3.picker(data-toggle='dropdown') 
+                        span.badge.navbadgeColor 3
+                    li#colour-preview4
+                        a.colourpicker4.picker(data-toggle='dropdown') 
+                        span.badge.navbadgeColor 4
+                ul#collapse2.nav.navbar-nav.collapse.navbar-collapse.custom
+                    li.dropdown.thickness
+                        a(data-toggle='dropdown' data-tooltip='tooltip' data-placement='bottom' title='Brush Size')
+                           i.fa.fa-tint.fa-lg
+                        ul.dropdown-menu
+                            li
+                                input#brushSlider( 
+                                    data-slider-id='brushSlider' type='text' 
+                                    data-slider-min='1' data-slider-max='50' 
+                                    data-slider-step='1' data-slider-value='12' 
+                                    data-slider-tooltip='hide')
+                    li
+                        a#drawButton(data-tooltip='tooltip' data-placement='bottom' title='Draw')
+                            i.fa.fa-pencil.fa-lg
+                            span.badge.navbadge D
+                    li
+                        a#eraser(data-tooltip='tooltip' data-placement='bottom' title='Erase')
+                            i.fa.fa-eraser.fa-lg
+                            span.badge.navbadge E
 
-                        li
-                            a#clear(data-tooltip='tooltip' data-placement='bottom' title='Clear')
-                                i.fa.fa-trash-o.fa-lg           
-                                span.badge.navbadge C
-                    
-    
-                    ul.nav.navbar-nav.navbar-right
-                        li
-                            a#syncRoom(data-tooltip='tooltip' data-placement='bottom' title='Sync Room')
-                                i.fa.fa-refresh.fa-lg
-                                span.badge.navbadge S
-                        li
-                            a#usersButton(data-tooltip='tooltip' data-placement='bottom' title='Users')
-                                i.fa.fa-users.fa-lg
-                                span.badge.navbadge U
-                        li#urlLi
-                            input#videoURL.navbar-form.navbar-left(type='text', placeholder='YouTube URL' onkeypress='handleKeyPress(event)') 
-                        li      
-                            a.loadVideo(data-tooltip='tooltip' data-placement='bottom' title='Load Video')
-                                b Load
-                        li
-                            a#infoButton(data-tooltip='tooltip' data-placement='bottom' title='Help')
-                                i.glyphicon.glyphicon-question-sign
-                        li
-                            a#leaveRoom(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
-                                i.fa.fa-sign-out.fa-lg
+                    li
+                        a#clear(data-tooltip='tooltip' data-placement='bottom' title='Clear')
+                            i.fa.fa-trash-o.fa-lg           
+                            span.badge.navbadge C
+                
+            
+                ul#collapse3.nav.navbar-nav.navbar-right.navbar-collapse.custom
+                    li
+                        a#syncRoom(data-tooltip='tooltip' data-placement='bottom' title='Sync Room')
+                            i.fa.fa-refresh.fa-lg
+                            span.badge.navbadge S
+                    li
+                        a#usersButton(data-tooltip='tooltip' data-placement='bottom' title='Users')
+                            i.fa.fa-users.fa-lg
+                            span.badge.navbadge U
+                    li#urlLi
+                        input#videoURL.navbar-form.navbar-left(type='text', placeholder='YouTube URL' onkeypress='handleKeyPress(event)') 
+                    li      
+                        a.loadVideo(data-tooltip='tooltip' data-placement='bottom' title='Load Video')
+                            b Load
+                    li
+                        a#infoButton(data-tooltip='tooltip' data-placement='bottom' title='Help')
+                            i.glyphicon.glyphicon-question-sign
+                    li
+                        a#leaveRoom(data-tooltip='tooltip' data-placement='bottom' title='Leave Room')
+                            i.fa.fa-sign-out.fa-lg
                       
         // content
         #contentHolder
@@ -169,6 +177,6 @@ block content
         script(src='/javascripts/fullscreen.js')
 
         //What is this? Does it do anything    
-        script(type='text/javascript').
-            $('.dropdown-toggle').dropdown();
-            $('[data-tooltip='tooltip']').tooltip();
+        //script(type='text/javascript').
+        //    $('.dropdown-toggle').dropdown();
+        //    $('[data-tooltip='tooltip']').tooltip();

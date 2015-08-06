@@ -109,3 +109,25 @@
 #urlLi {
     padding-top: 8px;
 }
+
+@media (max-width:767px) {
+    .navbar-nav.navbar-collapse {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 33%;
+        overflow: hidden;
+        float: right;
+        display: inline;
+        padding-bottom: 10px;
+    }  
+    .navbar-nav.navbar-collapse ul{
+
+    }
+    .navbar-nav.navbar-collapse li{
+
+    }
+}
+
+
