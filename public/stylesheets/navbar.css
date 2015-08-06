@@ -130,7 +130,11 @@
     }
     .navbar-nav.navbar-collapse li{
        display: inline-block; 
-       float: right;
+       float: left;
+    }
+
+    .navbar-nav.navbar-collapse ul{
+        float: right;
     }
 
     .navbar-nav.navbar-collapse.roomControlCollapse {
