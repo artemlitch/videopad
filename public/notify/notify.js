@@ -163,9 +163,9 @@ pluginOptions = {
   globalPosition: 'top right',
   style: 'bootstrap',
   className: 'error',
-  showAnimation: 'slideDown',
+  showAnimation: 'fadeIn',
   showDuration: 400,
-  hideAnimation: 'slideUp',
+  hideAnimation: 'fadeOut',
   hideDuration: 200,
   gap: 5
 };

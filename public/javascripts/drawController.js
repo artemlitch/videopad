@@ -1,4 +1,4 @@
-//Initiations
+//Initiations*******************************************************************
 var drawMode = false;
 var eraserMode = false;
 var eraserPressed = false;
@@ -51,13 +51,14 @@ function init() {
     resizeScreen();
 	window.addEventListener('resize', resizeScreen, false);
 }
-//End Initiations
+//End Initiations***************************************************************
 
-//Functions
+//Class Functions***************************************************************
 function loadCanvasImage(imgSource) {
     var img = new Image();
     img.onload = function () {
-        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height, 
+                    0, 0, canvas.width, canvas.height);
     }
     img.src = imgSource;
 }
@@ -90,7 +91,8 @@ function resizeVideo() {
     var topBarHeight = $('#navbar').height()+20;
     var bottomBarHeight = $('#controlBar').height()+20; 
     if(videoHolder.width() >= 250) {
-        var hDiff = (innerHeight - topBarHeight - bottomBarHeight) - videoHolder.height();
+        var hDiff = (innerHeight - topBarHeight 
+                    - bottomBarHeight) - videoHolder.height();
         var wDiff = innerWidth - (videoHolder.width() -50)
         if (wDiff < 0) {
             videoHolder.width(innerWidth - 50);
@@ -181,17 +183,21 @@ function setCursor() {
 		roundedThickness = 5;
 	var spacing = Math.round(roundedThickness/2);
 	if(!eraserPressed){
-		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " 
+            + spacing + " " + spacing + ", default";
+
 		$('#whiteboard').css('cursor', url);
 	}
 	else{
-		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
+		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " 
+            + spacing + " " + spacing + ", default"; 
+
 		$('#whiteboard').css('cursor', url);
 	}
 }
-//End Functions
+//End Functions*****************************************************************
 
-//Socket Receivers
+//Socket Receivers**************************************************************
 socket.on('drawReceived', function(data) {
     drawReceived(data);
 });
@@ -203,9 +209,9 @@ socket.on('eraseReceived', function(x, y) {
 socket.on('clearReceived', function() {
     clearReceived();
 });
-//End Socket Receivers
+//End Socket Receivers**********************************************************
 
-//User Input
+//User Input********************************************************************
 $('#whiteboard').mousedown(function(e) {
     if (eraserPressed) {
         eraserMode = true;
@@ -300,7 +306,7 @@ $(window).keypress(function(e) {
             eraserPressed = false;
             setCursor();
         }
-
+        //this should be rewriten
         if (e.which == 49) { //1 key
             colour = colourPresets[0];
             $('#colour-preview1').addClass('selectedColour');
@@ -338,4 +344,4 @@ $(window).keypress(function(e) {
         }  
     }
 });
-//End User Input
+//End User Input****************************************************************

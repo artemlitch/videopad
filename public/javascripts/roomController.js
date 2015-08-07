@@ -1,3 +1,4 @@
+//Initiations*******************************************************************
 var firstVidLoad = true;
 var canvas = document.getElementById('whiteboard');
 var context = canvas.getContext('2d');
@@ -8,6 +9,16 @@ var roomId = window.location.pathname.match(/\/room\/([-0-9a-zA-Z]+)/)[1];
 var infoPage = 1;
 var newUser = 0;
 
+document.getElementById('draw_script').src='/javascripts/drawController.js';
+
+if(localStorage.getItem('new') == 1) {
+    $('#infoPage1').hide();
+    $('#infoPage4').show();
+    $('#navButtons').hide();
+}
+//End Initiations***************************************************************
+
+//Socket Receivers**************************************************************
 socket.on('connect', function() {
 	socket.emit('joinRoom', roomId);
     $(".shareURL").val(window.location.href);
@@ -32,7 +43,7 @@ socket.on('enterRoomInfo', function(data) { //data should send video state
     roomVideoTime = Math.round(data.time);
     roomVideoState = data.state;
     loadCanvasImage(data.img);
-    loadVideo(parseURL(data.videoURL));
+    checkVideo(parseURL(data.videoURL));
     $(".exitInfo").click();
 });
 
@@ -40,22 +51,17 @@ socket.on('urlReceived', function(url) {
     var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
     var parsedMyUrl = (player.getVideoUrl()).split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
     if(parsedURL != parsedMyUrl) { 
-        loadVideo(parseURL(url));
+        checkVideo(parseURL(url));
     } 
 });
 
 socket.on('vidReceived', function(url) {
-    loadVideo(url);
-    
+    checkVideo(url); 
 });
+//End Socket Receivers**********************************************************
 
+//User Input********************************************************************
 $('.shareURL').click(function() { $(this).select(); });
-
-if(localStorage.getItem('new') == 1) {
-    $('#infoPage1').hide();
-    $('#infoPage4').show();
-    $('#navButtons').hide();
-}
 
 $('#next1').on('click', function() {
     $('#infoPage'+ infoPage).hide();
@@ -109,15 +115,14 @@ $('.exitInfo').on('click', function() {
     $('#welcomeBox').fadeOut(1000);
 });
 
-
-
+//Rewrite This
 $('.loadVideo').on('click', function() {
 
     if($('#videoURL').val().match(/youtu/)) {
         var url = $('#videoURL').val();
         if(url.length > 5 && url) {
             url = parseURL(url);
-            loadVideo(url);
+            checkVideo(url);
             socket.emit('loadVid', url);
         }
     }
@@ -127,7 +132,7 @@ $('.loadVideo').on('click', function() {
         var url = $('#videoURLTut').val();
         if(url.length > 5 && url) {
             url = parseURL(url);
-            loadVideo(url);
+            checkVideo(url);
             socket.emit('loadVid', url);
         }
     }
@@ -137,52 +142,59 @@ $('.loadVideo').on('click', function() {
         var url = $('#videoURLSplash').val();
         if(url.length > 5 && url) {
             url = parseURL(url);
-            loadVideo(url);
+            checkVideo(url);
             socket.emit('loadVid', url);
         }
     }
     $('#videoURLSplash').val('');
 });
 
+function handleKeyPress(e) {
+    var key = e.keyCode || e.which;
+    if (key == 13 && $('#videoURL').val().match(/youtu/)){
+        var url = $('#videoURL').val();
+        if(url.length > 5 && url) {
+            url = parseURL(url);
+            checkVideo(url);
+            socket.emit('loadVid', url);
+        }
+        $('#videoURL').val(''); 
+    }
+}
+//End User Input****************************************************************
 
-function loadVideo(url){
+//Class Functions***************************************************************
+function checkVideo(url) {
     if(firstVidLoad) {
         localStorage.setItem('new', 1);
-        var autoplay;
-        if(roomVideoState == 1){
-            autoplay = "&autoplay=1;"
-        } else {
-            autoplay = "";
-        }
-        var startTime = "&start=" + roomVideoTime + ";";
-        $('#video-container').html("<iframe width='1920' height='930' src='" + url + startTime + autoplay + "' frameborder='0' id='video'></iframe>");
-        document.getElementById('yt_script').src='/javascripts/youtubeController.js';
-        document.getElementById('input_script').src='/javascripts/inputController.js'; 
         firstVidLoad = false;
-
+        loadIframe(url);
     } else {
-        player.cueVideoByUrl(url, 0,"large"); 
+        loadVideo(url); 
     }
+}
+
+function loadIframe(url) {
+    var autoplay;
+    if(roomVideoState == 1){
+        autoplay = "&autoplay=1;"
+    } else {
+        autoplay = "";
+    }
+    var startTime = "&start=" + roomVideoTime + ";";
+    $('#video-container').html("<iframe width='1920' height='930' src='" 
+                                + url + startTime + autoplay 
+                                + "' frameborder='0' id='video'></iframe>");
+    document.getElementById('yt_script').src='/javascripts/youtubeController.js';
+    document.getElementById('input_script').src='/javascripts/inputController.js'; 
 }
 
 function parseURL(url) {
     var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
-    parsedURL = "https://www.youtube.com/embed/" + parsedURL + "?rel=0&amp;controls=0&amp;showinfo=0;enablejsapi=1&html5=1;hd=1&iv_load_policy=3;";
+    parsedURL = "https://www.youtube.com/embed/" + parsedURL 
+                + "?rel=0&amp;controls=0&amp;showinfo=0;"
+                + "enablejsapi=1&html5=1;hd=1&iv_load_policy=3;";
     return parsedURL;
 }
-
-document.getElementById('draw_script').src='/javascripts/drawController.js';
-
-function handleKeyPress(e){
- var key=e.keyCode || e.which;
-  if (key==13 && $('#videoURL').val().match(/youtu/)){
-     var url = $('#videoURL').val();
-     if(url.length > 5 && url) {
-         url = parseURL(url);
-         loadVideo(url);
-         socket.emit('loadVid', url);
-     }
-     $('#videoURL').val(''); 
-  }
-}
+//End Class Functions***********************************************************
 

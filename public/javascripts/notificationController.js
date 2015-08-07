@@ -1,3 +1,4 @@
+ //Initiations******************************************************************
  var styles = [
     ['normalizeStyle','fa fa-caret-square-o-right fa-lg custom-icon'],
     ['slowDownStyle','glyphicon glyphicon-fast-backward custom-icon'],
@@ -8,6 +9,7 @@
 ];
 
 initStyles();
+
 function initStyles(){
     var s;
     var c;
@@ -19,17 +21,21 @@ function initStyles(){
                 c = styles[x][y];
         }
         $.notify.addStyle(s, {
-           html: "<div id='notifContainer'>"+
-                    "<span class='" + c + "' aria-hidden='true'></span>" +
-                    "<div class='title' data-notify-html='title'/>" +
-                    "<div class='transparent-notif' </div>" +
+           html:"<div id='notifContainer'>" +
+                "<span class='" + 
+                c + "' aria-hidden='true'></span>" +
+                "<div class='title' data-notify-html='title'/>" +
+                "<div class='transparent-notif' </div>" +
                 "</div>"
          });
     }   
 }
+//End Initiations***************************************************************
 
+//Functions*********************************************************************
 function removePrevNotification() {
-    var notification = $('#notifContainer').parent('.notifyjs-container').parent('.notifyjs-wrapper');
+    var notification = $('#notifContainer').parent('.notifyjs-container')
+                                           .parent('.notifyjs-wrapper');
     if(notification) {
         notification.css('visibility', 'hidden');
         notification.trigger('notify-hide');
@@ -45,31 +51,9 @@ function sendNotify(msg, styling) {
           globalPosition:"top center",
           style: styling,
           autoHide: true,
-          autoHideDelay: 700,
+          autoHideDelay: 500,
         }
         );
 }
-
-//Old Stuff
-// function notifyPlay() {
-//     removePrevNotification();
-//   $.notify({
-//       title:"Video Resumed",
-//       },
-//       { 
-//         globalPosition:"top center",
-//         style: 'playStyle',
-//         autoHide: true,
-//         autoHideDelay: 700,
-//       }
-//       );
-// }
-//  $.notify.addStyle('pauseStyle', {
-//   html: "<div id='notifContainer'>"+
-//             "<span class='glyphicon glyphicon-pause custom-icon' aria-hidden='true'></span>" +
-//             "<div class='title' data-notify-html='title'/>" +
-//             "<div class='transparent-notif' </div>" +
-//         "</div>"
-// });  
-
+//End Functions*****************************************************************
 
