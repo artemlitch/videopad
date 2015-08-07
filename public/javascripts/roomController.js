@@ -24,6 +24,14 @@ socket.on('connect', function() {
     $(".shareURL").val(window.location.href);
 });
 
+socket.on('userJoined', function(username) {
+    sendNotify(username + " Connected", "userStyle", 1000);
+});
+
+socket.on('userLeft', function(username) {
+    sendNotify(username + " Disconnected", "userStyle", 1000);
+});
+
 socket.on('roomJoinConf', function() {
     socket.emit('getRoomInfo');
 });
@@ -94,8 +102,7 @@ function loadIframe(url) {
     $('#video-container').html("<iframe width='1920' height='930' src='" 
                                 + url + startTime + autoplay 
                                 + "' frameborder='0' id='video'></iframe>");
-    document.getElementById('yt_script').src='/javascripts/youtubeController.js';
-    document.getElementById('input_script').src='/javascripts/inputController.js'; 
+    document.getElementById('yt_script').src='/javascripts/youtubeController.js'; 
 }
 
 function parseURL(url) {
@@ -110,7 +117,7 @@ function parseURL(url) {
 //User Input********************************************************************
 
 $('#usersButton').click(function() { 
-    console.log('List Users');
+
 });
 
 $('.shareURL').click(function() { $(this).select(); });

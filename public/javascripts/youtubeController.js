@@ -292,14 +292,14 @@ socket.on('syncReceived', function(time, state) {
     } else if(state == 1 || state == 5) {
         player.playVideo();
     }
-    sendNotify("Sync", "syncStyle");
+    sendNotify("Sync", "syncStyle", 500);
 });
 
 socket.on('pauseReceived', function(time) {
     if(player.getPlayerState != 2) {
         player.seekTo(time, true);
         player.pauseVideo();
-        sendNotify("Pause", "pauseStyle");
+        sendNotify("Pause", "pauseStyle", 500);
     }
 });
 
@@ -307,23 +307,23 @@ socket.on('playReceived', function(time) {
     if(player.getPlayerState != 1) {
         player.seekTo(time, true);
         player.playVideo();
-        sendNotify("Play", "playStyle");
+        sendNotify("Play", "playStyle", 500);
     }
 });
 
 socket.on('playFasterReceived', function() {
     speedUp();
-    sendNotify("Speed Increased", "speedUpStyle");
+    sendNotify("Speed Increased", "speedUpStyle", 500);
 });
 
 socket.on('playSlowerReceived', function() {
     slowDown();
-    sendNotify("Speed Decreased", "slowDownStyle");
+    sendNotify("Speed Decreased", "slowDownStyle", 500);
 });
 
 socket.on('normalPlaybackReceived', function() {
     normalize();
-    sendNotify("Normal Speed", "normalizeStyle");
+    sendNotify("Normal Speed", "normalizeStyle", 500);
 });
 //End Socket Receivers**********************************************************
 

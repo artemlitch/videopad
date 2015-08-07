@@ -36,7 +36,8 @@ module.exports = function(app, db, sessionMiddleware){
                             user.room = roomId;
                             user.username = sessUser; 
                             socket.join(roomId);
-                            socket.emit('roomJoinConf', sessUser);        
+                            socket.emit('roomJoinConf', sessUser);
+                            io.sockets.emit('userJoined', user.username);      
                         } else {
                             socket.emit('failJoinConf', sessUser);        
                         }
@@ -46,13 +47,6 @@ module.exports = function(app, db, sessionMiddleware){
         });
         socket.on('getUsers', function(){
             if(user.room) {
-              var sockets_in_room = io.nsps['/'].adapter.rooms[user.id]
-              var socket_objects = []
-
-              for (socketId in sockets_in_room) {
-                  //socket_objects.push(io.sockets.connected[socketId])
-                  //console.log(io.sockets.connected[socketId]);
-              }
                  
             }
         });
@@ -139,8 +133,10 @@ module.exports = function(app, db, sessionMiddleware){
         //End YouTube IO
         socket.on('disconnect', function() {
             socket.leave(user.room);
+            if (user.room) {
+                io.sockets.emit('userLeft', user.username);
+            }
         });
-
     });
     return io;
 };

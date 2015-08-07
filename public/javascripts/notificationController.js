@@ -5,7 +5,8 @@
     ['speedUpStyle','glyphicon glyphicon-fast-forward custom-icon'],
     ['syncStyle','glyphicon glyphicon-refresh custom-icon'],
     ['playStyle','glyphicon glyphicon-play custom-icon'],
-    ['pauseStyle','glyphicon glyphicon-pause custom-icon']
+    ['pauseStyle','glyphicon glyphicon-pause custom-icon'],
+    ['userStyle','fa fa-users fa-lg custom-icon']
 ];
 
 initStyles();
@@ -42,7 +43,7 @@ function removePrevNotification() {
     }
 }
 
-function sendNotify(msg, styling) {
+function sendNotify(msg, styling, duration) {
     removePrevNotification();
     $.notify({
         title: msg,
@@ -51,7 +52,7 @@ function sendNotify(msg, styling) {
           globalPosition:"top center",
           style: styling,
           autoHide: true,
-          autoHideDelay: 500,
+          autoHideDelay: duration,
         }
         );
 }
