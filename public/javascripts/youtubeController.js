@@ -235,6 +235,25 @@ function returnDuration() {
     }
 }
 
+function currentState() {
+    if(player) {
+        return (player.getPlayerState());
+    }
+    else {
+        return (0);
+    }
+}
+
+
+function currentURL() {
+    if(player) {
+        return (player.getVideoUrl());
+    }
+    else {
+        return (null);
+    }
+}
+
 function currentTime() {
     if(player) {
         return (player.getCurrentTime());

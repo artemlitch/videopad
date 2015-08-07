@@ -29,12 +29,22 @@ socket.on('roomJoinConf', function() {
 });
 
 socket.on('sendRoomInfo', function(userId) {
-    data = {
-        userId: userId,
-        img: canvas.toDataURL(),
-        time: player.getCurrentTime(),
-        videoURL: player.getVideoUrl(),
-        state: player.getPlayerState()
+    if(typeof player !== 'undefined') {
+        data = {
+            userId: userId,
+            img: canvas.toDataURL(),
+            time: currentTime(),
+            videoURL: currentURL(),
+            state: currentState()
+        }
+    } else {
+        data = {
+            userId: userId,
+            img: canvas.toDataURL(),
+            time: 0,
+            videoURL: '',
+            state: -1
+        }
     }
     socket.emit('sentRoomInfo',data)
 });
@@ -43,8 +53,10 @@ socket.on('enterRoomInfo', function(data) { //data should send video state
     roomVideoTime = Math.round(data.time);
     roomVideoState = data.state;
     loadCanvasImage(data.img);
-    checkVideo(parseURL(data.videoURL));
-    $(".exitInfo").click();
+    if(data.videoURL) {
+        checkVideo(parseURL(data.videoURL));
+        $(".exitInfo").click();
+    }
 });
 
 socket.on('urlReceived', function(url) {
@@ -59,6 +71,41 @@ socket.on('vidReceived', function(url) {
     checkVideo(url); 
 });
 //End Socket Receivers**********************************************************
+
+//Class Functions***************************************************************
+function checkVideo(url) {
+    if(firstVidLoad) {
+        localStorage.setItem('new', 1);
+        firstVidLoad = false;
+        loadIframe(url);
+    } else {
+        loadVideo(url); 
+    }
+}
+
+function loadIframe(url) {
+    var autoplay;
+    if(roomVideoState == 1){
+        autoplay = "&autoplay=1;"
+    } else {
+        autoplay = "";
+    }
+    var startTime = "&start=" + roomVideoTime + ";";
+    $('#video-container').html("<iframe width='1920' height='930' src='" 
+                                + url + startTime + autoplay 
+                                + "' frameborder='0' id='video'></iframe>");
+    document.getElementById('yt_script').src='/javascripts/youtubeController.js';
+    document.getElementById('input_script').src='/javascripts/inputController.js'; 
+}
+
+function parseURL(url) {
+    var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
+    parsedURL = "https://www.youtube.com/embed/" + parsedURL 
+                + "?rel=0&amp;controls=0&amp;showinfo=0;"
+                + "enablejsapi=1&html5=1;hd=1&iv_load_policy=3;";
+    return parsedURL;
+}
+//End Class Functions***********************************************************
 
 //User Input********************************************************************
 $('.shareURL').click(function() { $(this).select(); });
@@ -162,39 +209,4 @@ function handleKeyPress(e) {
     }
 }
 //End User Input****************************************************************
-
-//Class Functions***************************************************************
-function checkVideo(url) {
-    if(firstVidLoad) {
-        localStorage.setItem('new', 1);
-        firstVidLoad = false;
-        loadIframe(url);
-    } else {
-        loadVideo(url); 
-    }
-}
-
-function loadIframe(url) {
-    var autoplay;
-    if(roomVideoState == 1){
-        autoplay = "&autoplay=1;"
-    } else {
-        autoplay = "";
-    }
-    var startTime = "&start=" + roomVideoTime + ";";
-    $('#video-container').html("<iframe width='1920' height='930' src='" 
-                                + url + startTime + autoplay 
-                                + "' frameborder='0' id='video'></iframe>");
-    document.getElementById('yt_script').src='/javascripts/youtubeController.js';
-    document.getElementById('input_script').src='/javascripts/inputController.js'; 
-}
-
-function parseURL(url) {
-    var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
-    parsedURL = "https://www.youtube.com/embed/" + parsedURL 
-                + "?rel=0&amp;controls=0&amp;showinfo=0;"
-                + "enablejsapi=1&html5=1;hd=1&iv_load_policy=3;";
-    return parsedURL;
-}
-//End Class Functions***********************************************************
 
