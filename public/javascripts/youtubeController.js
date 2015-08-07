@@ -11,6 +11,7 @@ var moveSlider=setInterval(function () {myTimer()}, 1000);;
 var totalVideoTime='';
 var speeds = [0.25, 0.5, 1.0, 1.25, 1.5, 2.0];
 var speedIndex = 2;
+var ytKeysEnabled = true;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('video', {
@@ -202,8 +203,7 @@ function slowDown() {
         speedIndex--;
         player.setPlaybackRate(speeds[speedIndex]);
         $('#speedText').html(speeds[speedIndex] + "x");
-    }
-    
+    } 
 }
 
 function normalize() {
@@ -328,6 +328,14 @@ socket.on('normalPlaybackReceived', function() {
 //End Socket Receivers**********************************************************
 
 //User Input********************************************************************
+$('#infoButton').on('click', function() {
+    ytKeysEnabled = false;
+});
+
+$('.exitInfo').on('click', function() {
+    ytKeysEnabled = true; 
+});
+
 $('#quality').on('click', function() {
     document.getElementById("dropUp").innerHTML = "";
     var options = player.getAvailableQualityLevels();
@@ -405,5 +413,48 @@ $('#normalizeButton').on('click', function() {
 $('#speedUpButton').on('click', function() {
     speedUp();
     socket.emit('playFaster');
+});
+
+$(window).keypress(function(e) {
+    if(ytKeysEnabled){
+        if (e.which == 32) { //spacebar
+            playPause(); 
+        }
+        if (e.which == 122 || e.which == 90) { //z key
+            slowDown();
+            socket.emit('playSlower');
+        }
+        if (e.which == 120 || e.which == 88) { //x key
+            speedUp();
+            socket.emit('playFaster');
+        }
+        if (e.which == 110 || e.which == 78) { //n key
+            normalize();
+            socket.emit('normalPlayback');
+        }
+        if (e.which == 109 || e.which == 77) { //m key
+            mute();
+        }
+        if (e.which == 115 || e.which == 83) { //s key
+            sync();
+        }
+    }
+});
+
+$(window).keydown(function(e) {
+    if(ytKeysEnabled){
+        if (e.which == 40) { //down arrow
+            turnDown();
+        }
+        if (e.which == 38) { //up arrow
+            turnUp();
+        }
+        if (e.which == 37) { //left arrow
+            goBack();
+        }
+        if (e.which == 39) { //right arrow
+            goForward();
+        }
+    }
 });
 //End User Input****************************************************************

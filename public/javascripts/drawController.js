@@ -340,8 +340,8 @@ $(window).keypress(function(e) {
             $('#colour-preview2').removeClass('selectedColour');
             $('#colour-preview3').removeClass('selectedColour');
             $('#colour-preview4').addClass('selectedColour');
-            eraserPressed = false;
-        }  
+            eraserPressed = false
+        } 
     }
 });
 //End User Input****************************************************************

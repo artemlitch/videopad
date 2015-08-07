@@ -108,6 +108,11 @@ function parseURL(url) {
 //End Class Functions***********************************************************
 
 //User Input********************************************************************
+
+$('#usersButton').click(function() { 
+    console.log('List Users');
+});
+
 $('.shareURL').click(function() { $(this).select(); });
 
 $('#next1').on('click', function() {
