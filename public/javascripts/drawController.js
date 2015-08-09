@@ -195,6 +195,15 @@ function setCursor() {
 		$('#whiteboard').css('cursor', url);
 	}
 }
+
+function selectedColour(num){
+    for(i = 1; i <= numOfColourPickers; i++){
+        if(i == num)
+            $('#colour-preview' + i).addClass('selectedColour'); 
+        else
+            $('#colour-preview' + i).removeClass('selectedColour'); 
+    }
+}
 //End Functions*****************************************************************
 
 //Socket Receivers**************************************************************
@@ -306,40 +315,28 @@ $(window).keypress(function(e) {
             eraserPressed = false;
             setCursor();
         }
-        //this should be rewriten
+
         if (e.which == 49) { //1 key
             colour = colourPresets[0];
-            $('#colour-preview1').addClass('selectedColour');
-            $('#colour-preview2').removeClass('selectedColour');
-            $('#colour-preview3').removeClass('selectedColour');
-            $('#colour-preview4').removeClass('selectedColour');
+            selectedColour(1);
             eraserPressed = false;
         }
         
         if (e.which == 50) { //2 key
             colour = colourPresets[1];
-            $('#colour-preview1').removeClass('selectedColour');
-            $('#colour-preview2').addClass('selectedColour');
-            $('#colour-preview3').removeClass('selectedColour');
-            $('#colour-preview4').removeClass('selectedColour');
-          eraserPressed = false;
+            selectedColour(2);
+            eraserPressed = false;
         }
         
         if (e.which == 51) { //3 key
             colour = colourPresets[2];
-            $('#colour-preview1').removeClass('selectedColour');
-            $('#colour-preview2').removeClass('selectedColour');
-            $('#colour-preview3').addClass('selectedColour');
-            $('#colour-preview4').removeClass('selectedColour');
+            selectedColour(3);
             eraserPressed = false;
         }
         
         if (e.which == 52) { //4 key
             colour = colourPresets[3];
-            $('#colour-preview1').removeClass('selectedColour');
-            $('#colour-preview2').removeClass('selectedColour');
-            $('#colour-preview3').removeClass('selectedColour');
-            $('#colour-preview4').addClass('selectedColour');
+            selectedColour(4);
             eraserPressed = false
         } 
     }

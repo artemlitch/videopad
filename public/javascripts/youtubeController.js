@@ -352,48 +352,12 @@ $('#quality').on('click', function() {
         }
     }
 
-    $('#hd1080').on('click', function() {
+    $('#dropUp').children().on('click', function(event) {
         player.stopVideo();
-        player.setPlaybackQuality('hd1080');
+        player.setPlaybackQuality(event.currentTarget.id);
         player.playVideo();
         sync();
     });
-
-    $('#hd720').on('click', function() {
-        player.stopVideo();
-        player.setPlaybackQuality('hd720');
-        player.playVideo();
-        sync();
-    });
-
-    $('#large').on('click', function() {
-        player.stopVideo();
-        player.setPlaybackQuality('large');
-        player.playVideo();
-        sync();
-    });
-
-    $('#medium').on('click', function() {
-        player.stopVideo();
-        player.setPlaybackQuality('medium');
-        player.playVideo();
-        sync();
-    });
-
-    $('#small').on('click', function() {
-        player.stopVideo();
-        player.setPlaybackQuality('small');
-        player.playVideo();
-        sync();
-    });
-
-    $('#tiny').on('click', function() {
-        player.stopVideo();
-        player.setPlaybackQuality('tiny');
-        player.playVideo();
-        sync();
-    });
-
 });
 
 $('#syncRoom').on('click', function() {
