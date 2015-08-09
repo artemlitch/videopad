@@ -9,7 +9,7 @@ var roomId = window.location.pathname.match(/\/room\/([-0-9a-zA-Z]+)/)[1];
 var infoPage = 1;
 var newUser = 0;
 var usersInRoom = [];
-document.getElementById('draw_script').src='/javascripts/drawController.js';
+//document.getElementById('draw_script').src='/javascripts/drawController.js';
 
 if(localStorage.getItem('new') == 1) {
     $('#infoPage1').hide();

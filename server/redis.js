@@ -27,7 +27,7 @@ module.exports = function(app, config){
         },
 
         setUserListKey: function(id, value) {
-            redis.append(this.userListKey(id), value, function(err) {
+            redis.lpush(this.userListKey(id), value, function(err) {
                 if(err) throw err;
             });
         },
@@ -53,7 +53,13 @@ module.exports = function(app, config){
         }, 
 
         getUserListKey: function(id, callback) {
-            redis.get(this.userListKey(id), callback);
+            redis.lrange(this.userListKey(id), 0, -1, callback);
+        }, 
+
+        delUserListKey: function(id, value, callback) {
+            redis.lrem(this.userListKey(id), 1, value, function(err) {
+                if(err) throw err;
+            });
         }, 
 
         getClient: function() {

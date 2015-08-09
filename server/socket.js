@@ -37,9 +37,9 @@ module.exports = function(app, db, sessionMiddleware){
                             user.username = sessUser; 
                             socket.join(roomId);
                             socket.emit('roomJoinConf', sessUser);
-                            io.sockets.emit('userJoined', user.username);
+                            socket.broadcast.to(user.room).emit('userJoined', user.username);
                             try {
-                                db.setUserListKey(roomId, ", " + user.username); 
+                                db.setUserListKey(roomId, user.username); 
                             } catch(err) {
                                 //TODO: log errors somewhere
                                 console.log(err);
@@ -55,7 +55,7 @@ module.exports = function(app, db, sessionMiddleware){
         socket.on('getUsers', function(roomId){
             if(user.room) {
                 db.getUserListKey(roomId, function (err, response) {
-                    io.sockets.emit('usersReceived', response);
+                    socket.emit('usersReceived', response);
                 });
             }
         });
@@ -141,10 +141,13 @@ module.exports = function(app, db, sessionMiddleware){
         
         //End YouTube IO
         socket.on('disconnect', function() {
-            socket.leave(user.room);
             if (user.room) {
-                io.sockets.emit('userLeft', user.username);
+                socket.broadcast.to(user.room).emit('userLeft', user.username);
+                db.delUserListKey(user.room, user.username);
+                user.room = null;
             }
+            socket.leave(user.room);
+            
         });
     });
     return io;
