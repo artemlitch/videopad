@@ -1,0 +1,162 @@
+.navbar {
+    background-color: rgb(0, 174, 205);
+    margin-bottom: 5px;
+    border: none;
+}
+
+.navbar .navbar-brand, .navbar .navbar-nav li a {
+    color: rgb(233, 233, 233);
+}
+
+
+.navbar .navbar-brand {
+    font-weight: bold;
+    color: white;
+    margin-right: 30px;
+}
+
+.navbar .navbar-brand:hover {
+    color: white;
+}
+
+.navbar .navbar-nav li a:hover {
+    background-color: rgb(0, 200, 236);
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    background-color: rgb(0, 200, 236);
+}
+
+.navbar #colour-preview1 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview2 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview3 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.navbar #colour-preview4 {
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.colorpicker-element:hover {
+    background-color: rgba(0,0,0,0)!important;
+}
+
+.navbar li {
+    margin: 0px 5px;
+}
+
+.navbar .thickness {
+    margin-left: 15px;
+}
+
+.navbar .thickness li a {
+    color: rgb(60, 60, 60);
+}
+
+.navbar .thickness li a:hover {
+    color: inherit;
+}
+
+
+.navbar #clear {
+    margin-right: 20px;
+}
+
+.selectedColour {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 4px;
+}
+
+.navbadge {
+    background-color: rgba(0, 217, 255, 0.93);
+    color: white;
+    position: absolute;
+    top: 32px;
+    right: 3px;
+    padding: 2px 5px;
+}
+
+.navbadgeColor {
+    background-color: rgba(0, 217, 255, 0.93);
+    color: white;
+    position: absolute;
+    top: 22px;
+    right: -6px;
+    padding: 2px 5px;
+}
+
+.navbar-right .loadVideo {
+    border-color: rgba(214, 213, 213, 0.48);  
+    border-right-style: solid; 
+    border-left-style: solid;
+}
+
+#urlLi {
+    padding-top: 8px;
+}
+
+#brushSlider .slider-track-high{
+    background-color: #CECECE;
+}
+
+@media (max-width:1200px) {
+    .navbar-nav.navbar-collapse {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 50%;
+        overflow: hidden;
+        float: right;
+        padding-bottom: 10px;
+    }  
+    .navbar-nav.navbar-collapse a{
+        display: block;
+    }
+    .navbar-nav.navbar-collapse li{
+       display: inline-block; 
+       float: left;
+    }
+
+    .navbar-nav.navbar-collapse ul{
+        float: right;
+    }
+
+    .navbar-nav.navbar-collapse.roomControlCollapse {
+       width: 100%; 
+    }
+
+    #collapse1 {
+        width: 200px;
+    }
+    #collapse1 li {
+        width: 35px;
+    }
+    #collapse2 {
+        width: 200px;
+    }
+    #collapse2 li {
+        width: 35px;
+    }
+    #collapse3 {
+        width: 470px;
+    }
+
+}
+
+

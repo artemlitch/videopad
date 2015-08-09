@@ -1,3 +1,4 @@
+//Initiations*******************************************************************
 var drawMode = false;
 var eraserMode = false;
 var eraserPressed = false;
@@ -12,6 +13,16 @@ var tempCanvas, tempCtx;
 var socket = io();
 var colour = colourPresets[0];
 var x; //for loop things
+var drawKeysEnabled = false;
+var thicknessAmt = 6;
+
+var brushSlider = new Slider('#brushSlider', {
+  formatter: function(value) {
+    thickness = value;
+    setCursor();
+    return value;
+  }
+});
 
 for(i = 0; i < numOfColourPickers; i++) {
     if(localStorage.getItem('colour' + i)) {
@@ -24,57 +35,30 @@ for(i = 0; i < numOfColourPickers; i++){
     colourPreview[i] = $('#colour-preview' + x)[0];
     x++;
 }
+colour = colourPresets[0];
 
 function init() {
-	// initiate colour pickers
     x = 1;
     for(i = 0; i < numOfColourPickers; i++) {
         colourPreview[i].style.backgroundColor = colourPresets[i];
         $('.colourpicker' + x).colorpicker();
         x++;   
     }
-
 	canvas = document.getElementById('whiteboard');
 	ctx = canvas.getContext('2d');
-
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
-	$('#whiteboard').mousedown(function(e) {
-		if (eraserPressed) {
-			eraserMode = true;
-			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		} else {
-			drawMode = true;
-			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-		}
-	});
-
-	$('#whiteboard').mousemove(function(e) {
-		if (drawMode) {
-			draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		} else if (eraserMode) {
-			erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-		}
-	});
-
-	$('#whiteboard').mouseup(function(e) {
-		drawMode = false;
-		eraserMode = false;
-	});
-
-	$('#whiteboard').mouseleave(function(e) {
-		drawMode = false;
-		eraserMode = false;
-	});
     resizeScreen();
 	window.addEventListener('resize', resizeScreen, false);
 }
+//End Initiations***************************************************************
 
+//Class Functions***************************************************************
 function loadCanvasImage(imgSource) {
     var img = new Image();
     img.onload = function () {
-        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height, 
+                    0, 0, canvas.width, canvas.height);
     }
     img.src = imgSource;
 }
@@ -107,7 +91,8 @@ function resizeVideo() {
     var topBarHeight = $('#navbar').height()+20;
     var bottomBarHeight = $('#controlBar').height()+20; 
     if(videoHolder.width() >= 250) {
-        var hDiff = (innerHeight - topBarHeight - bottomBarHeight) - videoHolder.height();
+        var hDiff = (innerHeight - topBarHeight 
+                    - bottomBarHeight) - videoHolder.height();
         var wDiff = innerWidth - (videoHolder.width() -50)
         if (wDiff < 0) {
             videoHolder.width(innerWidth - 50);
@@ -122,18 +107,6 @@ function resizeVideo() {
         videoHolder.width(251);
     }
 }
-
-socket.on('drawReceived', function(data) {
-	drawReceived(data);
-});
-
-socket.on('eraseReceived', function(x, y) {
-	eraseReceived(x, y);
-});
-
-socket.on('clearReceived', function() {
-	clearReceived();
-});
 
 function draw(x, y, pressed) {
 	if (pressed) {
@@ -203,21 +176,89 @@ function clearReceived() {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-var thicknessAmt = 6;
+function setCursor() {
+	var roundedThickness = Math.round(thickness/5)*5;
+	var url;
+	if(roundedThickness==0)
+		roundedThickness = 5;
+	var spacing = Math.round(roundedThickness/2);
+	if(!eraserPressed){
+		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " 
+            + spacing + " " + spacing + ", default";
+
+		$('#whiteboard').css('cursor', url);
+	}
+	else{
+		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " 
+            + spacing + " " + spacing + ", default"; 
+
+		$('#whiteboard').css('cursor', url);
+	}
+}
+
+function selectedColour(num){
+    for(i = 1; i <= numOfColourPickers; i++){
+        if(i == num)
+            $('#colour-preview' + i).addClass('selectedColour'); 
+        else
+            $('#colour-preview' + i).removeClass('selectedColour'); 
+    }
+}
+//End Functions*****************************************************************
+
+//Socket Receivers**************************************************************
+socket.on('drawReceived', function(data) {
+    drawReceived(data);
+});
+
+socket.on('eraseReceived', function(x, y) {
+    eraseReceived(x, y);
+});
+
+socket.on('clearReceived', function() {
+    clearReceived();
+});
+//End Socket Receivers**********************************************************
+
+//User Input********************************************************************
+$('#whiteboard').mousedown(function(e) {
+    if (eraserPressed) {
+        eraserMode = true;
+        erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+    } else {
+        drawMode = true;
+        draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+    }
+    $('#whiteboard').mousemove(function(e) {
+        if (drawMode) {
+            draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        } else if (eraserMode) {
+            erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        }
+    });
+});
+
+$('#whiteboard').mouseup(function(e) {
+    drawMode = false;
+    eraserMode = false;
+});
+
+$('#whiteboard').mouseleave(function(e) {
+    drawMode = false;
+    eraserMode = false;
+});
+
+$('#infoButton').on('click', function() {
+    drawKeysEnabled = false;
+});
+
+$('.exitInfo').on('click', function() {
+     drawKeysEnabled = true;
+});
 
 $('#drawButton').on('click', function() {
     eraserPressed = false;
     setCursor();
-});
-
-$('#fullscreenButton').on('click', function() {
-    if(fullScreenApi.supportsFullScreen) {
-        if(fullScreenApi.isFullScreen()){
-            fullScreenApi.cancelFullScreen(document.body);
-        } else {
-            fullScreenApi.requestFullScreen(document.body);
-        }
-    }
 });
 
 $('.picker').on('click', function() {
@@ -245,35 +286,59 @@ $('.picker').on('changeColor', function(ev) {
 });
 
 $('#eraser').on('click', function() {
-	eraserPressed = true;	
-	setCursor();
+    eraserPressed = true;   
+    setCursor();
 });
 
 $('#clear').on('click', function() {
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	socket.emit('clear');
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    socket.emit('clear');
 });
 
-var brushSlider = new Slider('#brushSlider', {
-  formatter: function(value) {
-  	thickness = value;
-  	setCursor();
-    return value;
-  }
-});
+$(window).keypress(function(e) {
+    if(drawKeysEnabled){
+        if (e.which == 91 && thickness > 1) { // "[" Key
+            brushSlider.setValue(thickness - thicknessAmt);
+        }
+        if (e.which == 93 && thickness < 60) { // "]" Key
+            brushSlider.setValue(thickness + thicknessAmt);
+        }
+        if (e.which == 99 || e.which == 67) { //c key
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            socket.emit('clear');
+        }
+        if (e.which == 101 || e.which == 69) { //e key
+            eraserPressed = true;
+            setCursor();
+        }
+        if (e.which == 100 || e.which == 68) { //d key
+            eraserPressed = false;
+            setCursor();
+        }
 
-function setCursor() {
-	var roundedThickness = Math.round(thickness/5)*5;
-	var url;
-	if(roundedThickness==0)
-		roundedThickness = 5;
-	var spacing = Math.round(roundedThickness/2);
-	if(!eraserPressed){
-		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor', url);
-	}
-	else{
-		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " + spacing + " " + spacing + ", default"; 
-		$('#whiteboard').css('cursor', url);
-	}
-}
+        if (e.which == 49) { //1 key
+            colour = colourPresets[0];
+            selectedColour(1);
+            eraserPressed = false;
+        }
+        
+        if (e.which == 50) { //2 key
+            colour = colourPresets[1];
+            selectedColour(2);
+            eraserPressed = false;
+        }
+        
+        if (e.which == 51) { //3 key
+            colour = colourPresets[2];
+            selectedColour(3);
+            eraserPressed = false;
+        }
+        
+        if (e.which == 52) { //4 key
+            colour = colourPresets[3];
+            selectedColour(4);
+            eraserPressed = false
+        } 
+    }
+});
+//End User Input****************************************************************
