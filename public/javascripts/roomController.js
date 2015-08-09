@@ -8,7 +8,7 @@ var roomVideoState = 0;
 var roomId = window.location.pathname.match(/\/room\/([-0-9a-zA-Z]+)/)[1];
 var infoPage = 1;
 var newUser = 0;
-
+var usersInRoom = [];
 document.getElementById('draw_script').src='/javascripts/drawController.js';
 
 if(localStorage.getItem('new') == 1) {
@@ -24,8 +24,13 @@ socket.on('connect', function() {
     $(".shareURL").val(window.location.href);
 });
 
+socket.on('usersReceived', function(list) {
+    console.log(list);
+});
+
 socket.on('userJoined', function(username) {
     sendNotify(username + " Connected", "userStyle", 1000);
+    usersInRoom.push(username);
 });
 
 socket.on('userLeft', function(username) {
@@ -116,10 +121,6 @@ function parseURL(url) {
 
 //User Input********************************************************************
 
-$('#usersButton').click(function() { 
-
-});
-
 $('.shareURL').click(function() { $(this).select(); });
 
 $('#next1').on('click', function() {
@@ -156,7 +157,7 @@ $('#leaveRoom').on('click', function() {
 });
 
 $('#usersButton').on('click', function() {
-    socket.emit('getUsers'); 
+    socket.emit('getUsers', roomId); 
 });
 
 $('#infoButton').on('click', function() {

@@ -37,7 +37,13 @@ module.exports = function(app, db, sessionMiddleware){
                             user.username = sessUser; 
                             socket.join(roomId);
                             socket.emit('roomJoinConf', sessUser);
-                            io.sockets.emit('userJoined', user.username);      
+                            io.sockets.emit('userJoined', user.username);
+                            try {
+                                db.setUserListKey(roomId, ", " + user.username); 
+                            } catch(err) {
+                                //TODO: log errors somewhere
+                                console.log(err);
+                            }     
                         } else {
                             socket.emit('failJoinConf', sessUser);        
                         }
@@ -45,9 +51,12 @@ module.exports = function(app, db, sessionMiddleware){
                 }
             });
         });
-        socket.on('getUsers', function(){
+
+        socket.on('getUsers', function(roomId){
             if(user.room) {
-                 
+                db.getUserListKey(roomId, function (err, response) {
+                    io.sockets.emit('usersReceived', response);
+                });
             }
         });
         socket.on('getRoomInfo', function() {

@@ -21,7 +21,17 @@ module.exports = function(app, config){
         roomPasswordKey: function(id) {
             return "room:" + id + ":password";
         },
-        
+
+        userListKey: function(id) {
+            return "Users:" + id;
+        },
+
+        setUserListKey: function(id, value) {
+            redis.append(this.userListKey(id), value, function(err) {
+                if(err) throw err;
+            });
+        },
+
         setRoomKey: function(id, value) {
             redis.set(this.roomKey(id), value, function(err) {
                 if(err) throw err;
@@ -40,6 +50,10 @@ module.exports = function(app, config){
 
         getRoomPasswordKey: function(id, callback) {
             redis.get(this.roomPasswordKey(id), callback);
+        }, 
+
+        getUserListKey: function(id, callback) {
+            redis.get(this.userListKey(id), callback);
         }, 
 
         getClient: function() {
