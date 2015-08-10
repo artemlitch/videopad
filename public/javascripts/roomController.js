@@ -25,7 +25,7 @@ socket.on('connect', function() {
 });
 
 socket.on('usersReceived', function(list) {
-    console.log(list);
+    sendNotify(list, "userStyle", 2000);
 });
 
 socket.on('userJoined', function(username) {
