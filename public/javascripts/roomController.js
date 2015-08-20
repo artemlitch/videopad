@@ -8,8 +8,9 @@ var roomVideoState = 0;
 var roomId = window.location.pathname.match(/\/room\/([-0-9a-zA-Z]+)/)[1];
 var infoPage = 1;
 var newUser = 0;
-
-document.getElementById('draw_script').src='/javascripts/drawController.js';
+var usersInRoom = [];
+var canvasImg = "";
+//document.getElementById('draw_script').src='/javascripts/drawController.js';
 
 if(localStorage.getItem('new') == 1) {
     $('#infoPage1').hide();
@@ -20,12 +21,23 @@ if(localStorage.getItem('new') == 1) {
 
 //Socket Receivers**************************************************************
 socket.on('connect', function() {
-	socket.emit('joinRoom', roomId);
-    $(".shareURL").val(window.location.href);
+	socket.emit('joinRoom', roomId); 
+});
+
+socket.on('usersReceived', function(list) {
+    var lineList = "";
+    for(i = 0; i < list.length; i++) {
+        if(lineList == "")
+            lineList = list[i];
+        else
+            lineList = lineList + '<br />' + list[i];
+    }
+    sendNotify(lineList, "userStyle", 2000);
 });
 
 socket.on('userJoined', function(username) {
     sendNotify(username + " Connected", "userStyle", 1000);
+    usersInRoom.push(username);
 });
 
 socket.on('userLeft', function(username) {
@@ -60,7 +72,10 @@ socket.on('sendRoomInfo', function(userId) {
 socket.on('enterRoomInfo', function(data) { //data should send video state
     roomVideoTime = Math.round(data.time);
     roomVideoState = data.state;
-    loadCanvasImage(data.img);
+    canvasImg = data.img;
+    if(canvas) {
+        loadCanvasImage(canvasImg);
+    }
     if(data.videoURL) {
         checkVideo(parseURL(data.videoURL));
         $(".exitInfo").click();
@@ -81,6 +96,12 @@ socket.on('vidReceived', function(url) {
 //End Socket Receivers**********************************************************
 
 //Class Functions***************************************************************
+function init() {
+    canvasInit();
+    loadCanvasImage(canvasImg);
+    $(".shareURL").val(window.location.href);
+}
+
 function checkVideo(url) {
     if(firstVidLoad) {
         localStorage.setItem('new', 1);
@@ -115,10 +136,6 @@ function parseURL(url) {
 //End Class Functions***********************************************************
 
 //User Input********************************************************************
-
-$('#usersButton').click(function() { 
-
-});
 
 $('.shareURL').click(function() { $(this).select(); });
 
@@ -156,7 +173,7 @@ $('#leaveRoom').on('click', function() {
 });
 
 $('#usersButton').on('click', function() {
-    socket.emit('getUsers'); 
+    socket.emit('getUsers', roomId); 
 });
 
 $('#infoButton').on('click', function() {

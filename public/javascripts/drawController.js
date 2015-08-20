@@ -37,7 +37,7 @@ for(i = 0; i < numOfColourPickers; i++){
 }
 colour = colourPresets[0];
 
-function init() {
+function canvasInit() {
     x = 1;
     for(i = 0; i < numOfColourPickers; i++) {
         colourPreview[i].style.backgroundColor = colourPresets[i];
