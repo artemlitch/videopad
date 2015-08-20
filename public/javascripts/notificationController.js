@@ -6,7 +6,7 @@
     ['syncStyle','glyphicon glyphicon-refresh custom-icon'],
     ['playStyle','glyphicon glyphicon-play custom-icon'],
     ['pauseStyle','glyphicon glyphicon-pause custom-icon'],
-    ['userStyle','fa fa-users fa-lg custom-icon']
+    ['userStyle','fa fa-users fa-sm custom-icon']
 ];
 
 initStyles();

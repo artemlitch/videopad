@@ -25,7 +25,14 @@ socket.on('connect', function() {
 });
 
 socket.on('usersReceived', function(list) {
-    sendNotify(list, "userStyle", 2000);
+    var lineList = "";
+    for(i = 0; i < list.length; i++) {
+        if(lineList == "")
+            lineList = list[i];
+        else
+            lineList = lineList + '<br />' + list[i];
+    }
+    sendNotify(lineList, "userStyle", 2000);
 });
 
 socket.on('userJoined', function(username) {
