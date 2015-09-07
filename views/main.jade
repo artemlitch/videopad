@@ -9,7 +9,7 @@ block content
                 #infoPage1.welcome
                     u Welcome
                     p Coacher.io is a tool designed for collaborative replay analysis. Begin by loading a YouTube video.
-                    input#videoURLTut(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1')
+                    input#videoURLTut(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1' onkeypress='handleKeyPress(event)')
                     button.btn.btn-dark.btn-lg.loadVideo Load
                 #infoPage2.welcome
                     u Invite
@@ -26,7 +26,7 @@ block content
                     input.shareURL.align(type='text')
                     br
                     p Load Video:     
-                    input#videoURLSplash(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1')
+                    input#videoURLSplash(type='text' placeholder='YouTube URL' aria-describedby='basic-addon1' onkeypress='handleKeyPress(event)')
                     button.btn.btn-dark.btn-lg.loadVideo.exitInfo Load
                     br
                 #navButtons
