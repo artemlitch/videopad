@@ -70,7 +70,7 @@ block content
                 input(id='usernameField' type="text" class="form-control" placeholder="Enter your name")
             br
             div(class="password-field-container")
-                input(id='passwordField' type="password" class="form-control" placeholder="Create Room Password")
+                input(id='passwordField' type="password" class="form-control" placeholder="Create Room Password" onkeypress='handleKeyPress(event)')
             a.btn.btn-dark.btn-lg(id ="createRoomBtn" style="margin-top: 10px") Create Room 
         // Footer
         footer
@@ -78,7 +78,7 @@ block content
             .row
               .col-lg-10.col-lg-offset-1.text-center
                 h4
-                  strong LoLCoach 
+                  strong Videopad.io 
                 |                     
                 ul.list-unstyled
                   li
@@ -91,7 +91,7 @@ block content
                 hr.small
                 |                     
                 p.text-muted Created By: Artem Litchmanov & Mike Ashcroft 
-                p.text-muted Copyright &copy; lolCoach 
+                p.text-muted Copyright &copy; Videopad.io 
     
     
         //load the scripts for this page
