@@ -236,6 +236,22 @@ function handleKeyPress(e) {
         }
         $('#videoURL').val(''); 
     }
+    if (key == 13 && $('#videoURLTut').val().match(/youtu/)){
+        var url = $('#videoURLTut').val();
+        if(url.length > 5 && url) {
+            url = parseURL(url);
+            checkVideo(url);
+            socket.emit('loadVid', url);
+        }
+    }
+    if (key == 13 && $('#videoURLSplash').val().match(/youtu/)){
+        var url = $('#videoURLSplash').val();
+        if(url.length > 5 && url) {
+            url = parseURL(url);
+            checkVideo(url);
+            socket.emit('loadVid', url);
+        }
+    }
 }
 //End User Input****************************************************************
 
