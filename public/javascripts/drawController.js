@@ -231,15 +231,22 @@ $('#whiteboard').mousedown(function(e) {
         drawMode = true;
         draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
     }
-    $('#whiteboard').mousemove(function(e) {
-        if (drawMode) {
-            draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        } else if (eraserMode) {
-            erase(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        }
-    });
-});
 
+});
+var timer = null;
+$('#whiteboard').mousemove(function(e) {
+    if (timer == null) {
+        timer = window.setInterval(function() {
+                draw(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
+                
+            } else if (eraserMode) {
+                erase(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
+            }
+            window.clearTimeout(timer);
+            timer = null;
+        }, 20);
+    }    
+});
 $('#whiteboard').mouseup(function(e) {
     drawMode = false;
     eraserMode = false;
