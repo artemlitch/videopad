@@ -56,7 +56,7 @@ function canvasInit() {
 
 //Class Functions***************************************************************
 function loadCanvasImage(imgSource) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image();
     img.onload = function () {
         ctx.drawImage(img, 0, 0, img.width, img.height, 

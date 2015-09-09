@@ -84,7 +84,10 @@ socket.on('enterRoomInfo', function(data) { //data should send video state
 
 socket.on('urlReceived', function(url) {
     var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
-    var parsedMyUrl = (player.getVideoUrl()).split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+    var parsedMyUrl = "";
+    if(player != undefined) {
+        parsedMyUrl = (player.getVideoUrl()).split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+    }
     if(parsedURL != parsedMyUrl) { 
         checkVideo(parseURL(url));
     } 
