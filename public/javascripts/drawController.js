@@ -237,8 +237,8 @@ var timer = null;
 $('#whiteboard').mousemove(function(e) {
     if (timer == null) {
         timer = window.setInterval(function() {
+            if (drawMode) {
                 draw(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
-                
             } else if (eraserMode) {
                 erase(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
             }
