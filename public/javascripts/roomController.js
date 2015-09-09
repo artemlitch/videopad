@@ -98,7 +98,6 @@ socket.on('vidReceived', function(url) {
 //Class Functions***************************************************************
 function init() {
     canvasInit();
-    loadCanvasImage(canvasImg);
     $(".shareURL").val(window.location.href);
 }
 
