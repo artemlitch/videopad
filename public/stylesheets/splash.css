@@ -10,9 +10,8 @@ body {
 }
 
 .text-vertical-center {
-    display: table-cell;
     text-align: center;
-    vertical-align: middle;
+    padding-top: 100px;
 }
 
 .text-vertical-center h1 {
@@ -149,7 +148,6 @@ hr.small {
 /* Header */
 
 .header {
-    display: table;
     position: relative;
     width: 100%;
     height: 100%;

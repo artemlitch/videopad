@@ -48,6 +48,7 @@ function canvasInit() {
 	ctx = canvas.getContext('2d');
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
+    loadCanvasImage("../img/template.png");
     resizeScreen();
 	window.addEventListener('resize', resizeScreen, false);
 }
@@ -55,6 +56,7 @@ function canvasInit() {
 
 //Class Functions***************************************************************
 function loadCanvasImage(imgSource) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image();
     img.onload = function () {
         ctx.drawImage(img, 0, 0, img.width, img.height, 
