@@ -221,7 +221,28 @@ socket.on('clearReceived', function() {
     clearReceived();
 });
 //End Socket Receivers**********************************************************
+function throttle(fn, threshhold, scope) {
+  threshhold || (threshhold = 250);
+  var last,
+      deferTimer;
+  return function () {
+    var context = scope || this;
 
+    var now = +new Date,
+        args = arguments;
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
 //User Input********************************************************************
 $('#whiteboard').mousedown(function(e) {
     if (eraserPressed) {
@@ -233,20 +254,14 @@ $('#whiteboard').mousedown(function(e) {
     }
 
 });
-var timer = null;
-$('#whiteboard').mousemove(function(e) {
-    if (timer == null) {
-        timer = window.setInterval(function() {
-            if (drawMode) {
-                draw(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
-            } else if (eraserMode) {
-                erase(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
-            }
-            window.clearTimeout(timer);
-            timer = null;
-        }, 20);
-    }    
-});
+$('#whiteboard').on('mousemove', throttle(function(e) {
+    if (drawMode) {
+        draw(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
+    } else if (eraserMode) {
+        erase(e.pageX - $('#whiteboard').offset().left, e.pageY - $('#whiteboard').offset().top, true);
+    }
+}, 30));
+
 $('#whiteboard').mouseup(function(e) {
     drawMode = false;
     eraserMode = false;
