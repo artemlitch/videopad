@@ -1,14 +1,22 @@
+var noName = 0;
+var noPass = 0;
 var socket = io();
 function init(){
 
 }
 
 function alertName() {
-    $('#usernameField').fadeOut(100).fadeIn(100);
-}    
+    if(noName == 0) {
+        $( "#alert" ).append( "<p>Please Enter Name</p>" );
+        noName = 1;
+    } 
+}  
 function alertPassword() {
-    $('#passwordField').fadeOut(100).fadeIn(100);
-}    
+    if(noPass == 0) {
+        $( "#alert" ).append( "<p>Please Choose a Password!</p>" );
+        noPass = 1;
+    }    
+}   
 function createRoom() {
     var username = $('#usernameField').val();
     var password = $('#passwordField').val();

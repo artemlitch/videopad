@@ -1,5 +1,6 @@
 var socket = io();
 var wrongPass = 0;
+var noName = 0;
 function getUrlVars()
 {
     var vars = [], hash;
@@ -14,12 +15,16 @@ function getUrlVars()
 }
 var roomId = getUrlVars()["next"];
 function alertName() {
-    $('#usernameField').fadeOut(100).fadeIn(100);
-}    
+    if(noName == 0) {
+        $( "#alert" ).append( "<p>Please Enter Name</p>" );
+        noName = 1;
+    } 
+}
+
 
 function alertPassword() {
     if(wrongPass == 0) {
-        $( "#alert" ).append( "<p class='text-danger'>Incorrect Password!</p>" );
+        $( "#alert" ).append( "<p>Incorrect Password!</p>" );
         wrongPass = 1;
     }    
 } 
@@ -27,7 +32,9 @@ function alertPassword() {
 function joinRoom() {
     var username = $('#usernameField').val();
     var password = $('#passwordField').val();
-    if(password.length == 0){
+    if(username.length == 0){
+       alertName();
+    } else if(password.length == 0){
        alertPassword();
     } else {
         var data = {};
