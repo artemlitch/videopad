@@ -1,8 +1,8 @@
 # Videopad.io
 
-##Keybinds: 
+## Keybinds: 
 
-####Video Controls:
+#### Video Controls:
   - **Spacebar:** Play and pause
   - **X:** Speed up playback rate
   - **Z:** Slow down playback rate
@@ -14,7 +14,7 @@
   - **Left Arrow:** Rewind 5 seconds
   - **Right Arrow:** Skip ahead 5 seconds
   
-####Drawing Controls:
+#### Drawing Controls:
   - **[ -** Decrease Size of brush
   - **] -** Increase Size of brush
   - **C -** Clear Canvas
