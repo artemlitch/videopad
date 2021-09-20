@@ -117,11 +117,11 @@ function checkVideo(url) {
 function loadIframe(url) {
     var autoplay;
     if(roomVideoState == 1){
-        autoplay = "&autoplay=1;"
+        autoplay = "&autoplay=1"
     } else {
         autoplay = "";
     }
-    var startTime = "&start=" + roomVideoTime + ";";
+    var startTime = "&start=" + roomVideoTime;
     $('#video-container').html("<iframe width='1920' height='930' src='" 
                                 + url + startTime + autoplay 
                                 + "' frameborder='0' id='video'></iframe>");
@@ -131,8 +131,8 @@ function loadIframe(url) {
 function parseURL(url) {
     var parsedURL = url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0]; 
     parsedURL = "https://www.youtube.com/embed/" + parsedURL 
-                + "?rel=0&amp;controls=0&amp;showinfo=0;"
-                + "enablejsapi=1&html5=1;hd=1&iv_load_policy=3;";
+                + "?rel=0&amp&controls=0&showinfo=0&"
+                + "enablejsapi=1&html5=1&hd=1&iv_load_policy=3";
     return parsedURL;
 }
 //End Class Functions***********************************************************
