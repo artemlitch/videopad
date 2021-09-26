@@ -2,6 +2,7 @@
 // express.js instance, requires the config and routes files
 // and listens on a port. Start the application by running
 // 'foreman start web' in your terminal
+require('dotenv').config()
 var url = require('url');
 var express = require('express');
 var bodyParser = require('body-parser');
