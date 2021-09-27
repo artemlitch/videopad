@@ -1,5 +1,5 @@
 // All redis code goes here
-module.exports = function(app, config){
+module.exports = function(app){
     var url = require('url');
     var redisURL = url.parse(process.env.REDISCLOUD_URL);
     var redis = require("redis").createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});

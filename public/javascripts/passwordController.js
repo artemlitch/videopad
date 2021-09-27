@@ -1,4 +1,3 @@
-var socket = io();
 var wrongPass = 0;
 var noName = 0;
 function getUrlVars()

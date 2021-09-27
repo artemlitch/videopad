@@ -1,6 +1,5 @@
 var noName = 0;
 var noPass = 0;
-var socket = io();
 function init(){
 
 }

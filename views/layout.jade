@@ -1,22 +1,20 @@
 doctype html
 html
     head
-        link(rel="SHORTCUT ICON" href="/img/icon.png")
+        link(rel="SHORTCUT ICON" href="/dist/img/icon.png")
         title= "Videopad.io"
         meta(content="text/html;charset=utf-8" http-equiv="Content-Type")
         meta(content="utf-8" http-equiv="encoding")
 
         link(rel='stylesheet' href='/dist/css/bootstrap.min.css')
-        link(rel='stylesheet' href='/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css')
+        link(rel='stylesheet' href='/dist/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css')
         link(rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato' type='text/css')
-        link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css") 
+        link(rel="stylesheet" href="/dist/font-awesome/css/font-awesome.min.css") 
 
-        link(rel="stylesheet" href="/bootstrap-slider/dist/css/bootstrap-slider.css")  
+        link(rel="stylesheet" href="/dist/bootstrap-slider/dist/css/bootstrap-slider.css")  
         script(src="https://cdn.socket.io/socket.io-1.2.0.js")
-        script(src='//code.jquery.com/jquery-2.1.1.min.js')
+        script(src='/dist/js/jquery.js')
         script(src='/dist/js/bootstrap.min.js')
-        script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-        script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
     body(onload='init()')
         block content
 

@@ -185,13 +185,13 @@ function setCursor() {
 		roundedThickness = 5;
 	var spacing = Math.round(roundedThickness/2);
 	if(!eraserPressed){
-		url = "url('../Cursors/circleCursor-" + roundedThickness + "px.ico') " 
+		url = "url('/dist/img/Cursors/circleCursor-" + roundedThickness + "px.ico') " 
             + spacing + " " + spacing + ", default";
 
 		$('#whiteboard').css('cursor', url);
 	}
 	else{
-		url = "url('../Cursors/squareCursor-" + roundedThickness + "px.ico') " 
+		url = "url('/dist/img/Cursors/squareCursor-" + roundedThickness + "px.ico') " 
             + spacing + " " + spacing + ", default"; 
 
 		$('#whiteboard').css('cursor', url);
